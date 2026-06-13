@@ -1,0 +1,10 @@
+[
+  {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracion":354,"tipo":"cancion","artista":"Queen","album":"A Night at the Opera","genero":"Rock"},
+  {"id":"AUD-002","titulo":"El futuro de la economia","duracion":2400,"tipo":"episodio","anfitrion":"Lex Fridman","nombrePodcast":"Lex Fridman Podcast","descripcion":"Entrevista","numeroEpisodio":1},
+  {"id":"AUD-003","titulo":"Hotel California","duracion":390,"tipo":"cancion","artista":"Eagles","album":"Hotel California","genero":"Rock"},
+  {"id":"AUD-004","titulo":"Inteligencia Artificial hoy","duracion":3600,"tipo":"episodio","anfitrion":"Andrew Ng","nombrePodcast":"The AI Pod","descripcion":"Nuevos modelos de lenguaje","numeroEpisodio":42},
+  {"id":"AUD-005","titulo":"Billie Jean","duracion":294,"tipo":"cancion","artista":"Michael Jackson","album":"Thriller","genero":"Pop"},
+  {"id":"AUD-006","titulo":"Misterios del cosmos","duracion":4100,"tipo":"episodio","anfitrion":"Neil deGrasse Tyson","nombrePodcast":"StarTalk","descripcion":"Agujeros negros y galaxias","numeroEpisodio":150},
+  {"id":"AUD-007","titulo":"De Musica Ligera","duracion":212,"tipo":"cancion","artista":"Soda Stereo","album":"Cancion Animal","genero":"Rock en Español"},
+  {"id":"AUD-008","titulo":"La revolucion del fitness","duracion":5400,"tipo":"episodio","anfitrion":"Andrew Huberman","nombrePodcast":"Huberman Lab","descripcion":"Ciencia del entrenamiento y la recuperacion","numeroEpisodio":75}
+]
