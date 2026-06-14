@@ -10,58 +10,51 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="580.0" prefWidth="400.0"
-            style="-fx-background-color: #0b0b0e;"
+            stylesheets="@styles.css"
+            styleClass="registro-bg"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controladores.RegistroController">
+            fx:controller="com.proyecto.musicgofx.controlador.RegistroController">
     <children>
         <VBox alignment="CENTER" spacing="18.0" prefWidth="340.0"
               AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0"
               AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
             <children>
 
-                <Label text="Crear Cuenta"
-                       style="-fx-text-fill: linear-gradient(to right, #8a2be2, #4a90e2); -fx-font-weight: bold;">
+                <Label text="Crear Cuenta" styleClass="registro-titulo">
                     <font>
                         <Font name="System Bold" size="36.0" />
                     </font>
                 </Label>
 
-                <Label text="Únete a MusicGO. Ingresa tus datos reales."
-                       style="-fx-text-fill: #7f8c8d; -fx-font-size: 13px;" />
+                <Label text="Únete a MusicGO. Ingresa tus datos reales." styleClass="registro-subtitulo" />
 
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Elige tu Nombre de Usuario / Alias" style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px; -fx-font-weight: bold;" />
-                        <TextField fx:id="txtUsuario" promptText="Ej. Juan99"
-                                   style="-fx-background-color: #1e1e24; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-padding: 12; -fx-prompt-text-fill: #555555; -fx-border-color: #2a2a35; -fx-border-radius: 8;" />
+                        <Label text="Elige tu Nombre de Usuario / Alias" styleClass="registro-label-campo" />
+                        <TextField fx:id="txtUsuario" promptText="Ej. Juan99" styleClass="registro-textfield" />
                     </children>
                 </VBox>
 
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Correo Electrónico (Gmail)" style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px; -fx-font-weight: bold;" />
-                        <TextField fx:id="txtCorreo" promptText="tu_correo@gmail.com"
-                                   style="-fx-background-color: #1e1e24; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-padding: 12; -fx-prompt-text-fill: #555555; -fx-border-color: #2a2a35; -fx-border-radius: 8;" />
+                        <Label text="Correo Electrónico (Gmail)" styleClass="registro-label-campo" />
+                        <TextField fx:id="txtCorreo" promptText="tu_correo@gmail.com" styleClass="registro-textfield" />
                     </children>
                 </VBox>
 
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Tu Edad (Requerido para control parental)" style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px; -fx-font-weight: bold;" />
-                        <TextField fx:id="txtEdad" promptText="Ej. 21"
-                                   style="-fx-background-color: #1e1e24; -fx-text-fill: #ffffff; -fx-background-radius: 8; -fx-padding: 12; -fx-prompt-text-fill: #555555; -fx-border-color: #2a2a35; -fx-border-radius: 8;" />
+                        <Label text="Tu Edad (Requerido para control parental)" styleClass="registro-label-campo" />
+                        <TextField fx:id="txtEdad" promptText="Ej. 21" styleClass="registro-textfield" />
                     </children>
                 </VBox>
 
-                <Label fx:id="lblMensaje" alignment="CENTER" prefWidth="300.0" wrapText="true"
-                       style="-fx-text-fill: #e74c3c; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                <Label fx:id="lblMensaje" alignment="CENTER" prefWidth="300.0" wrapText="true" styleClass="registro-error" />
 
-                <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#procesarRegistro" prefWidth="340.0" text="Registrarse Ahora"
-                        style="-fx-background-color: linear-gradient(to right, #7b2cbf, #3f37c9); -fx-text-fill: #ffffff; -fx-background-radius: 25; -fx-padding: 12; -fx-font-size: 14px; -fx-font-weight: bold; -fx-cursor: hand;" />
+                <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#procesarRegistro" prefWidth="340.0" text="Registrarse Ahora" styleClass="registro-btn-principal" />
 
-                <Hyperlink onAction="#volverAlLogin" text="¿Ya tienes cuenta? Inicia sesión"
-                           style="-fx-text-fill: #4a90e2; -fx-font-size: 12px;" />
+                <Hyperlink onAction="#volverAlLogin" text="¿Ya tienes cuenta? Inicia sesión" styleClass="registro-link" />
 
             </children>
         </VBox>
