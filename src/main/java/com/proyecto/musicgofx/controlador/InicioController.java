@@ -58,7 +58,7 @@ public class InicioController {
             cajaAudio.getStyleClass().add("tarjeta-audio");
 
             Label lblPortada = new Label();
-            lblPortada.setText(audio.getTitulo());  
+            lblPortada.setText(audio.getTitulo());
 
             Button btnReproducir = new Button("Reproducir");
             btnReproducir.getStyleClass().add("button");

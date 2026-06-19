@@ -6,5 +6,7 @@
   {"id":"USR-DB161884","nombre":"Coco","correo":"mariah@Hotmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":17,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
     ]}},
   {"id":"USR-C3722654","nombre":"Sarita","correo":"sarabenaventa@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":40,"estadisticas":{"tiempoEscuchaSegundos":2754,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":2},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}},
+   {"id":"USR-679FB860","nombre":"mariaJ","correo":"mariaJ@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
     ]}}
 ]
