@@ -13,6 +13,7 @@ public class EpisodioPodcast extends Audio {
 
     private String anfitrion;
     private String nombrePodcast;
+    private String genero;
     private String descripcion;
     private int numeroEpisodio;
 
@@ -22,12 +23,13 @@ public class EpisodioPodcast extends Audio {
      */
     public EpisodioPodcast(String id, String titulo, int duracionSegundos,
                            String anfitrion, String nombrePodcast,
-                           String descripcion, int numeroEpisodio, Clasificacion  categoria ) {
-        super(id, titulo, duracionSegundos, categoria );
+                           String descripcion, int numeroEpisodio, Clasificacion  categoria,  String  genero ) {
+        super(id, titulo, duracionSegundos, categoria ,genero);
         this.anfitrion = anfitrion;
         this.nombrePodcast = nombrePodcast;
         this.descripcion = descripcion;
         this.numeroEpisodio = numeroEpisodio;
+
     }
 
     /**
@@ -36,8 +38,8 @@ public class EpisodioPodcast extends Audio {
      */
     public EpisodioPodcast(String titulo, int duracionSegundos,
                            String anfitrion, String nombrePodcast,
-                           String descripcion, int numeroEpisodio, Clasificacion categoria ) {
-        super(titulo, duracionSegundos, categoria);
+                           String descripcion, int numeroEpisodio, Clasificacion categoria  , String genero ) {
+        super(titulo, duracionSegundos, categoria, genero);
         this.anfitrion = anfitrion;
         this.nombrePodcast = nombrePodcast;
         this.descripcion = descripcion;
@@ -76,6 +78,10 @@ public class EpisodioPodcast extends Audio {
         this.numeroEpisodio = numeroEpisodio;
     }
 
+    public void setGenero(String genero){this.genero =genero; }
+
+    public String getGenero(){return genero; }
+
     @Override
     public String getTipo() {
         return "episodio";
@@ -90,6 +96,7 @@ public class EpisodioPodcast extends Audio {
         System.out.println(" >> Reproduciendo episodio de podcast <<");
         System.out.println("    Podcast    : " + nombrePodcast);
         System.out.println("    Episodio   : #" + numeroEpisodio + " - " + getTitulo());
+        System.out.println("    Genero   : #" +  genero);
         System.out.println("    Anfitrion  : " + anfitrion);
         System.out.println("    Duracion   : " + duracionFormateada());
         System.out.println("    Descripcion: " + (descripcion != null ? descripcion : "Sin descripcion."));

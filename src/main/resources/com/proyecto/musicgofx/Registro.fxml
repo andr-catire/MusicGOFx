@@ -7,54 +7,65 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="580.0" prefWidth="400.0"
-            stylesheets="@styles.css"
             styleClass="registro-bg"
+            stylesheets="@styles.css"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.proyecto.musicgofx.controlador.RegistroController">
     <children>
-        <VBox alignment="CENTER" spacing="18.0" prefWidth="340.0"
-              AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0"
-              AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+        <!-- Contenedor principal centrado -->
+        <VBox alignment="CENTER" spacing="15.0"
+              AnchorPane.bottomAnchor="30.0"
+              AnchorPane.leftAnchor="30.0"
+              AnchorPane.rightAnchor="30.0"
+              AnchorPane.topAnchor="30.0">
             <children>
 
-                <Label text="Crear Cuenta" styleClass="registro-titulo">
-                    <font>
-                        <Font name="System Bold" size="36.0" />
-                    </font>
-                </Label>
+                <!-- Título y Subtítulo -->
+                <Label styleClass="registro-titulo" text="Crear Cuenta" />
+                <Label styleClass="registro-subtitulo" text="Únete a MusicGO. Ingresa tus datos reales." />
 
-                <Label text="Únete a MusicGO. Ingresa tus datos reales." styleClass="registro-subtitulo" />
-
+                <!-- Grupo: Nombre de Usuario -->
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Elige tu Nombre de Usuario / Alias" styleClass="registro-label-campo" />
+                        <Label styleClass="registro-label-campo" text=" Nombre de Usuario " />
                         <TextField fx:id="txtUsuario" promptText="Ej. Juan99" styleClass="registro-textfield" />
                     </children>
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
                 </VBox>
 
+                <!-- Grupo: Correo Electrónico -->
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Correo Electrónico (Gmail)" styleClass="registro-label-campo" />
+                        <Label styleClass="registro-label-campo" text="Correo Electrónico (Gmail)" />
                         <TextField fx:id="txtCorreo" promptText="tu_correo@gmail.com" styleClass="registro-textfield" />
                     </children>
                 </VBox>
 
+                <!-- Grupo: Edad -->
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Tu Edad (Requerido para control parental)" styleClass="registro-label-campo" />
+                        <Label styleClass="registro-label-campo" text=" Edad " />
                         <TextField fx:id="txtEdad" promptText="Ej. 21" styleClass="registro-textfield" />
                     </children>
                 </VBox>
 
-                <Label fx:id="lblMensaje" alignment="CENTER" prefWidth="300.0" wrapText="true" styleClass="registro-error" />
+                <Label fx:id="lblMensaje" styleClass="registro-error" text="" />
 
-                <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#procesarRegistro" prefWidth="340.0" text="Registrarse Ahora" styleClass="registro-btn-principal" />
-
-                <Hyperlink onAction="#volverAlLogin" text="¿Ya tienes cuenta? Inicia sesión" styleClass="registro-link" />
+                <Button fx:id="btnRegistrar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#procesarRegistro" styleClass="registro-btn-principal" text="Registrarse Ahora">
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </Button>
+                <Hyperlink onAction="#volverAlLogin" styleClass="registro-link" text="¿Ya tienes cuenta? Inicia sesión">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Hyperlink>
 
             </children>
         </VBox>

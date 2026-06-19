@@ -3,52 +3,81 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane stylesheets="@styles.css" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.musicgofx.controlador.MainController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.musicgofx.controlador.MainController">
 
    <left>
-      <VBox fx:id="sideBar" prefWidth="220.0" spacing="15.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+      <VBox fx:id="sideBar" prefWidth="240.0" spacing="10.0" styleClass="sidebar" BorderPane.alignment="CENTER">
          <children>
             <Label styleClass="logo-text" text="MusicGO" />
-            <Button fx:id="btnInicio" styleClass="nav-button" text="Inicio" />
-            <Button fx:id="btnExplorar" styleClass="nav-button" text="Explorar" />
-            <Button fx:id="btnBiblioteca" styleClass="nav-button" text="Biblioteca" />
-            <Button fx:id="btnTienda" styleClass="nav-button" text="Tienda" />
-            <Button fx:id="btnAjustes" styleClass="nav-button" text="Ajustes" />
+
+            <Button fx:id="btnInicio" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Inicio" />
+            <Button fx:id="btnExplorar" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Explorar" />
+            <Button fx:id="btnBiblioteca" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Biblioteca" />
+            <Button fx:id="btnTienda" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Tienda" />
+
+            <Button fx:id="btnAgregarAudio" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Agregar Audio" />
+            <Button fx:id="btnAgregarProducto" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Agregar Producto" />
+            <Button fx:id="btnListarUsuario" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Listar Usuarios" />
+
+            <VBox VBox.vgrow="ALWAYS" />
+
+            <Button fx:id="btnAjustes" maxWidth="1.7976931348623157E308" styleClass="nav-button" text="Ajustes" />
          </children>
          <padding>
-            <Insets bottom="20.0" left="25.0" right="20.0" top="30.0" />
+            <Insets bottom="25.0" left="20.0" right="20.0" top="30.0" />
          </padding>
       </VBox>
    </left>
 
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="90.0" spacing="20.0" styleClass="player-bar" BorderPane.alignment="CENTER">
+   <center>
+      <VBox styleClass="main-center" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="5.0">
-               <Label fx:id="lblTituloAudio" styleClass="player-title" text="Título de la Canción" />
-               <Label fx:id="lblArtistaAudio" styleClass="player-artist" text="Artista" />
-            </VBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="15.0">
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="30.0" top="15.0" />
+               </padding>
+               <children>
+                  <TextField  fx:id="txtBuscadorTop" prefWidth="350.0" promptText="Explora el mundo de la música..." styleClass="text-field" />
 
-            <HBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
-               <Button fx:id="btnAnterior" styleClass="player-button" text="⏮" />
-               <Button fx:id="btnPlay" styleClass="player-button-play" text="▶" />
-               <Button fx:id="btnSiguiente" styleClass="player-button" text="⏭" />
+                  <Region HBox.hgrow="ALWAYS" />
+
+                  <Button fx:id="btnPerfilUsuario" mnemonicParsing="false" styleClass="button" text="👤 Perfil" />
+
+                  <Button fx:id="btnBilletera" mnemonicParsing="false" styleClass="button" text="💳 Billetera" />
+               </children>
             </HBox>
 
-            <HBox prefWidth="200.0" />
+            <AnchorPane fx:id="contenedorCentral" VBox.vgrow="ALWAYS" />
          </children>
-         <padding>
-            <Insets left="30.0" right="30.0" />
-         </padding>
+      </VBox>
+   </center>
+
+   <bottom>
+      <HBox alignment="CENTER" styleClass="player-bar" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefWidth="250.0" spacing="2.0">
+               <children>
+                  <Label fx:id="lblTituloAudio" styleClass="player-title" text="Título de la Canción" />
+                  <Label fx:id="lblArtistaAudio" styleClass="player-artist" text="Artista" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btnAnterior" mnemonicParsing="false" styleClass="player-button" text="⏮" />
+                  <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="player-button-play" text="▶" />
+                  <Button fx:id="btnSiguiente" mnemonicParsing="false" styleClass="player-button" text="⏭" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefWidth="250.0" />
+         </children>
       </HBox>
    </bottom>
 
-   <center>
-      <AnchorPane fx:id="contenedorCentral" styleClass="main-center" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>

@@ -1,226 +1,1187 @@
-/* ========================================= */
-/* ESTILOS GLOBALES DE LA APLICACIÓN         */
-/* ========================================= */
+/* ═══════════════════════════════════════════════════════ */
+/*  TEMA OSCURO MODENOR - HOJA DE ESTILOS JAVAFX         */
+/*  Paleta de Colores:                                    */
+/*  Primario: #DDB7FF  |  Secundario: #1E1B4B             */
+/*  Terciario: #D1BCFF |  Neutro: #131315                 */
+/* ═══════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ESTILOS GLOBALES Y RAÍZ                               */
+/* ═══════════════════════════════════════════════════════ */
 .root {
-    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-font-family: 'Segoe UI', 'SF Pro Display', Helvetica, Arial, sans-serif;
+    -fx-background-color: #131315;
 }
 
-/* ========================================= */
-/* MAIN LAYOUT - BARRA LATERAL (SIDEBAR)     */
-/* ========================================= */
-.sidebar {
-    -fx-background-color: #121212;
-}
+/* ═══════════════════════════════════════════════════════ */
+/*  ESTILOS BASE DE COMPONENTES (APLICAN A TODA LA APP)    */
+/* ═══════════════════════════════════════════════════════ */
 
-.logo-text {
-    -fx-text-fill: white;
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 30 0;
-}
-
-.nav-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #a7a7a7;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-alignment: BASELINE_LEFT;
-    -fx-padding: 10 15;
-    -fx-cursor: hand;
-}
-
-/* El efecto visual cuando pasas el mouse por encima */
-.nav-button:hover {
-    -fx-text-fill: white;
-    -fx-background-color: #282828;
-    -fx-background-radius: 5;
-}
-
-/* ========================================= */
-/* MAIN LAYOUT - REPRODUCTOR INFERIOR        */
-/* ========================================= */
-.player-bar {
-    -fx-background-color: #181818;
-    -fx-border-color: #282828;
-    -fx-border-width: 1 0 0 0; /* Solo pinta la línea de arriba */
-}
-
-.player-title {
-    -fx-text-fill: white;
+/* --- Botón Base --- */
+.button {
+    -fx-background-color: #1E1B4B;
+    -fx-text-fill: #DDB7FF;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
 }
 
-.player-artist {
-    -fx-text-fill: #a7a7a7;
-    -fx-font-size: 12px;
+.button:hover {
+    -fx-background-color: #2a2569;
+    -fx-text-fill: #D1BCFF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 8, 0, 0, 0);
 }
 
-.player-button {
+.button:pressed {
+    -fx-background-color: #12102d;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);
+}
+
+.button:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+}
+
+/* --- Campo de Texto Base --- */
+.text-field {
+    -fx-background-color: #1e1e24;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 15px;
+    -fx-font-size: 14px;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-prompt-text-fill: #6b6b7b;
+    -fx-highlight-fill: #DDB7FF;
+    -fx-highlight-text-fill: #1E1B4B;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.text-field:hover {
+    -fx-border-color: #3a3a4a;
+    -fx-background-color: #23232a;
+}
+
+.text-field:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-background-color: #1e1e24;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 8, 0, 0, 0),
+                innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.text-field:disabled {
+    -fx-opacity: 0.5;
+    -fx-background-color: #18181c;
+}
+
+/* --- Enlace Base --- */
+.hyperlink {
+    -fx-text-fill: #D1BCFF;
+    -fx-font-size: 13px;
+    -fx-underline: true;
+    -fx-border-color: transparent;
+    -fx-padding: 2px 4px;
+    -fx-cursor: hand;
     -fx-background-color: transparent;
-    -fx-text-fill: #a7a7a7;
-    -fx-font-size: 20px;
+    -fx-background-radius: 4px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(221,183,255,0.08);
+}
+
+.hyperlink:pressed {
+    -fx-text-fill: #846d99;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #7d7099;
+}
+
+/* --- Etiqueta Base --- */
+.label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+}
+
+/* --- Panel de Desplazamiento Base --- */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb,
+.scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #2a2a35;
+    -fx-background-radius: 6px;
+    -fx-min-width: 8px;
+    -fx-min-height: 8px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover,
+.scroll-pane .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #3a3a4a;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:pressed,
+.scroll-pane .scroll-bar:horizontal .thumb:pressed {
+    -fx-background-color: #DDB7FF;
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 3px;
+}
+
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow {
+    -fx-background-color: #5a5a6a;
+}
+
+/* --- Tabla Base --- */
+.table-view {
+    -fx-background-color: #131315;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1E1B4B;
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-padding: 8px 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: #DDB7FF;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent transparent rgba(221,183,255,0.2) transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px 15px;
+}
+
+.table-view .column-header:hover {
+    -fx-background-color: rgba(221,183,255,0.08);
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #131315;
+    -fx-border-color: transparent transparent #1e1e24 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8px 0;
+    -fx-cell-size: 40px;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #161618;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #1E1B4B;
     -fx-cursor: hand;
 }
 
-.player-button:hover {
-    -fx-text-fill: white;
+.table-view .table-row-cell:selected {
+    -fx-background-color: #2a2569;
+    -fx-border-color: transparent transparent #DDB7FF transparent;
+    -fx-border-width: 0 0 2px 0;
 }
 
-.player-button-play {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-background-radius: 50em; /* Círculo perfecto */
-    -fx-min-width: 45px;
-    -fx-min-height: 45px;
-    -fx-font-size: 18px;
-    -fx-cursor: hand;
-}
-
-.player-button-play:hover {
-    -fx-scale-x: 1.05; /* Crece un poquito */
-    -fx-scale-y: 1.05;
-}
-
-/* ========================================= */
-/* MAIN LAYOUT - CENTRO DONDE VAN LAS VISTAS */
-/* ========================================= */
-.main-center {
-    -fx-background-color: #212121;
-}
-
-/* ========================================= */
-/* ESTILOS  DE LOGIN  */
-/* ========================================= */
-
-/* Fondo oscuro general de la ventana */
-.login-bg {
-    -fx-background-color: #0b0b0e;
-}
-
-/* Título de "MusicGO" con degradado violeta/azul */
-.login-titulo {
-    -fx-text-fill: linear-gradient(to right, #8a2be2, #4a90e2);
+.table-view .table-row-cell:selected .text {
+    -fx-fill: #DDB7FF;
     -fx-font-weight: bold;
 }
 
-/* Textos informativos grises */
+.table-view .table-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-padding: 0 15px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .table-cell:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: #6b6b7b;
+    -fx-font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ╔═══════════════════════════════════════════════════╗  */
+/*  ║           VISTA DE INICIO DE SESIÓN              ║  */
+/*  ║              (LOGIN / LOGIN.FXML)                  ║  */
+/*  ╚═══════════════════════════════════════════════════╝  */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Fondo de la ventana de inicio de sesión */
+.login-bg {
+    -fx-background-color: #09090a;
+    -fx-background-radius: 0;
+}
+
+/* Título "MusicGO" con efecto de brillo púrpura */
+.login-titulo {
+    -fx-text-fill: #DDB7FF;
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.3), 12, 0, 0, 0);
+}
+
+/* Subtítulo informativo gris */
 .login-subtitulo {
     -fx-text-fill: #7f8c8d;
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
+    -fx-padding: 0 0 15px 0;
 }
 
-/* Etiquetas pequeñas encima de los campos ("Nombre de usuario", etc) */
+/* Etiquetas sobre los campos de texto ("Nombre de Usuario", etc.) */
 .login-label-campo {
     -fx-text-fill: #b3b3b3;
-    -fx-font-size: 12px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
+    -fx-padding: 0 0 3px 5px;
 }
 
-/* Tus cajas de texto redondeadas y con bordes oscuros */
+/* Cajas de texto del login (usuario, correo, edad) */
 .login-textfield {
     -fx-background-color: #1e1e24;
     -fx-text-fill: #ffffff;
-    -fx-background-radius: 8;
-    -fx-padding: 12;
+    -fx-background-radius: 10px;
+    -fx-padding: 14px;
     -fx-prompt-text-fill: #555555;
     -fx-border-color: #2a2a35;
-    -fx-border-radius: 8;
-}
-
-/* El mensaje rojo de error */
-.login-error {
-    -fx-text-fill: #e74c3c;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-}
-
-/* Tu botón principal con degradado y bordes súper redondos */
-.login-btn-principal {
-    -fx-background-color: linear-gradient(to right, #7b2cbf, #3f37c9);
-    -fx-text-fill: #ffffff;
-    -fx-background-radius: 25;
-    -fx-padding: 12;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
     -fx-font-size: 14px;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.login-textfield:hover {
+    -fx-border-color: #3a3a4a;
+    -fx-background-color: #23232a;
+}
+
+.login-textfield:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 10, 0, 0, 0),
+                innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+/* Mensaje de error en rojo (lblMensaje) */
+.login-error {
+    -fx-text-fill: #ff6b6b;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+}
+
+/* Botón principal "Iniciar Sesión" (btnAccion) */
+.login-btn-principal {
+    -fx-background-color: linear-gradient(to right, #1E1B4B, #2a2569);
+    -fx-text-fill: #DDB7FF;
+    -fx-background-radius: 25px;
+    -fx-padding: 14px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
+    -fx-border-color: rgba(221,183,255,0.3);
+    -fx-border-radius: 25px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(30,27,75,0.5), 8, 0, 0, 3);
 }
 
-/* Efecto opcional: Que el botón brille si pasas el mouse (¡gracias a tenerlo separado!) */
 .login-btn-principal:hover {
-    -fx-background-color: linear-gradient(to right, #9d4edd, #4cc9f0);
+    -fx-background-color: linear-gradient(to right, #2a2569, #3a3480);
+    -fx-text-fill: #D1BCFF;
+    -fx-border-color: rgba(221,183,255,0.6);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 12, 0, 0, 0),
+                dropshadow(gaussian, rgba(30,27,75,0.6), 10, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
 }
 
-/* El enlace azul de abajo */
+.login-btn-principal:pressed {
+    -fx-background-color: linear-gradient(to right, #12102d, #1E1B4B);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0, 0, 2);
+}
+
+.login-btn-principal:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-border-width: 2px;
+}
+
+/* Enlace "¿No tienes cuenta? Regístrate aquí" (linkRegistro) */
 .login-link {
-    -fx-text-fill: #4a90e2;
-    -fx-font-size: 12px;
+    -fx-text-fill: #D1BCFF;
+    -fx-font-size: 13px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+    -fx-background-radius: 4px;
 }
 
-/* ========================================= */
-/* ESTILOS  DE REGISTRO            */
-/* ========================================= */
+.login-link:hover {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(221,183,255,0.08);
+}
 
-/* Fondo oscuro de la ventana de registro */
+.login-link:pressed {
+    -fx-text-fill: #846d99;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ╔═══════════════════════════════════════════════════╗  */
+/*  ║           VISTA DE REGISTRO                        ║  */
+/*  ║              (REGISTRO / REGISTRO.FXML)            ║  */
+/*  ╚═══════════════════════════════════════════════════╝  */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Fondo de la ventana de registro */
 .registro-bg {
-    -fx-background-color: #0b0b0e;
+    -fx-background-color: #09090a;
 }
 
-/* Título "Crear Cuenta" con tu degradado original */
+/* Título "Crear Cuenta" con efecto de brillo púrpura */
 .registro-titulo {
-    -fx-text-fill: linear-gradient(to right, #8a2be2, #4a90e2);
+    -fx-text-fill: #DDB7FF;
+    -fx-font-size: 36px;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 10, 0, 0, 0);
 }
 
 /* Subtítulo informativo gris */
 .registro-subtitulo {
     -fx-text-fill: #7f8c8d;
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
+    -fx-padding: 0 0 10px 0;
 }
 
-/* Etiquetas sobre los campos de texto */
+/* Etiquetas sobre los campos de texto ("Elige tu Nombre de Usuario", etc.) */
 .registro-label-campo {
     -fx-text-fill: #b3b3b3;
-    -fx-font-size: 12px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
+    -fx-padding: 0 0 3px 5px;
 }
 
-/* Cajas de texto oscuras con bordes redondeados */
+/* Cajas de texto del registro (usuario, correo, edad) */
 .registro-textfield {
     -fx-background-color: #1e1e24;
     -fx-text-fill: #ffffff;
-    -fx-background-radius: 8;
-    -fx-padding: 12;
+    -fx-background-radius: 10px;
+    -fx-padding: 14px;
     -fx-prompt-text-fill: #555555;
     -fx-border-color: #2a2a35;
-    -fx-border-radius: 8;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-font-size: 14px;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
 }
 
-/* Mensaje rojo para errores */
+.registro-textfield:hover {
+    -fx-border-color: #3a3a4a;
+    -fx-background-color: #23232a;
+}
+
+.registro-textfield:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 10, 0, 0, 0),
+                innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+/* Mensaje de error en rojo (lblMensaje) */
 .registro-error {
-    -fx-text-fill: #e74c3c;
-    -fx-font-size: 12px;
+    -fx-text-fill: #ff6b6b;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
+    -fx-padding: 5px 0;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
 }
 
-/* Tu botón con degradado y bordes redondeados */
+/* Botón principal "Registrarse Ahora" (btnRegistrar) */
 .registro-btn-principal {
-    -fx-background-color: linear-gradient(to right, #7b2cbf, #3f37c9);
+    -fx-background-color: linear-gradient(to right, #1E1B4B, #2a2569);
+    -fx-text-fill: #DDB7FF;
+    -fx-background-radius: 25px;
+    -fx-padding: 14px;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(221,183,255,0.3);
+    -fx-border-radius: 25px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(30,27,75,0.5), 8, 0, 0, 3);
+}
+
+.registro-btn-principal:hover {
+    -fx-background-color: linear-gradient(to right, #2a2569, #3a3480);
+    -fx-text-fill: #D1BCFF;
+    -fx-border-color: rgba(221,183,255,0.6);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 12, 0, 0, 0),
+                dropshadow(gaussian, rgba(30,27,75,0.6), 10, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.registro-btn-principal:pressed {
+    -fx-background-color: linear-gradient(to right, #12102d, #1E1B4B);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0, 0, 2);
+}
+
+.registro-btn-principal:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-border-width: 2px;
+}
+
+/* Enlace "¿Ya tienes cuenta? Inicia sesión" */
+.registro-link {
+    -fx-text-fill: #D1BCFF;
+    -fx-font-size: 13px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+    -fx-background-radius: 4px;
+}
+
+.registro-link:hover {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(221,183,255,0.08);
+}
+
+.registro-link:pressed {
+    -fx-text-fill: #846d99;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ╔═══════════════════════════════════════════════════╗  */
+/*  ║     APLICACIÓN PRINCIPAL                           ║  */
+/*  ║     (MAIN / MAIN.FXML)                             ║  */
+/*  ║     Contiene: Sidebar, Reproductor, Centro         ║  */
+/*  ╚═══════════════════════════════════════════════════╝  */
+/* ═══════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════ */
+/*  BARRA LATERAL (SIDEBAR) - Panel izquierdo              */
+/*  ID: sideBar | Clases: sidebar, logo-text, nav-button   */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Fondo de la barra lateral de navegación */
+.sidebar {
+    -fx-background-color: #0a0a0c;
+    -fx-border-color: transparent #1e1e24 transparent transparent;
+    -fx-border-width: 0 1px 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 2, 0);
+}
+
+/* Logo "MusicGO" en la parte superior del sidebar */
+.logo-text {
+    -fx-text-fill: #DDB7FF;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 30px 0;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.3), 8, 0, 0, 0);
+}
+
+/* Botones de navegación: Inicio, Explorar, Biblioteca, Tienda, Ajustes */
+/* IDs: btnInicio, btnExplorar, btnBiblioteca, btnTienda, btnAjustes */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8a8a9a;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-alignment: BASELINE_LEFT;
+    -fx-padding: 12px 18px;
+    -fx-cursor: hand;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-graphic-text-gap: 12px;
+}
+
+/* Efecto al pasar el mouse por los botones de navegación */
+.nav-button:hover {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(30,27,75,0.4);
+    -fx-border-color: transparent transparent transparent rgba(221,183,255,0.3);
+    -fx-border-width: 0 0 0 3px;
+    -fx-padding: 12px 18px 12px 15px;
+}
+
+/* Efecto al hacer clic en los botones de navegación */
+.nav-button:pressed {
+    -fx-background-color: rgba(30,27,75,0.6);
+    -fx-text-fill: #D1BCFF;
+}
+
+/* Efecto cuando el botón de navegación tiene el foco del teclado */
+.nav-button:focused {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(30,27,75,0.5);
+    -fx-border-color: transparent transparent transparent #DDB7FF;
+    -fx-border-width: 0 0 0 3px;
+    -fx-padding: 12px 18px 12px 15px;
+}
+
+/* Estado activo/seleccionado para botones de navegación */
+.nav-button:selected,
+.nav-button.active {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(30,27,75,0.6);
+    -fx-border-color: transparent transparent transparent #DDB7FF;
+    -fx-border-width: 0 0 0 3px;
+    -fx-padding: 12px 18px 12px 15px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  BARRA DE REPRODUCCIÓN (PLAYER BAR) - Panel inferior    */
+/*  Clases: player-bar, player-title, player-artist        */
+/*  player-button, player-button-play                      */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Fondo de la barra de reproducción de música */
+.player-bar {
+    -fx-background-color: #0f0f12;
+    -fx-border-color: #1e1e24 transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 15px 30px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0, 0, -2);
+}
+
+/* Título de la canción que se reproduce (lblTituloAudio) */
+.player-title {
     -fx-text-fill: #ffffff;
-    -fx-background-radius: 25;
-    -fx-padding: 12;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+/* Nombre del artista de la canción (lblArtistaAudio) */
+.player-artist {
+    -fx-text-fill: #8a8a9a;
+    -fx-font-size: 12px;
+}
+
+/* Botones de control: Anterior (⏮) y Siguiente (⏭) */
+/* IDs: btnAnterior, btnSiguiente */
+.player-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8a8a9a;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 50%;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-transition: all 0.15s ease;
+}
+
+.player-button:hover {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(221,183,255,0.08);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.player-button:pressed {
+    -fx-text-fill: #D1BCFF;
+    -fx-background-color: rgba(30,27,75,0.3);
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.player-button:focused {
+    -fx-border-color: rgba(221,183,255,0.4);
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 50%;
+}
+
+/* Botón de Play/Pause principal (▶) */
+/* ID: btnPlay | Clase: player-button-play */
+.player-button-play {
+    -fx-background-color: linear-gradient(to bottom, #DDB7FF, #D1BCFF);
+    -fx-text-fill: #1E1B4B;
+    -fx-background-radius: 50em;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 10, 0, 0, 2);
+}
+
+/* Efecto al pasar el mouse por el botón de play */
+.player-button-play:hover {
+    -fx-background-color: linear-gradient(to bottom, #e8d4ff, #ddd0ff);
+    -fx-scale-x: 1.08;
+    -fx-scale-y: 1.08;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.6), 15, 0, 0, 3);
+}
+
+/* Efecto al hacer clic en el botón de play */
+.player-button-play:pressed {
+    -fx-background-color: linear-gradient(to bottom, #c9a3e6, #c0a8e6);
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+.player-button-play:focused {
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ÁREA CENTRAL DE CONTENIDO (CENTER)                     */
+/*  ID: contenedorCentral | Clase: main-center             */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Fondo del área central donde se muestran las vistas */
+.main-center {
+    -fx-background-color: #131315;
+    -fx-padding: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ╔═══════════════════════════════════════════════════╗  */
+/*  ║  ESTILOS ADICIONALES Y UTILIDADES                ║  */
+/*  ║  (Para uso futuro en nuevas vistas)              ║  */
+/*  ╚═══════════════════════════════════════════════════╝  */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Tarjetas de contenido para mostrar información */
+.content-card {
+    -fx-background-color: #1a1a1e;
+    -fx-background-radius: 12px;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0, 0, 2);
+}
+
+.content-card:hover {
+    -fx-border-color: #3a3a4a;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.08), 8, 0, 0, 0);
+}
+
+/* Encabezados de sección */
+.section-header {
+    -fx-text-fill: #DDB7FF;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 15px 0;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.15), 6, 0, 0, 0);
+}
+
+/* Sub-encabezados */
+.subsection-header {
+    -fx-text-fill: #b3b3b3;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 0 10px 0;
+}
+
+/* Línea divisoria */
+.divider {
+    -fx-background-color: #2a2a35;
+    -fx-min-height: 1px;
+    -fx-max-height: 1px;
+    -fx-padding: 8px 0;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  BARRAS DE DESPLAZAMIENTO INDEPENDIENTES                */
+/* ═══════════════════════════════════════════════════════ */
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #2a2a35;
+    -fx-background-radius: 5px;
+    -fx-min-width: 8px;
+    -fx-min-height: 8px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #3a3a4a;
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #DDB7FF;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 3px;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: #5a5a6a;
+}
+
+.scroll-bar .increment-arrow:hover,
+.scroll-bar .decrement-arrow:hover {
+    -fx-background-color: #DDB7FF;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  BARRAS DE PROGRESO Y DESLIZADORES                      */
+/* ═══════════════════════════════════════════════════════ */
+
+.progress-bar {
+    -fx-background-color: #1e1e24;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #2a2a35;
+    -fx-border-width: 1px;
+    -fx-pref-height: 6px;
+}
+
+.progress-bar .bar {
+    -fx-background-color: linear-gradient(to right, #1E1B4B, #DDB7FF);
+    -fx-background-radius: 4px;
+    -fx-padding: 2px;
+}
+
+.progress-bar .track {
+    -fx-background-color: #1e1e24;
+    -fx-background-radius: 4px;
+}
+
+.slider {
+    -fx-background-color: transparent;
+}
+
+.slider .track {
+    -fx-background-color: #2a2a35;
+    -fx-background-radius: 3px;
+    -fx-pref-height: 4px;
+}
+
+.slider .thumb {
+    -fx-background-color: #DDB7FF;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 14px;
+    -fx-pref-height: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 6, 0, 0, 1);
+}
+
+.slider .thumb:hover {
+    -fx-background-color: #D1BCFF;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.6), 10, 0, 0, 2);
+}
+
+.slider .thumb:pressed {
+    -fx-background-color: #ffffff;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.slider .filled-track {
+    -fx-background-color: linear-gradient(to right, #1E1B4B, #DDB7FF);
+    -fx-background-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  LISTAS DESPLEGABLES (COMBO BOX)                        */
+/* ═══════════════════════════════════════════════════════ */
+
+.combo-box {
+    -fx-background-color: #1e1e24;
+    -fx-background-radius: 10px;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 2px 5px;
+}
+
+.combo-box:hover {
+    -fx-border-color: #3a3a4a;
+    -fx-background-color: #23232a;
+}
+
+.combo-box:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 8, 0, 0, 0);
+}
+
+.combo-box .arrow {
+    -fx-background-color: #8a8a9a;
+}
+
+.combo-box:hover .arrow {
+    -fx-background-color: #DDB7FF;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1a1a1e;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 4);
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6px;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgba(30,27,75,0.5);
+    -fx-text-fill: #DDB7FF;
+}
+
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: #1E1B4B;
+    -fx-text-fill: #DDB7FF;
+    -fx-font-weight: bold;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  MENÚS CONTEXTUALES Y MENÚS                             */
+/* ═══════════════════════════════════════════════════════ */
+
+.context-menu {
+    -fx-background-color: #1a1a1e;
+    -fx-background-radius: 10px;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6px;
     -fx-cursor: hand;
 }
 
-/* Efecto hover opcional: brilla al pasar el mouse por encima */
-.registro-btn-principal:hover {
-    -fx-background-color: linear-gradient(to right, #9d4edd, #4cc9f0);
+.menu-item:hover,
+.menu-item:focused {
+    -fx-background-color: rgba(30,27,75,0.5);
+    -fx-text-fill: #DDB7FF;
 }
 
-/* Enlace azul para volver al login */
-.registro-link {
-    -fx-text-fill: #4a90e2;
+.menu-item:pressed {
+    -fx-background-color: #1E1B4B;
+}
+
+.separator-menu-item .separator {
+    -fx-border-color: #2a2a35;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 5px 0;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  CONSEJOS EMERGENTES (TOOLTIP)                          */
+/* ═══════════════════════════════════════════════════════ */
+
+.tooltip {
+    -fx-background-color: #1E1B4B;
+    -fx-text-fill: #DDB7FF;
     -fx-font-size: 12px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(221,183,255,0.2);
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  DIÁLOGOS Y ALERTAS                                     */
+/* ═══════════════════════════════════════════════════════ */
+
+.dialog-pane {
+    -fx-background-color: #131315;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #1E1B4B;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 15px 20px;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #DDB7FF;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-padding: 15px 0;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: #1E1B4B;
+    -fx-text-fill: #DDB7FF;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: #2a2569;
+}
+
+.dialog-pane .button-bar .button:default {
+    -fx-background-color: linear-gradient(to right, #1E1B4B, #2a2569);
+    -fx-border-color: rgba(221,183,255,0.3);
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* BARRA SUPERIOR (HEADER) Y BOTÓN BILLETERA              */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Botón de la Billetera (diseño tipo píldora) */
+.btn-billetera {
+    -fx-background-color: rgba(30, 27, 75, 0.4); /* Fondo secundario translúcido */
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 18px;
+    -fx-background-radius: 20px; /* Bordes muy redondeados */
+    -fx-border-color: rgba(221, 183, 255, 0.3); /* Borde morado claro sutil */
+    -fx-border-radius: 20px;
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+}
+
+/* Efecto al pasar el mouse por la billetera */
+.btn-billetera:hover {
+    -fx-background-color: rgba(30, 27, 75, 0.8);
+    -fx-text-fill: #DDB7FF;
+    -fx-border-color: #DDB7FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 10, 0, 0, 0);
+}
+
+/* Efecto al hacer clic en la billetera */
+.btn-billetera:pressed {
+    -fx-background-color: #12102d;
+    -fx-text-fill: #D1BCFF;
+}
+/* ═══════════════════════════════════════════════════════ */
+/*  UTILIDADES DE ESPACIADO                                */
+/* ═══════════════════════════════════════════════════════ */
+
+.spacing-sm {
+    -fx-spacing: 8px;
+}
+
+.spacing-md {
+    -fx-spacing: 15px;
+
+}
+
+.spacing-lg {
+    -fx-spacing: 25px;
+}
+
+.padding-sm {
+    -fx-padding: 10px;
+}
+
+.padding-md {
+    -fx-padding: 20px;
+}
+
+.padding-lg {
+    -fx-padding: 30px;
+}
+
+/* Estilo para las tarjetas de canciones en el Inicio */
+.tarjeta-audio {
+    -fx-background-color: #1E1B4B; /* Color secundario de tu paleta */
+    -fx-background-radius: 12px;   /* Bordes muy redondeados */
+    -fx-border-color: #2a2a35;     /* Borde sutil */
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+/* Efecto mágico: cuando el usuario pasa el ratón por encima, se ilumina */
+.tarjeta-audio:hover {
+    -fx-background-color: #2c286b;
+    -fx-cursor: hand;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  VISTA EXPLORADOR Y FILTROS (Adaptado a la Paleta)      */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Color de fondo principal del explorador (Neutro) */
+.fondo-explorador {
+    -fx-background-color: #131315;
+}
+
+/* Ajuste del fondo específico para el explorador */
+.fondo-explorador .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: #131315;
+}
+
+/* Estilo general para los botones inactivos (Todos, Canciones, Podcast) */
+.boton-filtro {
+    -fx-background-color: #1e1e24; /* Tono de superficie inactivo */
+    -fx-text-fill: #b3b3b3;        /* Texto apagado */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 20px;
+    -fx-border-color: #2a2a35;     /* Borde sutil */
+    -fx-border-radius: 20px;
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+/* Efecto cuando pasas el mouse por encima del botón */
+.boton-filtro:hover {
+    -fx-background-color: #2a2569; /* Tono intermedio (Hover del secundario) */
+    -fx-text-fill: #DDB7FF;        /* Texto iluminado con el Primario */
+    -fx-border-color: rgba(221,183,255,0.3);
+}
+
+/* Efecto cuando el botón ESTÁ SELECCIONADO (La magia de tu paleta) */
+.boton-filtro:selected {
+    -fx-background-color: #DDB7FF; /* Primario en el fondo */
+    -fx-text-fill: #1E1B4B;        /* Secundario en el texto para dar contraste */
+    -fx-border-color: #DDB7FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 8, 0, 0, 0);
+}
+
+/* Estilo para el menú desplegable de Géneros (Sincronizado con tus ComboBox) */
+.menu-desplegable {
+    -fx-background-color: #1e1e24;
+    -fx-background-radius: 10px;
+    -fx-border-color: #2a2a35;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.menu-desplegable:hover {
+    -fx-border-color: #3a3a4a;
+    -fx-background-color: #23232a;
+}
+
+.menu-desplegable:focused {
+    -fx-border-color: #DDB7FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 8, 0, 0, 0);
+}
+
+/* Texto dentro del ComboBox */
+.menu-desplegable .list-cell {
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Estilo base para el contenedor de resultados */
+.panel-resultados {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+/* Efecto cuando pasas el mouse por encima del botón */
+.boton-filtro:hover {
+    -fx-background-color: #3e3e3e;
+}
+
+/* Efecto cuando el botón ESTÁ SELECCIONADO */
+.boton-filtro:selected {
+    -fx-background-color: #1db954; /* Verde llamativo */
+    -fx-text-fill: black;
+}
+
+/* Estilo para el menú desplegable de Géneros */
+.menu-desplegable {
+    -fx-background-color: #282828;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+/* Texto dentro del ComboBox */
+.menu-desplegable .list-cell {
+    -fx-text-fill: white;
+}
+
+/* Estilo base para el contenedor de resultados */
+.panel-resultados {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
 }

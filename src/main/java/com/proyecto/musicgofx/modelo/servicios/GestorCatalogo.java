@@ -42,7 +42,6 @@ public class GestorCatalogo {
         this.catalogoCompleto.addAll(deCatalogo);
         this.catalogoCompleto.addAll(deCanciones);
 
-        // Carga de productos desde productos.json
         this.productos = repositorio.cargarProductos();
 
         return this.catalogoCompleto.size();

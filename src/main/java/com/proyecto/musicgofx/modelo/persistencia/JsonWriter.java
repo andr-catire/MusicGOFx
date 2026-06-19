@@ -15,13 +15,13 @@ public class JsonWriter {
             sb.append("\"titulo\":\"").append(a.getTitulo()).append("\",");
             sb.append("\"duracionSegundos\":").append(a.getDuracionSegundos()).append(",");
             sb.append("\"tipo\":\"").append(a.getTipo()).append("\",");
-            sb.append("\"categoria\":\"").append(a.getCategoria().name()).append("\"");
+            sb.append("\"categoria\":\"").append(a.getCategoria().name()).append("\",");
+            sb.append("\"genero\":\"").append(a.getGenero()).append("\"");
 
             if (a instanceof Cancion) {
                 Cancion c = (Cancion) a;
                 sb.append(",\"artista\":\"").append(c.getArtista()).append("\",");
                 sb.append("\"album\":\"").append(c.getAlbum()).append("\",");
-                sb.append("\"genero\":\"").append(c.getGenero()).append("\"");
             } else if (a instanceof EpisodioPodcast) {
                 EpisodioPodcast ep = (EpisodioPodcast) a;
                 sb.append(",\"anfitrion\":\"").append(ep.getAnfitrion()).append("\",");

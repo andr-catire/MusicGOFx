@@ -9,6 +9,6 @@ package com.proyecto.musicgofx.excepciones;
 public class UsuarioNoEncontradoException extends Exception {
 
     public UsuarioNoEncontradoException(String alias) {
-        super("No se encontro ningun usuario con el alias '" + alias + "'.");
+        super("No se encontro ningun usuario con el alias.");
     }
 }

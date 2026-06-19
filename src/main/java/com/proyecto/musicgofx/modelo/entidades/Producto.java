@@ -2,7 +2,7 @@ package com.proyecto.musicgofx.modelo.entidades;
 
 import com.proyecto.musicgofx.interfaces.Comprable;
 import com.proyecto.musicgofx.interfaces.Identificable;
-import util.GeneradorId;
+import com.proyecto.musicgofx.util.GeneradorId;
 
 /**
  * Clase abstracta que representa cualquier producto especial que MusicGO

@@ -7,62 +7,45 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="400.0"
-            stylesheets="@styles.css"
-            styleClass="login-bg"
-            xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.proyecto.musicgofx.controlador.LoginController">
-
+<AnchorPane prefHeight="550.0" prefWidth="400.0" styleClass="login-bg" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.musicgofx.controlador.LoginController">
     <children>
-        <VBox alignment="CENTER" spacing="18.0" prefWidth="340.0"
-              AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="30.0"
-              AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0">
+        <VBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
             <children>
 
-                <Label text="MusicGO" styleClass="login-titulo">
-                    <font>
-                        <Font name="System Bold" size="42.0" />
-                    </font>
+                <Label styleClass="login-titulo" text="MusicGO" />
+                <Label styleClass="login-subtitulo" text="Inicia sesión para continuar" />
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Label styleClass="login-label-campo" text="Nombre de Usuario" />
+                        <TextField fx:id="txtUsuario" promptText="Ingresa tu usuario" styleClass="login-textfield" />
+                    </children>
                     <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets top="15.0" />
                     </VBox.margin>
-                </Label>
-
-                <Label text="Tu música, tus reglas. Inicia sesión para continuar." styleClass="login-subtitulo" />
-
-                <VBox spacing="5.0">
-                    <children>
-                        <Label text="Nombre de Usuario o Alias" styleClass="login-label-campo" />
-                        <TextField fx:id="txtUsuario" promptText="Ej. Andrés123" styleClass="login-textfield" />
-                    </children>
                 </VBox>
 
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Correo Electrónico (Gmail)" styleClass="login-label-campo" />
-                        <TextField fx:id="txtCorreo" promptText="usuario@gmail.com" styleClass="login-textfield" />
+                        <Label styleClass="login-label-campo" text="Correo Electrónico (Gmail)" />
+                        <TextField fx:id="txtCorreo" promptText="tu_correo@gmail.com" styleClass="login-textfield" />
                     </children>
                 </VBox>
 
-                <VBox fx:id="vboxEdad" spacing="5.0" visible="false" managed="false">
-                    <children>
-                        <Label text="Tu Edad" styleClass="login-label-campo" />
-                        <TextField fx:id="txtEdad" promptText="Ej. 18" styleClass="login-textfield" />
-                    </children>
-                </VBox>
+                <Label fx:id="lblMensaje" styleClass="login-error" text="" />
 
-                <Label fx:id="lblMensaje" alignment="CENTER" prefWidth="300.0" wrapText="true" styleClass="login-error" />
-
-                <Button fx:id="btnAccion" mnemonicParsing="false" onAction="#manejarBotonPrincipal" prefWidth="340.0" text="Iniciar Sesión" styleClass="login-btn-principal">
+                <Button fx:id="btnAccion" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#manejarBotonPrincipal" styleClass="login-btn-principal" text="Iniciar Sesión">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
                 </Button>
 
-                <Hyperlink fx:id="linkRegistro" onAction="#irAPantallaRegistro" text="¿No tienes cuenta? Regístrate aquí" styleClass="login-link" />
+                <Hyperlink fx:id="linkRegistro" onAction="#irAPantallaRegistro" styleClass="login-link" text="¿No tienes cuenta? Regístrate aquí">
+                    <VBox.margin>
+                        <Insets top="15.0" />
+                    </VBox.margin>
+                </Hyperlink>
 
             </children>
         </VBox>

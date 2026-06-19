@@ -12,7 +12,7 @@ public class Cancion extends Audio {
 
     private String artista;
     private String album;
-    private String genero;
+
 
     /**
      * Constructor para RECONSTRUIR una cancion (ej. desde JSON).
@@ -20,10 +20,9 @@ public class Cancion extends Audio {
      */
     public Cancion(String id, String titulo, int duracionSegundos,
                    String artista, String album, String genero , Clasificacion  categoria ) {
-        super(id, titulo, duracionSegundos , categoria );
+        super(id, titulo, duracionSegundos , categoria  ,genero);
         this.artista = artista;
         this.album = album;
-        this.genero = genero;
     }
 
     /**
@@ -32,10 +31,9 @@ public class Cancion extends Audio {
      */
     public Cancion(String titulo, int duracionSegundos,
                    String artista, String album, String genero , Clasificacion categoria  ) {
-        super(titulo, duracionSegundos, categoria);
+        super(titulo, duracionSegundos, categoria, genero);
         this.artista = artista;
         this.album = album;
-        this.genero = genero;
     }
 
     public String getArtista() {

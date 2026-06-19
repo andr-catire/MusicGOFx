@@ -51,7 +51,7 @@ public class GestorUsuarios {
         return usuario;
     }
 
-    public void registrar(String alias, String correo, int edad)
+    public Usuario registrar(String alias, String correo, int edad)
             throws UsuarioYaExisteException, GmailInvalidoException, EdadValidaException {
 
         if (buscarPorIdOAlias(alias) != null) {
@@ -76,6 +76,8 @@ public class GestorUsuarios {
         Usuario nuevo = new Usuario(alias, correo, edad);
         usuarios.add(nuevo);
         guardarCambios();
+        guardarAdmin();
+        return  nuevo;
     }
 
     public void modificar(String aliasActual, String nuevoAlias, String nuevoCorreo) throws UsuarioNoEncontradoException, UsuarioYaExisteException {
@@ -96,6 +98,7 @@ public class GestorUsuarios {
         }
 
         guardarCambios();
+
     }
 
     public void eliminar(String alias) throws UsuarioNoEncontradoException {
@@ -105,6 +108,7 @@ public class GestorUsuarios {
         }
         usuarios.remove(u);
         guardarCambios();
+
     }
 
     /**
@@ -128,6 +132,9 @@ public class GestorUsuarios {
 
     public void guardarCambios() {
         repositorio.guardarUsuarios(this.usuarios);
+    }
+    public void guardarAdmin() {
+        repositorio.guardarAdmin(this.usuarios);
     }
 
 }

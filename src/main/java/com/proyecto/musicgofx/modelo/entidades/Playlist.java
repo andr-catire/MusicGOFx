@@ -1,7 +1,7 @@
 package com.proyecto.musicgofx.modelo.entidades;
 
 import com.proyecto.musicgofx.interfaces.Identificable;
-import util.GeneradorId;
+import com.proyecto.musicgofx.util.GeneradorId;
 import java.util.ArrayList;
 import java.util.List;
 

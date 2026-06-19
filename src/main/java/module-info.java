@@ -1,3 +1,4 @@
+
 module com.proyecto.musicgofx {
     requires javafx.controls;
     requires javafx.fxml;
@@ -8,4 +9,7 @@ module com.proyecto.musicgofx {
 
     opens com.proyecto.musicgofx to javafx.fxml;
     exports com.proyecto.musicgofx;
+    
+    opens com.proyecto.musicgofx.controlador to javafx.fxml;
+    exports com.proyecto.musicgofx.controlador;
 }

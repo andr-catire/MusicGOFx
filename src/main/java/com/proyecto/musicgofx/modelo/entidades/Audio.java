@@ -2,7 +2,7 @@ package com.proyecto.musicgofx.modelo.entidades;
 
 import com.proyecto.musicgofx.interfaces.Identificable;
 import com.proyecto.musicgofx.interfaces.Reproducible;
-import util.GeneradorId;
+import com.proyecto.musicgofx.util.GeneradorId;
 
 /**
  * Clase abstracta que representa cualquier contenido de audio
@@ -18,6 +18,7 @@ public abstract class Audio implements Reproducible, Identificable {
     protected String id;
     protected String titulo;
     protected int duracionSegundos;
+    protected String genero;
     private Clasificacion  categoria;
     public  enum Clasificacion {
         PUBLICO , MAYOR
@@ -31,11 +32,12 @@ public abstract class Audio implements Reproducible, Identificable {
      * @param titulo titulo del audio
      * @param duracionSegundos duracion en segundos
      */
-    protected Audio(String id, String titulo, int duracionSegundos, Clasificacion categoria ) {
+    protected Audio(String id, String titulo, int duracionSegundos, Clasificacion categoria ,String genero ) {
         this.id = (id == null || id.isBlank()) ? GeneradorId.generarId("AUD") : id;
         this.titulo = titulo;
         setDuracionSegundos(duracionSegundos);
         this.categoria = (categoria != null) ? categoria : Clasificacion.PUBLICO;
+        this.genero= genero;
     }
 
     /**
@@ -45,8 +47,8 @@ public abstract class Audio implements Reproducible, Identificable {
      * @param titulo titulo del audio
      * @param duracionSegundos duracion en segundos
      */
-    protected Audio(String titulo, int duracionSegundos, Clasificacion  categoria) {
-        this(GeneradorId.generarId("AUD"), titulo, duracionSegundos , categoria  );
+    protected Audio(String titulo, int duracionSegundos, Clasificacion  categoria ,String genero) {
+        this(GeneradorId.generarId("AUD"), titulo, duracionSegundos , categoria , genero  );
     }
 
     @Override
@@ -71,6 +73,9 @@ public abstract class Audio implements Reproducible, Identificable {
     public void setCategoria(Clasificacion  categoria){this.categoria  = categoria;}
 
     public Clasificacion  getCategoria(){return categoria; }
+    public String getGenero(){return genero; }
+    public void setGnero(String genero){this.genero = genero;}
+
 
     /**
      * Actualiza la duracion validando que sea un valor positivo.

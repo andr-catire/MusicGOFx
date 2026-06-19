@@ -27,6 +27,9 @@ public class JsonParser {
     /**
      * Convierte una cadena JSON en una lista de objetos Audio (Cancion o EpisodioPodcast).
      */
+    /**
+     * Convierte una cadena JSON en una lista de objetos Audio (Cancion o EpisodioPodcast).
+     */
     public List<Audio> parsearAudios(String jsonArray) {
         List<Audio> lista = new ArrayList<>();
         List<String> objetos = separarObjetosDeArreglo(jsonArray);
@@ -38,34 +41,40 @@ public class JsonParser {
             if (categoriastr.equalsIgnoreCase("MAYOR")) {
                 categoria = Audio.Clasificacion.MAYOR;
             }
-            if (tipo.equalsIgnoreCase("cancion")) {
-                lista.add(new Cancion(
-                        extraerString(obj, "id"),
-                        extraerString(obj, "titulo"),
-                        extraerInt(obj, "duracion"),
-                        extraerString(obj, "artista"),
-                        extraerString(obj, "album"),
-                        extraerString(obj, "genero"),
-                        categoria
 
-                ));
-            } else if (tipo.equalsIgnoreCase("episodio")) {
-                lista.add(new EpisodioPodcast(
-                        extraerString(obj, "id"),
-                        extraerString(obj, "titulo"),
-                        extraerInt(obj, "duracion"),
-                        extraerString(obj, "anfitrion"),
-                        extraerString(obj, "nombrePodcast"),
-                        extraerString(obj, "descripcion"),
-                        extraerInt(obj, "numeroEpisodio"),
-                        categoria
-                ));
+
+            int duracionSegundos = extraerInt(obj, "duracionSegundos");
+
+            if (tipo.equalsIgnoreCase("cancion") || tipo.equalsIgnoreCase("episodio")) { // Ajuste genérico por seguridad
+                if (tipo.equalsIgnoreCase("cancion")) {
+                    lista.add(new Cancion(
+                            extraerString(obj, "id"),
+                            extraerString(obj, "titulo"),
+                            duracionSegundos,
+                            extraerString(obj, "artista"),
+                            extraerString(obj, "album"),
+                            extraerString(obj, "genero"),
+                            categoria
+                    ));
+                } else if (tipo.equalsIgnoreCase("episodio")) {
+                    lista.add(new EpisodioPodcast(
+                            extraerString(obj, "id"),
+                            extraerString(obj, "titulo"),
+                            duracionSegundos,
+                            extraerString(obj, "anfitrion"),
+                            extraerString(obj, "nombrePodcast"),
+                            extraerString(obj, "descripcion"),
+                            extraerInt(obj, "numeroEpisodio"),
+                            categoria,
+                            extraerString(obj, "genero")
+                    ));
+                }
             }
         }
         return lista;
     }
-
-    /**
+    /*
+    **
      * Convierte una cadena JSON en una lista de objetos Producto (ArteVisualAlbum o PaqueteTopTen).
      */
     public List<Producto> parsearProductos(String jsonArray) {

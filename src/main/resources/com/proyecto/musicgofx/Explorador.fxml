@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0"
+            stylesheets="@styles.css"
+            styleClass="fondo-explorador"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.proyecto.musicgofx.controlador.ExploradorController">
+    <children>
+        <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                            <children>
+                                <ToggleButton fx:id="btnFiltrarTodo" selected="true" mnemonicParsing="false" styleClass="boton-filtro" text="Todos">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="grupoFiltros" />
+                                    </toggleGroup>
+                                </ToggleButton>
+                                <ToggleButton fx:id="btnFiltrarCanciones" toggleGroup="$grupoFiltros" mnemonicParsing="false" styleClass="boton-filtro" text="Canciones" />
+                                <ToggleButton fx:id="btnFiltrarPodcast" toggleGroup="$grupoFiltros" mnemonicParsing="false" styleClass="boton-filtro" text="Podcasts" />
+
+                                <HBox HBox.hgrow="ALWAYS" />
+
+                                <ComboBox fx:id="menuGeneros" prefWidth="180.0" promptText="Todos los Géneros" styleClass="menu-desplegable" />
+                            </children>
+                        </HBox>
+
+                        <FlowPane fx:id="flowPaneAudios" hgap="15.0" vgap="15.0" prefHeight="400.0" prefWidth="600.0" styleClass="panel-resultados" />
+
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

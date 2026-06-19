@@ -1,18 +1,40 @@
 package com.proyecto.musicgofx.controlador;
+
+import com.proyecto.musicgofx.modelo.entidades.Usuario;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.control.TextField;
+import javafx.scene.Node;
 
 import java.io.IOException;
+
+/**
+ * Controlador principal de la aplicación (MainLayout).
+ * Gestiona la navegación del menú lateral, la barra superior con la billetera,
+ * el reproductor de audio, la inyección de vistas en el contenedor central
+ * y el control de acceso basado en los roles de usuario.
+ */
 public class MainController {
+
     @FXML private Button btnInicio;
     @FXML private Button btnExplorar;
     @FXML private Button btnBiblioteca;
     @FXML private Button btnTienda;
     @FXML private Button btnAjustes;
+    @FXML private TextField txtBuscadorTop;
+    @FXML private Button btnPerfilUsuario;
+    @FXML private Button btnAgregarAudio;
+    @FXML private Button btnAgregarProducto;
+    @FXML private Button btnListarUsuario;
+    @FXML private Button btnModificarUsuario;
+    @FXML private Button btnCambiarRol;
+
+    @FXML private Button btnBilletera;
+
     @FXML private AnchorPane contenedorCentral;
     @FXML private Label lblTituloAudio;
     @FXML private Label lblArtistaAudio;
@@ -20,35 +42,148 @@ public class MainController {
     @FXML private Button btnPlay;
     @FXML private Button btnSiguiente;
 
-    private void cargarVista( String nombreFxml){
-        try{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + nombreFxml));
-        AnchorPane nuevaVista = loader.load();
-        contenedorCentral.getChildren().clear();
-        contenedorCentral.getChildren().add(nuevaVista);
-        AnchorPane.setTopAnchor(nuevaVista, 0.0);
-        AnchorPane.setBottomAnchor(nuevaVista, 0.0);
-        AnchorPane.setLeftAnchor(nuevaVista, 0.0);
-        AnchorPane.setRightAnchor(nuevaVista, 0.0);
+    private Usuario usuarioLogueado;
+
+    /**
+     * Carga un archivo FXML y lo incrusta dinámicamente en el contenedor central.
+     * * @param nombreFxml El nombre del archivo FXML a cargar.
+     */
+    /**
+     * Carga un archivo FXML y lo incrusta dinámicamente en el contenedor central.
+     * @param nombreFxml El nombre del archivo FXML a cargar.
+     * @return El controlador asociado a la vista cargada, o null si ocurre un error.
+     */
+    private Object cargarVista(String nombreFxml) { // <-- Cambiado de void a Object
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/" + nombreFxml));
+
+            javafx.scene.Node nuevaVista = loader.load();
+            Object controlador = loader.getController();
+
+            if (controlador instanceof InicioController) {
+                InicioController inicioCtrl = (InicioController) controlador;
+                inicioCtrl.setUsuarioLogueado(this.usuarioLogueado);
+            }
+
+            contenedorCentral.getChildren().clear();
+            contenedorCentral.getChildren().add(nuevaVista);
+
+            AnchorPane.setTopAnchor(nuevaVista, 0.0);
+            AnchorPane.setBottomAnchor(nuevaVista, 0.0);
+            AnchorPane.setLeftAnchor(nuevaVista, 0.0);
+            AnchorPane.setRightAnchor(nuevaVista, 0.0);
+
+            return controlador;
+
         } catch (IOException e) {
-        System.err.println("No se pudo cargar la vista: " + nombreFxml);
+            System.err.println("No se pudo cargar la vista: " + nombreFxml);
             e.printStackTrace();
         } catch (NullPointerException e) {
-        System.err.println("No se encontró el archivo FXML. Revisa la ruta: " + nombreFxml);
+            System.err.println("No se encontró el archivo FXML. Revisa la ruta: /com/proyecto/musicgofx/" + nombreFxml);
         }
+        return null;
     }
+
+    /**
+     * Inicializa los eventos de navegación de todos los botones de la interfaz
+     * al cargar la vista principal.
+     */
     @FXML
-    public void initialize(){
+    public void initialize() {
+        // ════════════════════════════════════════════════════
+        // 1. NAVEGACIÓN PRINCIPAL (SIDEBAR)
+        // ════════════════════════════════════════════════════
         btnInicio.setOnAction(event -> cargarVista("Inicio.fxml"));
         btnExplorar.setOnAction(event -> cargarVista("Explorar.fxml"));
         btnBiblioteca.setOnAction(event -> cargarVista("Biblioteca.fxml"));
         btnTienda.setOnAction(event -> cargarVista("Tienda.fxml"));
         btnAjustes.setOnAction(event -> cargarVista("Ajustes.fxml"));
+
+        // ════════════════════════════════════════════════════
+        // 2. NAVEGACIÓN DE ADMINISTRADOR
+        // ════════════════════════════════════════════════════
+        if (btnAgregarAudio != null) btnAgregarAudio.setOnAction(event -> cargarVista("AgregarAudio.fxml"));
+        if (btnAgregarProducto != null) btnAgregarProducto.setOnAction(event -> cargarVista("AgregarProducto.fxml"));
+        if (btnListarUsuario != null) btnListarUsuario.setOnAction(event -> cargarVista("ListarUsuario.fxml"));
+        if (btnModificarUsuario != null) btnModificarUsuario.setOnAction(event -> cargarVista("ModificarUsuario.fxml"));
+        if (btnCambiarRol != null) btnCambiarRol.setOnAction(event -> cargarVista("CambiarRol.fxml"));
+
+        // ════════════════════════════════════════════════════
+        // 3. BARRA SUPERIOR (BUSCADOR, PERFIL Y BILLETERA)
+        // ════════════════════════════════════════════════════
+        if (btnBilletera != null) btnBilletera.setOnAction(event -> cargarVista("Billetera.fxml"));
+        if (btnPerfilUsuario != null) btnPerfilUsuario.setOnAction(event -> cargarVista("Ajustes.fxml"));
+
+
+        if (txtBuscadorTop != null) {
+            txtBuscadorTop.setOnMouseClicked(event -> cargarVista("Explorar.fxml"));
+            txtBuscadorTop.setOnAction(event -> {
+                String busqueda = txtBuscadorTop.getText();
+                System.out.println("Buscando en catálogo: " + busqueda);
+                Object controlador = cargarVista("Explorar.fxml");
+                if (controlador instanceof ExploradorController) {
+                    ExploradorController exploradorCtrl = (ExploradorController) controlador;
+                    exploradorCtrl.recibirBusqueda(busqueda);
+                }
+            });
+        }
+
+        // ════════════════════════════════════════════════════
+        // 4. REPRODUCTOR INFERIOR
+        // ════════════════════════════════════════════════════
         btnPlay.setOnAction(event -> System.out.println("Botón Play presionado"));
         btnSiguiente.setOnAction(event -> System.out.println("Siguiente canción..."));
         btnAnterior.setOnAction(event -> System.out.println("Canción anterior..."));
+
         lblTituloAudio.setText("Ninguna canción reproduciéndose");
         lblArtistaAudio.setText("-");
+        cargarVista("Inicio.fxml");
     }
 
+    /**
+     * Configura la visibilidad de los botones de administración en la barra lateral
+     * basándose en el rol del usuario autenticado.
+     * * @param usuario El objeto Usuario que acaba de iniciar sesión.
+     */
+    public void configurarInterfazSegunRol(Usuario usuario) {
+        this.usuarioLogueado = usuario;
+
+        boolean esAdministrador = false;
+        if (usuario != null && usuario.getRolUsuario() != null) {
+            esAdministrador = usuario.getRolUsuario() == Usuario.RolUsuario.ADMINISTRADOR;
+        }
+
+        Button[] botonesAdmin = {
+                btnAgregarAudio,
+                btnAgregarProducto,
+                btnListarUsuario,
+                btnModificarUsuario,
+                btnCambiarRol
+        };
+
+        for (Button btn : botonesAdmin) {
+            if (btn != null) {
+                btn.setVisible(esAdministrador);
+                btn.setManaged(esAdministrador);
+            }
+        }
+    }
+    public void cambiarVistaAlIniciarSesion(Usuario usuario) {
+        this.usuarioLogueado = usuario;
+
+        configurarInterfazSegunRol(usuario);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/Inicio.fxml"));
+            Node nodoInicio = loader.load();
+
+            InicioController inicioCtrl = loader.getController();
+            inicioCtrl.setUsuarioLogueado(usuario);
+
+            contenedorCentral.getChildren().setAll(nodoInicio);
+
+        } catch (IOException e) {
+            System.err.println("Error al cargar Inicio.fxml despues del login");
+            e.printStackTrace();
+        }
+    }
 }
