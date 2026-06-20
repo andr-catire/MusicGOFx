@@ -8,13 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
-import com.proyecto.musicgofx.modelo.servicios.GestorCatalogo;
 import com.proyecto.musicgofx.modelo.servicios.GestorReproduccion;
-import com.proyecto.musicgofx.modelo.servicios.GestorUsuarios;
-import com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
 import com.proyecto.musicgofx.modelo.entidades.Usuario;
 import com.proyecto.musicgofx.modelo.entidades.Audio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InicioController {
@@ -22,30 +20,37 @@ public class InicioController {
     @FXML
     private FlowPane flowPaneAudios;
 
-    private RepositorioDatos repositorio = new RepositorioDatos();
-    private GestorCatalogo catalogo = new GestorCatalogo();
-    private GestorUsuarios usuarios = new GestorUsuarios(repositorio);
-    private GestorReproduccion reproduccion = new GestorReproduccion(usuarios, catalogo);
-
-
+    private GestorReproduccion gestorReproduccion;
     private Usuario usuarioLogueado;
 
     /**
-     * Este método lo llamaremos desde el MainController o LoginController
-     * para decirle a esta pantalla quién acaba de iniciar sesión.
+     * Recibe el usuario desde el MainController
      */
     public void setUsuarioLogueado(Usuario usuario) {
-
         this.usuarioLogueado = usuario;
-        cargarTarjetasDeAudio()
-;    }
+        if (this.gestorReproduccion != null) {
+            cargarTarjetasDeAudio();
+        }
+    }
+
+    /**
+     * Recibe el Gestor de Reproducción desde el MainController
+     */
+    public void setGestorReproduccion(GestorReproduccion gestor) {
+        this.gestorReproduccion = gestor;
+        if (this.usuarioLogueado != null) {
+            cargarTarjetasDeAudio();
+        }
+    }
+
     private void cargarTarjetasDeAudio() {
-        catalogo.cargarDesdeJson();
-        List<Audio> listaAudios = catalogo.getTodosLosAudios();
+
+        List<Audio> listaAudios = gestorReproduccion.getTodosLosAudios();
 
         flowPaneAudios.getChildren().clear();
 
         for (Audio audio : listaAudios) {
+
             if (usuarioLogueado.isControlParental() && audio.getCategoria().name().equals("MAYOR")) {
                 continue;
             }
@@ -60,14 +65,15 @@ public class InicioController {
             Label lblPortada = new Label();
             lblPortada.setText(audio.getTitulo());
 
-            Button btnReproducir = new Button("Reproducir");
+            Button btnReproducir = new Button("▶ Reproducir");
             btnReproducir.getStyleClass().add("button");
 
             btnReproducir.setOnAction(event -> {
-                if (usuarioLogueado != null) {
-                    reproduccion.reproducirAudio(usuarioLogueado.getNombre(), audio.getTitulo());
+                if (usuarioLogueado != null && gestorReproduccion != null) {
+                    int posicion = listaAudios.indexOf(audio);
+                    gestorReproduccion.iniciarColaDeReproduccion(listaAudios, posicion, usuarioLogueado);
                 } else {
-                    System.out.println("Error: Nadie ha iniciado sesión.");
+                    System.out.println("Error: Faltan datos para reproducir.");
                 }
             });
 
@@ -76,10 +82,7 @@ public class InicioController {
         }
     }
 
-
-
     @FXML
     public void initialize() {
-
     }
 }

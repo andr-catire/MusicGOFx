@@ -2,8 +2,11 @@ package com.proyecto.musicgofx.controlador;
 
 import com.proyecto.musicgofx.modelo.entidades.Audio;
 import com.proyecto.musicgofx.modelo.entidades.Cancion;
+import com.proyecto.musicgofx.modelo.entidades.EpisodioPodcast; // IMPORTANTE AÑADIR ESTO
 import com.proyecto.musicgofx.modelo.servicios.GestorCatalogo;
 import com.proyecto.musicgofx.modelo.servicios.GestorExplorador;
+import com.proyecto.musicgofx.modelo.servicios.GestorReproduccion;
+import com.proyecto.musicgofx.modelo.entidades.Usuario;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -15,6 +18,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExploradorController {
@@ -37,6 +41,10 @@ public class ExploradorController {
     private List<Audio> catalogoCompleto;
     private String textoBusquedaActual = "";
 
+    // Variables para el reproductor
+    private GestorReproduccion gestorReproduccion;
+    private Usuario usuarioActual;
+
     // ════════════════════════════════════════════════════
     // 3. INICIALIZACIÓN
     // ════════════════════════════════════════════════════
@@ -44,7 +52,6 @@ public class ExploradorController {
     public void initialize() {
         gestorCatalogo = new GestorCatalogo();
         gestorExplorador = new GestorExplorador();
-
 
         gestorCatalogo.cargarDesdeJson();
         catalogoCompleto = gestorCatalogo.getTodosLosAudios();
@@ -54,9 +61,7 @@ public class ExploradorController {
 
         menuGeneros.setOnAction(event -> aplicarFiltros());
 
-
         grupoFiltros.selectedToggleProperty().addListener((observable, valorViejo, valorNuevo) -> {
-
             if (valorNuevo == null) {
                 valorViejo.setSelected(true);
             } else {
@@ -72,17 +77,11 @@ public class ExploradorController {
     // 4. MÉTODOS DE COMUNICACIÓN Y LÓGICA VISUAL
     // ════════════════════════════════════════════════════
 
-    /**
-     * Recibe el texto de búsqueda desde el MainController y aplica los filtros.
-     */
     public void recibirBusqueda(String textoBusqueda) {
         this.textoBusquedaActual = textoBusqueda;
         aplicarFiltros();
     }
 
-    /**
-     * Recoge los parámetros visuales, consulta al modelo y manda a repintar la vista.
-     */
     @FXML
     private void aplicarFiltros() {
         String tipoSeleccionado = "Todos";
@@ -103,9 +102,6 @@ public class ExploradorController {
         actualizarPanelResultados(resultados);
     }
 
-    /**
-     * Dibuja dinámicamente las tarjetas (cards) usando las clases de tu CSS.
-     */
     private void actualizarPanelResultados(List<Audio> audiosParaMostrar) {
         flowPaneAudios.getChildren().clear();
 
@@ -118,28 +114,41 @@ public class ExploradorController {
             tarjeta.setSpacing(10);
             tarjeta.setStyle("-fx-padding: 15px;");
 
-            // 2. Título (Negrita y morado claro)
             Label lblTitulo = new Label(audio.getTitulo());
             lblTitulo.setStyle("-fx-text-fill: #DDB7FF; -fx-font-weight: bold; -fx-font-size: 14px;");
 
+            String autorText = "Desconocido";
+            if (audio instanceof Cancion) {
+                autorText = ((Cancion) audio).getArtista();
+            } else if (audio instanceof EpisodioPodcast) {
+                autorText = ((EpisodioPodcast) audio).getAnfitrion();
+            }
 
-            String autorText = (audio instanceof Cancion) ? ((Cancion) audio).getArtista() : "Podcast";
             Label lblAutor = new Label(autorText);
             lblAutor.setStyle("-fx-text-fill: #b3b3b3; -fx-font-size: 12px;");
-
-
             Button btnPlay = new Button("▶ Reproducir");
-            btnPlay.getStyleClass().add("button"); // Tu estilo de botón estándar en el CSS
+            btnPlay.getStyleClass().add("button");
 
-            // Evento al presionar el botón Play en la tarjeta
             btnPlay.setOnAction(e -> {
-                System.out.println("Reproduciendo: " + audio.getTitulo());
-                // Aquí conectarás con el reproductor más adelante
+                if (gestorReproduccion != null) {
+                    int posicion = audiosParaMostrar.indexOf(audio);
+                    gestorReproduccion.iniciarColaDeReproduccion(audiosParaMostrar, posicion, usuarioActual);
+                    System.out.println("Enviando al reproductor: " + audio.getTitulo());
+                } else {
+                    System.err.println("Error: El gestor de reproducción es nulo.");
+                }
             });
 
-            // Ensamblamos la tarjeta y la añadimos al FlowPane
             tarjeta.getChildren().addAll(lblTitulo, lblAutor, btnPlay);
             flowPaneAudios.getChildren().add(tarjeta);
         }
+    }
+
+    public void setGestorReproduccion(GestorReproduccion gestor) {
+        this.gestorReproduccion = gestor;
+    }
+
+    public void setUsuarioActual(Usuario usuario) {
+        this.usuarioActual = usuario;
     }
 }

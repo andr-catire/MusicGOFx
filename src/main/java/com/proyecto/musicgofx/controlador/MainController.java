@@ -1,6 +1,13 @@
 package com.proyecto.musicgofx.controlador;
 
 import com.proyecto.musicgofx.modelo.entidades.Usuario;
+import com.proyecto.musicgofx.modelo.entidades.Audio;
+import com.proyecto.musicgofx.modelo.entidades.Cancion;
+import com.proyecto.musicgofx.modelo.entidades.EpisodioPodcast;
+import com.proyecto.musicgofx.modelo.servicios.GestorReproduccion;
+import com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
+import com.proyecto.musicgofx.modelo.servicios.GestorCatalogo;
+import com.proyecto.musicgofx.modelo.servicios.GestorUsuarios;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,17 +50,15 @@ public class MainController {
     @FXML private Button btnSiguiente;
 
     private Usuario usuarioLogueado;
+    private GestorReproduccion gestorReproduccion;
+    private RepositorioDatos repositorio = new RepositorioDatos();
 
-    /**
-     * Carga un archivo FXML y lo incrusta dinámicamente en el contenedor central.
-     * * @param nombreFxml El nombre del archivo FXML a cargar.
-     */
     /**
      * Carga un archivo FXML y lo incrusta dinámicamente en el contenedor central.
      * @param nombreFxml El nombre del archivo FXML a cargar.
      * @return El controlador asociado a la vista cargada, o null si ocurre un error.
      */
-    private Object cargarVista(String nombreFxml) { // <-- Cambiado de void a Object
+    private Object cargarVista(String nombreFxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/" + nombreFxml));
 
@@ -63,6 +68,11 @@ public class MainController {
             if (controlador instanceof InicioController) {
                 InicioController inicioCtrl = (InicioController) controlador;
                 inicioCtrl.setUsuarioLogueado(this.usuarioLogueado);
+                inicioCtrl.setGestorReproduccion(this.gestorReproduccion);
+            } else if (controlador instanceof ExploradorController) {
+                ExploradorController exploradorCtrl = (ExploradorController) controlador;
+                exploradorCtrl.setGestorReproduccion(this.gestorReproduccion);
+                exploradorCtrl.setUsuarioActual(this.usuarioLogueado);
             }
 
             contenedorCentral.getChildren().clear();
@@ -90,11 +100,16 @@ public class MainController {
      */
     @FXML
     public void initialize() {
+
+        GestorCatalogo catalogoGlobal = new GestorCatalogo();
+        catalogoGlobal.cargarDesdeJson();
+        this.gestorReproduccion = new GestorReproduccion(new GestorUsuarios(repositorio), catalogoGlobal);
         // ════════════════════════════════════════════════════
         // 1. NAVEGACIÓN PRINCIPAL (SIDEBAR)
         // ════════════════════════════════════════════════════
         btnInicio.setOnAction(event -> cargarVista("Inicio.fxml"));
-        btnExplorar.setOnAction(event -> cargarVista("Explorar.fxml"));
+
+        btnExplorar.setOnAction(event -> cargarVista("Explorador.fxml"));
         btnBiblioteca.setOnAction(event -> cargarVista("Biblioteca.fxml"));
         btnTienda.setOnAction(event -> cargarVista("Tienda.fxml"));
         btnAjustes.setOnAction(event -> cargarVista("Ajustes.fxml"));
@@ -114,13 +129,14 @@ public class MainController {
         if (btnBilletera != null) btnBilletera.setOnAction(event -> cargarVista("Billetera.fxml"));
         if (btnPerfilUsuario != null) btnPerfilUsuario.setOnAction(event -> cargarVista("Ajustes.fxml"));
 
-
         if (txtBuscadorTop != null) {
-            txtBuscadorTop.setOnMouseClicked(event -> cargarVista("Explorar.fxml"));
+
+            txtBuscadorTop.setOnMouseClicked(event -> cargarVista("Explorador.fxml"));
             txtBuscadorTop.setOnAction(event -> {
                 String busqueda = txtBuscadorTop.getText();
                 System.out.println("Buscando en catálogo: " + busqueda);
-                Object controlador = cargarVista("Explorar.fxml");
+
+                Object controlador = cargarVista("Explorador.fxml");
                 if (controlador instanceof ExploradorController) {
                     ExploradorController exploradorCtrl = (ExploradorController) controlador;
                     exploradorCtrl.recibirBusqueda(busqueda);
@@ -131,19 +147,42 @@ public class MainController {
         // ════════════════════════════════════════════════════
         // 4. REPRODUCTOR INFERIOR
         // ════════════════════════════════════════════════════
-        btnPlay.setOnAction(event -> System.out.println("Botón Play presionado"));
-        btnSiguiente.setOnAction(event -> System.out.println("Siguiente canción..."));
-        btnAnterior.setOnAction(event -> System.out.println("Canción anterior..."));
 
-        lblTituloAudio.setText("Ninguna canción reproduciéndose");
+        gestorReproduccion.audioActualProperty().addListener((observable, cancionVieja, cancionNueva) -> {
+            if (cancionNueva != null) {
+                lblTituloAudio.setText(cancionNueva.getTitulo());
+                if (cancionNueva instanceof Cancion) {
+                    lblArtistaAudio.setText(((Cancion) cancionNueva).getArtista());
+                } else if (cancionNueva instanceof EpisodioPodcast) {
+                    lblArtistaAudio.setText(((EpisodioPodcast) cancionNueva).getAnfitrion() + " (Podcast)");
+                } else {
+                    lblArtistaAudio.setText("Desconocido");
+                }
+            }
+        });
+
+        btnSiguiente.setOnAction(event -> {
+            gestorReproduccion.siguiente(usuarioLogueado);
+        });
+
+        btnAnterior.setOnAction(event -> {
+            gestorReproduccion.anterior(usuarioLogueado);
+        });
+
+        btnPlay.setOnAction(event -> {
+            System.out.println("Botón Play/Pausa presionado");
+        });
+
+        lblTituloAudio.setText("Reproduce Ahora!!");
         lblArtistaAudio.setText("-");
+
         cargarVista("Inicio.fxml");
     }
 
     /**
      * Configura la visibilidad de los botones de administración en la barra lateral
      * basándose en el rol del usuario autenticado.
-     * * @param usuario El objeto Usuario que acaba de iniciar sesión.
+     * @param usuario El objeto Usuario que acaba de iniciar sesión.
      */
     public void configurarInterfazSegunRol(Usuario usuario) {
         this.usuarioLogueado = usuario;
@@ -168,17 +207,18 @@ public class MainController {
             }
         }
     }
+
     public void cambiarVistaAlIniciarSesion(Usuario usuario) {
         this.usuarioLogueado = usuario;
-
         configurarInterfazSegunRol(usuario);
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/Inicio.fxml"));
             Node nodoInicio = loader.load();
 
             InicioController inicioCtrl = loader.getController();
             inicioCtrl.setUsuarioLogueado(usuario);
-
+            inicioCtrl.setGestorReproduccion(this.gestorReproduccion);
             contenedorCentral.getChildren().setAll(nodoInicio);
 
         } catch (IOException e) {

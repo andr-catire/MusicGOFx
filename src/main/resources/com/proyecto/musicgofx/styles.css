@@ -1095,37 +1095,32 @@
     -fx-background: #131315;
 }
 
-/* Estilo general para los botones inactivos (Todos, Canciones, Podcast) */
+/* --- Botones de Filtro (ToggleButtons del Explorador) --- */
 .boton-filtro {
-    -fx-background-color: #1e1e24; /* Tono de superficie inactivo */
-    -fx-text-fill: #b3b3b3;        /* Texto apagado */
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 8px 16px;
-    -fx-background-radius: 20px;
-    -fx-border-color: #2a2a35;     /* Borde sutil */
+    -fx-background-color: #1e1e24;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: #2a2a35;
     -fx-border-radius: 20px;
-    -fx-border-width: 1.5px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
 }
 
-/* Efecto cuando pasas el mouse por encima del botón */
 .boton-filtro:hover {
-    -fx-background-color: #2a2569; /* Tono intermedio (Hover del secundario) */
-    -fx-text-fill: #DDB7FF;        /* Texto iluminado con el Primario */
-    -fx-border-color: rgba(221,183,255,0.3);
+    -fx-background-color: #2a2a35;
 }
 
-/* Efecto cuando el botón ESTÁ SELECCIONADO (La magia de tu paleta) */
 .boton-filtro:selected {
-    -fx-background-color: #DDB7FF; /* Primario en el fondo */
-    -fx-text-fill: #1E1B4B;        /* Secundario en el texto para dar contraste */
+    -fx-background-color: #DDB7FF; /* Morado claro */
+    -fx-text-fill: #131315; /* Letra oscura para que resalte */
     -fx-border-color: #DDB7FF;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 8, 0, 0, 0);
 }
 
-/* Estilo para el menú desplegable de Géneros (Sincronizado con tus ComboBox) */
+/* ═══════════════════════════════════════════════════════ */
+/* ESTILO PARA EL MENÚ DESPLEGABLE (COMBOBOX DE GÉNEROS)  */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Botón principal del ComboBox */
 .menu-desplegable {
     -fx-background-color: #1e1e24;
     -fx-background-radius: 10px;
@@ -1146,41 +1141,42 @@
     -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 8, 0, 0, 0);
 }
 
-/* Texto dentro del ComboBox */
+/* Texto visible en el botón del ComboBox */
 .menu-desplegable .list-cell {
     -fx-text-fill: #e0e0e0;
 }
 
-/* Estilo base para el contenedor de resultados */
-.panel-resultados {
-    -fx-background-color: transparent;
-    -fx-padding: 10px;
-}
-
-/* Efecto cuando pasas el mouse por encima del botón */
-.boton-filtro:hover {
-    -fx-background-color: #3e3e3e;
-}
-
-/* Efecto cuando el botón ESTÁ SELECCIONADO */
-.boton-filtro:selected {
-    -fx-background-color: #1db954; /* Verde llamativo */
-    -fx-text-fill: black;
-}
-
-/* Estilo para el menú desplegable de Géneros */
-.menu-desplegable {
-    -fx-background-color: #282828;
+/* NUEVO: Lista desplegable flotante (Popup) - Esto quita el fondo blanco y las líneas */
+.combo-box-popup .list-view {
+    -fx-background-color: #131315; /* Fondo negro neutro de la app */
+    -fx-border-color: #2a2a35;     /* Borde oscuro a juego */
+    -fx-border-width: 1px;
     -fx-background-radius: 5px;
-    -fx-cursor: hand;
+    -fx-border-radius: 5px;
 }
 
-/* Texto dentro del ComboBox */
-.menu-desplegable .list-cell {
-    -fx-text-fill: white;
+/* Las celdas individuales de las opciones dentro del menú */
+.combo-box-popup .list-cell {
+    -fx-background-color: #131315;
+    -fx-text-fill: #e0e0e0;         /* Texto claro */
+    -fx-padding: 8px 10px;
 }
 
-/* Estilo base para el contenedor de resultados */
+/* Cuando pasas el mouse por encima de una opción del desplegable */
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #1E1B4B; /* Fondo morado oscuro secundario */
+    -fx-text-fill: #DDB7FF;         /* Texto morado claro */
+}
+
+/* Cuando una opción está seleccionada dentro de la lista flotante */
+.combo-box-popup .list-cell:filled:selected,
+.combo-box-popup .list-cell:filled:selected:hover {
+    -fx-background-color: #DDB7FF; /* Fondo morado claro */
+    -fx-text-fill: #131315;        /* Texto oscuro */
+}
+
+
+
 .panel-resultados {
     -fx-background-color: transparent;
     -fx-padding: 10px;

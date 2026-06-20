@@ -6,10 +6,15 @@ import com.proyecto.musicgofx.modelo.entidades.Usuario;
 import com.proyecto.musicgofx.modelo.entidades.Mensaje;
 import com.proyecto.musicgofx.excepciones.ContenidoNoEncontradoException;
 import com.proyecto.musicgofx.excepciones.ContenidoRestringidoException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Coordina la reproduccion de contenidos y la actualizacion
- * automatica de las estadisticas de escucha del usuario.
+ * Coordina la reproduccion de contenidos, mantiene el estado de la cola
+ * de reproduccion y actualiza las estadisticas del usuario.
  *
  * @author Equipo MusicGO
  */
@@ -18,96 +23,102 @@ public class GestorReproduccion {
     private final GestorUsuarios gestorUsuarios;
     private final GestorCatalogo gestorCatalogo;
 
+    // --- NUEVAS VARIABLES DE ESTADO PARA LA BARRA DE REPRODUCCIÓN ---
+    private final ObjectProperty<Audio> audioActual = new SimpleObjectProperty<>();
+    private List<Audio> colaReproduccion;
+    private int indiceActual;
+
     /**
      * Inicializa el gestor de reproduccion con los servicios de usuarios y catalogo.
-     *
-     * @param gestorUsuarios Servicio de gestion de usuarios.
-     * @param gestorCatalogo Servicio de gestion del catalogo global.
      */
     public GestorReproduccion(GestorUsuarios gestorUsuarios, GestorCatalogo gestorCatalogo) {
         this.gestorUsuarios = gestorUsuarios;
         this.gestorCatalogo = gestorCatalogo;
+        this.colaReproduccion = new ArrayList<>();
+        this.indiceActual = -1;
     }
 
+    // ════════════════════════════════════════════════════
+    //   CONTROLES DE LA BARRA DE REPRODUCCIÓN
+    // ════════════════════════════════════════════════════
+
     /**
-     * Reproduce un audio individual del catalogo y actualiza las estadisticas del usuario.
-     *
-     * @param idUsuarioOAlias Identificador o alias del usuario.
-     * @param idAudioOTitulo Identificador o titulo del audio a reproducir.
+     * Carga una lista de canciones (cola) y reproduce desde un índice específico.
+     * Ideal para cuando el usuario hace clic en una canción del Explorador.
      */
-    public void reproducirAudio(String idUsuarioOAlias, String idAudioOTitulo) {
-        Usuario usuario = gestorUsuarios.buscarPorIdOAlias(idUsuarioOAlias);
-        if (usuario == null) {
-            System.err.println("Error: No se encontro el usuario para iniciar reproduccion.");
+    public void iniciarColaDeReproduccion(List<Audio> nuevaCola, int indiceInicial, Usuario usuario) {
+        if (nuevaCola == null || nuevaCola.isEmpty() || indiceInicial < 0 || indiceInicial >= nuevaCola.size()) {
             return;
         }
-
-        Audio audioEncontrado = null;
-        for (Audio a : gestorCatalogo.getTodosLosAudios()) {
-            if (a.getId().equalsIgnoreCase(idAudioOTitulo) || a.getTitulo().equalsIgnoreCase(idAudioOTitulo)) {
-                audioEncontrado = a;
-                break;
-            }
-        }
-
-        if (audioEncontrado == null) {
-            System.err.println("Error: El contenido '" + idAudioOTitulo + "' no existe en el catalogo.");
-            return;
-        }
-
-        audioEncontrado.reproducir();
-        usuario.getEstadisticas().sumarTiempoEscucha(audioEncontrado.getDuracionSegundos());
-        gestorUsuarios.guardarCambios();
-
-        System.out.println("[Sistema] Estadisticas de '" + usuario.getNombre() + "' actualizadas.");
+        this.colaReproduccion = nuevaCola;
+        this.indiceActual = indiceInicial;
+        ejecutarAudioActual(usuario);
     }
 
     /**
-     * Reproduce una playlist completa del usuario procesando cada audio individualmente.
-     *
-     * @param idUsuarioOAlias Identificador o alias del usuario.
-     * @param idPlaylist Identificador de la playlist a reproducir.
+     * Avanza a la siguiente canción en la cola.
+     */
+    public boolean siguiente(Usuario usuario) {
+        if (colaReproduccion != null && indiceActual < colaReproduccion.size() - 1) {
+            indiceActual++;
+            ejecutarAudioActual(usuario);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Retrocede a la canción anterior en la cola.
+     */
+    public boolean anterior(Usuario usuario) {
+        if (colaReproduccion != null && indiceActual > 0) {
+            indiceActual--;
+            ejecutarAudioActual(usuario);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Devuelve el audio que está sonando actualmente para que la interfaz gráfica (MainController)
+     * pueda obtener el Título, Artista, etc. y pintarlo en pantalla.
+     */
+    public ObjectProperty<Audio> audioActualProperty() {
+        return audioActual;
+    }
+
+
+    /**
+     * Método privado centralizado que hace la acción de reproducir y sumar estadísticas.
+     * Evita repetir código en Siguiente, Anterior e Iniciar.
+     */
+    private void ejecutarAudioActual(Usuario usuario) {
+        this.audioActual.set(colaReproduccion.get(indiceActual));
+        audioActual.get().reproducir();
+        if (usuario != null) {
+            usuario.getEstadisticas().sumarTiempoEscucha(audioActual.get().getDuracionSegundos());
+            gestorUsuarios.guardarCambios();
+            System.out.println("[Sistema] Estadisticas de '" + usuario.getNombre() + "' actualizadas.");
+        }
+    }
+
+    /**
+     * Reproduce una playlist completa, cargándola en la cola de reproducción.
      */
     public void reproducirPlaylist(String idUsuarioOAlias, String idPlaylist) {
         Usuario usuario = gestorUsuarios.buscarPorIdOAlias(idUsuarioOAlias);
-        if (usuario == null) {
-            System.err.println("Error: Usuario no encontrado.");
-            return;
-        }
+        if (usuario == null) return;
 
         Playlist playlist = usuario.getBiblioteca().buscarPorId(idPlaylist);
-        if (playlist == null) {
-            System.err.println("Error: La playlist no existe en tu biblioteca.");
-            return;
-        }
+        if (playlist == null || playlist.getContenido().isEmpty()) return;
 
-        if (playlist.getContenido().isEmpty()) {
-            System.out.println("La playlist '" + playlist.getNombre() + "' esta vacia.");
-            return;
-        }
-
-        System.out.println("\n>>> Iniciando Playlist: " + playlist.getNombre() + " <<<");
-
-        for (Audio a : playlist.getContenido()) {
-            a.reproducir();
-            usuario.getEstadisticas().sumarTiempoEscucha(a.getDuracionSegundos());
-        }
-
-        gestorUsuarios.guardarCambios();
-
-        System.out.println(">>> Fin de la reproduccion de la lista <<<\n");
+        iniciarColaDeReproduccion(playlist.getContenido(), 0, usuario);
     }
 
     /**
-     * Metodo principal utilizado por el menu interactivo.
-     * Busca el audio en el catalogo, lo reproduce, actualiza estadisticas y persiste los datos.
-     *
-     * @param usuario Instancia del usuario que solicita la reproduccion.
-     * @param idAudioOTitulo Criterio de busqueda del audio (ID o Titulo).
-     * @return Mensaje de exito con el titulo del audio reproducido.
-     * @throws ContenidoNoEncontradoException Si el audio no se encuentra en el catalogo general.
+     * Método clásico (Mantiene compatibilidad con tu código anterior).
      */
-    public Mensaje reproducir(Usuario usuario, String idAudioOTitulo) throws ContenidoNoEncontradoException {
+    public Mensaje reproducirAudio(Usuario usuario, String idAudioOTitulo) throws ContenidoNoEncontradoException, ContenidoRestringidoException {
         Audio audioEncontrado = null;
 
         for (Audio a : gestorCatalogo.getTodosLosAudios()) {
@@ -124,14 +135,16 @@ public class GestorReproduccion {
         if (audioEncontrado.getCategoria() == Audio.Clasificacion.MAYOR) {
             if (usuario.isControlParental() || usuario.getEdad() < 18) {
                 throw new ContenidoRestringidoException("Acceso denegado: El contenido '" + audioEncontrado.getTitulo() +
-                        "    ' es para mayores de edad y tu cuenta tiene restricciones (Edad: " + usuario.getEdad() + ").");
+                        "' es para mayores de edad y tu cuenta tiene restricciones (Edad: " + usuario.getEdad() + ").");
             }
         }
-        audioEncontrado.reproducir();
-        usuario.getEstadisticas().sumarTiempoEscucha(audioEncontrado.getDuracionSegundos());
 
-        gestorUsuarios.guardarCambios();
-        return new Mensaje("Sistema", usuario.getNombre(), Mensaje.Tipo.CONFIRMACION, "▶ Reproduciendo con exito: " + audioEncontrado.getTitulo());
+
+        List<Audio> listaSola = new ArrayList<>();
+        listaSola.add(audioEncontrado);
+        iniciarColaDeReproduccion(listaSola, 0, usuario);
+
+        return new Mensaje("Sistema", usuario.getNombre(), Mensaje.Tipo.CONFIRMACION, "▶ Reproduciendo: " + audioEncontrado.getTitulo());
     }
 
     public java.util.List<Audio> getTodosLosAudios() {
