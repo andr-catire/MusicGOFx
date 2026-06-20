@@ -1181,3 +1181,85 @@
     -fx-background-color: transparent;
     -fx-padding: 10px;
 }
+/* ═══════════════════════════════════════════════════════ */
+/* DIÁLOGOS Y ALERTAS (OPTIMIZADO PARA MUSICGO)          */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Contenedor principal de la Alerta */
+.dialog-pane {
+    -fx-background-color: #131315; /* Neutro de tu app */
+    -fx-border-color: #2a2a35;     /* Borde sutil */
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 10px;
+}
+
+/* Panel del Encabezado (Donde se muestra el HeaderText) */
+.dialog-pane .header-panel {
+    -fx-background-color: #1E1B4B; /* Tu color secundario */
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 15px 20px;
+    -fx-border-color: transparent transparent #2a2a35 transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Título del Encabezado */
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #DDB7FF; /* Tu color primario (Morado claro) */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Mensaje o cuerpo del texto (ContentText) */
+.dialog-pane .content.label {
+    -fx-text-fill: #e0e0e0; /* Tu texto claro */
+    -fx-font-size: 14px;
+    -fx-padding: 20px 10px;
+}
+
+/* IMPORTANTE: Forzar a que las etiquetas internas no hereden color negro */
+.dialog-pane .label {
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Quita el fondo blanco/gris del icono nativo (Warning, Error, etc.) */
+.dialog-pane .graphic-container {
+    -fx-background-color: transparent;
+    -fx-padding: 15px 0 15px 15px;
+}
+
+/* Contenedor de la barra inferior de botones */
+.dialog-pane .button-bar {
+    -fx-background-color: #131315; /* Fondo neutro */
+    -fx-padding: 10px;
+}
+
+/* Botones dentro de la Alerta (Aceptar / Cancelar) */
+.dialog-pane .button {
+    -fx-background-color: #1E1B4B; /* Secundario */
+    -fx-text-fill: #DDB7FF;        /* Primario */
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 20px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+}
+
+/* Efecto Hover del botón */
+.dialog-pane .button:hover {
+    -fx-background-color: #2a2569;
+    -fx-text-fill: #D1BCFF; /* Terciario */
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.15), 6, 0, 0, 0);
+}
+
+/* Efecto Clic del botón */
+.dialog-pane .button:pressed {
+    -fx-background-color: #12102d;
+    -fx-scale-x: 0.96;
+    -fx-scale-y: 0.96;
+}
+
+.alerta-control-parental .button:hover {
+    -fx-background-color: #a29bfe; /* Efecto al pasar el mouse */
+}

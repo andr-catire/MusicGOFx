@@ -73,7 +73,11 @@ public class GestorUsuarios {
             throw new EdadValidaException("Ingrese una edad Valida.");
         }
 
+
         Usuario nuevo = new Usuario(alias, correo, edad);
+        if (edad<18){
+            nuevo.setControlParental(true);
+        }
         usuarios.add(nuevo);
         guardarCambios();
         guardarAdmin();

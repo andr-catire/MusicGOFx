@@ -8,6 +8,9 @@ import com.proyecto.musicgofx.excepciones.ContenidoNoEncontradoException;
 import com.proyecto.musicgofx.excepciones.ContenidoRestringidoException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
+import  javafx.beans.property.SimpleStringProperty;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class GestorReproduccion {
 
     private final GestorUsuarios gestorUsuarios;
     private final GestorCatalogo gestorCatalogo;
+    private StringProperty mensajeAlerta = new SimpleStringProperty("");
 
     // --- NUEVAS VARIABLES DE ESTADO PARA LA BARRA DE REPRODUCCIÓN ---
     private final ObjectProperty<Audio> audioActual = new SimpleObjectProperty<>();
@@ -93,12 +97,24 @@ public class GestorReproduccion {
      * Evita repetir código en Siguiente, Anterior e Iniciar.
      */
     private void ejecutarAudioActual(Usuario usuario) {
-        this.audioActual.set(colaReproduccion.get(indiceActual));
+        Audio audioCandidato = colaReproduccion.get(indiceActual);
+        if (audioCandidato == null) return;
+        String categoriaTexto = String.valueOf(audioCandidato.getCategoria());
+
+        if (usuario != null && usuario.isControlParental() && "MAYOR".equalsIgnoreCase(categoriaTexto)) {
+            mensajeAlerta.set("El audio '" + audioCandidato.getTitulo() + "' está bloqueado por el Control Parental.");
+            System.out.println("[Control Parental] Canción bloqueada. Saltando a la siguiente...");
+            siguiente(usuario);
+            return;
+        }
+
+        this.audioActual.set(audioCandidato);
         audioActual.get().reproducir();
+
         if (usuario != null) {
             usuario.getEstadisticas().sumarTiempoEscucha(audioActual.get().getDuracionSegundos());
             gestorUsuarios.guardarCambios();
-            System.out.println("[Sistema] Estadisticas de '" + usuario.getNombre() + "' actualizadas.");
+            System.out.println("[Sistema] Estadísticas de '" + usuario.getNombre() + "' actualizadas.");
         }
     }
 
@@ -146,7 +162,9 @@ public class GestorReproduccion {
 
         return new Mensaje("Sistema", usuario.getNombre(), Mensaje.Tipo.CONFIRMACION, "▶ Reproduciendo: " + audioEncontrado.getTitulo());
     }
-
+    public StringProperty mensajeAlertaProperty() {
+        return mensajeAlerta;
+    }
     public java.util.List<Audio> getTodosLosAudios() {
         return gestorCatalogo.getTodosLosAudios();
     }

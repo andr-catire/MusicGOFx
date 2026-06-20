@@ -8,6 +8,7 @@ import com.proyecto.musicgofx.modelo.servicios.GestorReproduccion;
 import com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
 import com.proyecto.musicgofx.modelo.servicios.GestorCatalogo;
 import com.proyecto.musicgofx.modelo.servicios.GestorUsuarios;
+import javafx.scene.control.Alert;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -101,36 +102,45 @@ public class MainController {
     @FXML
     public void initialize() {
 
+        inicializarGestores();
+        configurarNavegacionSidebar();
+        configurarNavegacionAdmin();
+        configurarBarraSuperior();
+        configurarListenersGestor();
+        configurarControlesReproductor();
+        cargarVista("Inicio.fxml");
+    }
+    // ════════════════════════════════════════════════════
+// SUBMÉTODOS DE INICIALIZACIÓN
+// ════════════════════════════════════════════════════
+
+    private void inicializarGestores() {
         GestorCatalogo catalogoGlobal = new GestorCatalogo();
         catalogoGlobal.cargarDesdeJson();
         this.gestorReproduccion = new GestorReproduccion(new GestorUsuarios(repositorio), catalogoGlobal);
-        // ════════════════════════════════════════════════════
-        // 1. NAVEGACIÓN PRINCIPAL (SIDEBAR)
-        // ════════════════════════════════════════════════════
-        btnInicio.setOnAction(event -> cargarVista("Inicio.fxml"));
+    }
 
+    private void configurarNavegacionSidebar() {
+        btnInicio.setOnAction(event -> cargarVista("Inicio.fxml"));
         btnExplorar.setOnAction(event -> cargarVista("Explorador.fxml"));
         btnBiblioteca.setOnAction(event -> cargarVista("Biblioteca.fxml"));
         btnTienda.setOnAction(event -> cargarVista("Tienda.fxml"));
         btnAjustes.setOnAction(event -> cargarVista("Ajustes.fxml"));
+    }
 
-        // ════════════════════════════════════════════════════
-        // 2. NAVEGACIÓN DE ADMINISTRADOR
-        // ════════════════════════════════════════════════════
+    private void configurarNavegacionAdmin() {
         if (btnAgregarAudio != null) btnAgregarAudio.setOnAction(event -> cargarVista("AgregarAudio.fxml"));
         if (btnAgregarProducto != null) btnAgregarProducto.setOnAction(event -> cargarVista("AgregarProducto.fxml"));
         if (btnListarUsuario != null) btnListarUsuario.setOnAction(event -> cargarVista("ListarUsuario.fxml"));
         if (btnModificarUsuario != null) btnModificarUsuario.setOnAction(event -> cargarVista("ModificarUsuario.fxml"));
         if (btnCambiarRol != null) btnCambiarRol.setOnAction(event -> cargarVista("CambiarRol.fxml"));
+    }
 
-        // ════════════════════════════════════════════════════
-        // 3. BARRA SUPERIOR (BUSCADOR, PERFIL Y BILLETERA)
-        // ════════════════════════════════════════════════════
+    private void configurarBarraSuperior() {
         if (btnBilletera != null) btnBilletera.setOnAction(event -> cargarVista("Billetera.fxml"));
         if (btnPerfilUsuario != null) btnPerfilUsuario.setOnAction(event -> cargarVista("Ajustes.fxml"));
 
         if (txtBuscadorTop != null) {
-
             txtBuscadorTop.setOnMouseClicked(event -> cargarVista("Explorador.fxml"));
             txtBuscadorTop.setOnAction(event -> {
                 String busqueda = txtBuscadorTop.getText();
@@ -143,11 +153,25 @@ public class MainController {
                 }
             });
         }
+    }
 
-        // ════════════════════════════════════════════════════
-        // 4. REPRODUCTOR INFERIOR
-        // ════════════════════════════════════════════════════
-
+    private void configurarListenersGestor() {
+        gestorReproduccion.mensajeAlertaProperty().addListener((observable, viejoMensaje, nuevoMensaje) -> {
+            if (nuevoMensaje != null && !nuevoMensaje.isEmpty()) {
+                Alert alerta = new Alert(javafx.scene.control.Alert.AlertType.WARNING);
+                alerta.setTitle("Contenido Restringido");
+                alerta.setHeaderText("Acceso Denegado por Control Parental");
+                alerta.setContentText(nuevoMensaje);
+                try {
+                    String rutaCss = getClass().getResource("/com/proyecto/musicgofx/styles.css").toExternalForm();
+                    alerta.getDialogPane().getStylesheets().add(rutaCss);
+                } catch (Exception e) {
+                    System.out.println("Aviso: No se encontró el CSS, pero la alerta se mostrará igual.");
+                }
+                alerta.showAndWait();
+                gestorReproduccion.mensajeAlertaProperty().set("");
+            }
+        });
         gestorReproduccion.audioActualProperty().addListener((observable, cancionVieja, cancionNueva) -> {
             if (cancionNueva != null) {
                 lblTituloAudio.setText(cancionNueva.getTitulo());
@@ -160,7 +184,9 @@ public class MainController {
                 }
             }
         });
+    }
 
+    private void configurarControlesReproductor() {
         btnSiguiente.setOnAction(event -> {
             gestorReproduccion.siguiente(usuarioLogueado);
         });
@@ -172,11 +198,8 @@ public class MainController {
         btnPlay.setOnAction(event -> {
             System.out.println("Botón Play/Pausa presionado");
         });
-
         lblTituloAudio.setText("Reproduce Ahora!!");
         lblArtistaAudio.setText("-");
-
-        cargarVista("Inicio.fxml");
     }
 
     /**
