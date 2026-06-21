@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 
 import com.proyecto.musicgofx.modelo.servicios.GestorUsuarios;
-import com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
+import  com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
 import com.proyecto.musicgofx.excepciones.*;
 import com.proyecto.musicgofx.modelo.entidades.Usuario;
 import javafx.scene.Node;
@@ -23,12 +23,32 @@ public class LoginController {
     @FXML private TextField txtUsuario;
     @FXML private TextField txtCorreo;
     @FXML private Label lblMensaje;
-    @FXML private  Button btnAccion;
-    @FXML  private Hyperlink linkRegistro;
-    private RepositorioDatos repositorio = new RepositorioDatos();
-    private GestorUsuarios gestorUsuarios = new GestorUsuarios(repositorio);
+    @FXML private Button btnAccion;
+    @FXML private Hyperlink linkRegistro;
+
+    private GestorUsuarios gestorUsuarios;
+
+    @FXML
+    public void initialize() {
+        if (this.gestorUsuarios == null) {
+            RepositorioDatos repo = new RepositorioDatos();
+            this.gestorUsuarios = new GestorUsuarios(repo);
+        }
+    }
+
+    // Método para inyectar la dependencia desde afuera (SRP)
+    public void setGestorUsuarios(GestorUsuarios gestorUsuarios) {
+        this.gestorUsuarios = gestorUsuarios;
+    }
+
     @FXML
     public void manejarBotonPrincipal(ActionEvent event) {
+        if (gestorUsuarios == null) {
+            lblMensaje.setStyle("-fx-text-fill: red;");
+            lblMensaje.setText("Error crítico: Gestor de usuarios no inicializado.");
+            return;
+        }
+
         String usuarioInput = txtUsuario.getText().trim();
         String correoInput = txtCorreo.getText().trim();
 
@@ -62,7 +82,12 @@ public class LoginController {
         try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-            Parent root = FXMLLoader.load(getClass().getResource("/com/proyecto/musicgofx/Registro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/Registro.fxml"));
+            Parent root = loader.load();
+
+            RegistroController registroc = loader.getController();
+            registroc.setGestorUsuarios(this.gestorUsuarios);
+
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
 
@@ -86,13 +111,11 @@ public class LoginController {
             if (mainController != null) {
                 mainController.cambiarVistaAlIniciarSesion(usuario);
             } else {
-
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/MainLayout.fxml"));
                 Stage stage = (Stage) escenaActual.getWindow();
                 Parent root = loader.load();
-                MainController mc = loader.getController();
-                mc.configurarInterfazSegunRol(usuario);
-
+                MainController mainc = loader.getController();
+                mainc.cambiarVistaAlIniciarSesion(usuario);
                 stage.setScene(new Scene(root));
             }
         } catch (Exception e) {

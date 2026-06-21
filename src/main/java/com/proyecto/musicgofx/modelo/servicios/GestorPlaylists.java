@@ -8,8 +8,8 @@ import com.proyecto.musicgofx.excepciones.PlaylistNoEncontradaException;
 import com.proyecto.musicgofx.excepciones.ErrorCompartirPlaylistException;
 
 /**
- * Administra las listas de reproduccion de los usuarios, gestionando su creacion,
- * modificacion de contenido y sincronizacion con el catalogo global.
+ * Administra las listas de reproducción de los usuarios, gestionando su creación,
+ * modificación de contenido y sincronización con el catálogo global.
  */
 public class GestorPlaylists {
 
@@ -22,16 +22,49 @@ public class GestorPlaylists {
     }
 
     /**
-     * Crea una nueva playlist para un usuario, genera su ID automaticamente y la guarda en disco.
+     * Crea una nueva playlist para el usuario logueado en la interfaz.
+     * @return true si se creó correctamente, false si ya existía una con ese nombre.
+     */
+    public boolean crearPlaylistParaUsuario(Usuario usuario, String nombre) {
+        if (usuario != null) {
+            Playlist nueva = new Playlist(nombre, usuario.getNombre());
+            if (usuario.getBiblioteca().agregarPlaylist(nueva)) {
+                gestorUsuarios.guardarCambios();
+                return true; // Éxito: El controlador puede mostrar una alerta verde
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Añade un audio específico a una playlist existente de un usuario.
+     * Ideal para el botón "+" de la interfaz gráfica.
+     */
+    public boolean agregarAudioAPlaylist(Usuario usuario, String nombrePlaylist, Audio audioNuevo) {
+        if (usuario != null && usuario.getBiblioteca() != null) {
+            for (Playlist p : usuario.getBiblioteca().getPlaylists()) {
+                if (p.getNombre().equalsIgnoreCase(nombrePlaylist)) {
+                    boolean agregado = p.agregarAudio(audioNuevo);
+                    if (agregado) {
+                        usuario.refrescarConteoBiblioteca();
+                        gestorUsuarios.guardarCambios(); // Guarda en el JSON
+                    }
+                    return agregado;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Crea una nueva playlist buscando al usuario por su ID o Alias.
      */
     public void crearPlaylist(String idUsuarioOAlias, String nombre) {
         Usuario usuario = gestorUsuarios.buscarPorIdOAlias(idUsuarioOAlias);
         if (usuario != null) {
-            Playlist nueva = new Playlist(nombre, usuario.getNombre());
-            String nuevoId = nueva.getId();
-            if (usuario.getBiblioteca().agregarPlaylist(nueva)) {
-                System.out.println("Playlist '" + nombre + "' creada con exito. ID: " + nuevoId);
-                gestorUsuarios.guardarCambios();
+            boolean exito = crearPlaylistParaUsuario(usuario, nombre);
+            if (exito) {
+                System.out.println("Playlist '" + nombre + "' creada con éxito.");
             } else {
                 System.err.println("Error: Ya existe una playlist con ese identificador.");
             }
@@ -41,7 +74,7 @@ public class GestorPlaylists {
     }
 
     /**
-     * Agrega un audio del catalogo a una playlist especifica del usuario.
+     * Agrega un audio del catálogo a una playlist específica del usuario usando IDs.
      */
     public void agregarAudioAPlaylist(String idUsuarioOAlias, String idPlaylist, String idAudio) {
         Usuario usuario = gestorUsuarios.buscarPorIdOAlias(idUsuarioOAlias);
@@ -66,7 +99,7 @@ public class GestorPlaylists {
     }
 
     /**
-     * Remueve un audio especifico de una playlist de un usuario y guarda los cambios.
+     * Remueve un audio específico de una playlist de un usuario y guarda los cambios.
      */
     public void removerAudioDePlaylist(String idUsuarioOAlias, String idPlaylist, String idAudio) throws PlaylistNoEncontradaException {
         Usuario usuario = gestorUsuarios.buscarPorIdOAlias(idUsuarioOAlias);
@@ -77,7 +110,7 @@ public class GestorPlaylists {
 
         Playlist playlist = usuario.getBiblioteca().buscarPorId(idPlaylist);
         if (playlist == null) {
-            throw new PlaylistNoEncontradaException("Error: No se encontro la playlist con ID '" + idPlaylist + "'.");
+            throw new PlaylistNoEncontradaException("Error: No se encontró la playlist con ID '" + idPlaylist + "'.");
         }
 
         boolean eliminado = playlist.getContenido().removeIf(audio -> audio.getId().equals(idAudio));
@@ -94,23 +127,18 @@ public class GestorPlaylists {
     /**
      * Elimina una playlist completa de la biblioteca.
      */
-    public void eliminarPlaylist(String idUsuarioOAlias, String idPlaylist) {
-        Usuario usuario = gestorUsuarios.buscarPorIdOAlias(idUsuarioOAlias);
-        if (usuario != null) {
-            if (usuario.getBiblioteca().eliminarPlaylist(idPlaylist)) {
-                System.out.println("Playlist eliminada.");
-                usuario.refrescarConteoBiblioteca();
-                gestorUsuarios.guardarCambios();
-            } else {
-                System.err.println("No se pudo eliminar la playlist.");
-            }
-        } else {
-            System.err.println("Usuario no encontrado.");
+    public boolean eliminarPlaylist(Usuario usuario, String idPlaylist) {
+        if (usuario != null && usuario.getBiblioteca().eliminarPlaylist(idPlaylist)) {
+            System.out.println("Playlist eliminada.");
+            usuario.refrescarConteoBiblioteca();
+            gestorUsuarios.guardarCambios();
+            return true;
         }
+        return false;
     }
 
     /**
-     * Muestra el contenido detallado de una playlist especifica por consola.
+     * Muestra el contenido detallado de una playlist específica por consola.
      */
     public void mostrarContenidoPlaylist(String idUsuarioOAlias, String idPlaylist) {
         Usuario usuario = gestorUsuarios.buscarPorIdOAlias(idUsuarioOAlias);
@@ -119,7 +147,7 @@ public class GestorPlaylists {
             if (p != null) {
                 System.out.println("\n--- Playlist: " + p.getNombre() + " ---");
                 if (p.getContenido().isEmpty()) {
-                    System.out.println(" (La playlist esta vacia)");
+                    System.out.println(" (La playlist está vacía)");
                 } else {
                     for (Audio a : p.getContenido()) {
                         System.out.println(" > " + a.toString());
@@ -131,23 +159,15 @@ public class GestorPlaylists {
         } else {
             System.err.println("Usuario no encontrado.");
         }
-
     }
+
     public java.util.List<Audio> getTodosLosAudios() {
         return gestorCatalogo.getTodosLosAudios();
     }
 
     /**
      * Realiza una copia exacta de una playlist existente en la biblioteca del usuario activo
-     * y la transfiere a la biblioteca del usuario destinatario. Bloquea la accion si la
-     * playlist es un producto premium (Top Ten).
-     *
-     * @param usuarioActivo El usuario dueño de la playlist original.
-     * @param aliasDestinatario El alias del usuario que recibira la copia.
-     * @param idPlaylist El ID de la playlist a compartir.
-     * @throws UsuarioNoEncontradoException Si el destinatario no existe en el sistema.
-     * @throws PlaylistNoEncontradaException Si la playlist no existe en la biblioteca original.
-     * @throws ErrorCompartirPlaylistException Si la playlist original es un producto de pago (restringido).
+     * y la transfiere a la biblioteca del usuario destinatario.
      */
     public void compartirPlaylist(Usuario usuarioActivo, String aliasDestinatario, String idPlaylist) throws UsuarioNoEncontradoException, PlaylistNoEncontradaException, ErrorCompartirPlaylistException {
         Usuario usuariodestinatario = gestorUsuarios.buscarPorIdOAlias(aliasDestinatario);
@@ -157,15 +177,15 @@ public class GestorPlaylists {
 
         Playlist playlist = usuarioActivo.getBiblioteca().buscarPorId(idPlaylist);
         if (playlist == null) {
-            throw new PlaylistNoEncontradaException("Error: No se encontro la playlist con ID '" + idPlaylist + "'.");
+            throw new PlaylistNoEncontradaException("Error: No se encontró la playlist con ID '" + idPlaylist + "'.");
         }
 
         String playlistid = playlist.getId();
         if (playlistid.toUpperCase().startsWith("PRD")) {
-            throw new ErrorCompartirPlaylistException("ERROR: La playlist que intentas compartir es un producto paquete top ten");
+            throw new ErrorCompartirPlaylistException("ERROR: La playlist que intentas compartir es un paquete Top Ten de pago.");
         }
 
-        Playlist copiaPlaylist = new Playlist(playlist.getNombre() + " Compartida ", usuariodestinatario.getNombre());
+        Playlist copiaPlaylist = new Playlist(playlist.getNombre() + " Compartida", usuariodestinatario.getNombre());
 
         for (Audio audio : playlist.getContenido()) {
             copiaPlaylist.agregarAudio(audio);

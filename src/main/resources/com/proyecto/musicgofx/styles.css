@@ -1260,6 +1260,172 @@
     -fx-scale-y: 0.96;
 }
 
-.alerta-control-parental .button:hover {
-    -fx-background-color: #a29bfe; /* Efecto al pasar el mouse */
+/* Modificamos el diseño del botón "+" ahora que es más ancho */
+.btn-agregar-playlist {
+    -fx-background-color: transparent;
+    -fx-text-fill: #DDB7FF;
+    -fx-border-color: #DDB7FF;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 5 10 5 10;
+}
+
+.btn-agregar-playlist:hover {
+    -fx-background-color: #DDB7FF;
+    -fx-text-fill: #1E1B4B;
+}
+
+/* ==========================================================
+   ESTILOS PARA LA VENTANA EMERGENTE (POPUP DE PLAYLISTS)
+   ========================================================== */
+
+/* ─── Variables de Color ─── */
+* {
+    -fx-color-primario: #1E1B4B;
+    -fx-color-secundario: #2D296A;
+    -fx-color-acento: #DDB7FF;
+    -fx-color-acento-hover: #E8D4FF;
+    -fx-color-texto: #FFFFFF;
+    -fx-color-texto-muted: #B8B0E0;
+    -fx-color-fondo-popup: #131136;
+}
+
+/* ─── Fondo General ─── */
+.ventana-emergente-oscura {
+    -fx-background-color: -fx-color-primario;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: rgba(221, 183, 255, 0.2);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 20, 0, 0, 8);
+}
+
+/* ─── Textos ─── */
+.ventana-emergente-oscura .label {
+    -fx-text-fill: -fx-color-texto;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-weight: 600;
+}
+
+/* ─── Cabecera ─── */
+.ventana-emergente-oscura:header .header-panel {
+    -fx-background-color: -fx-color-fondo-popup;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 16px 20px;
+    -fx-border-color: rgba(221, 183, 255, 0.15);
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* ─── Choice Box / Combo Box ─── */
+.ventana-emergente-oscura .choice-box {
+    -fx-background-color: -fx-color-secundario;
+    -fx-border-color: rgba(221, 183, 255, 0.4);  /* Borde sutil, NO blanco */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 12px;
+    -fx-mark-color: -fx-color-acento;
+    -fx-cursor: hand;
+}
+
+.ventana-emergente-oscura .choice-box:hover {
+    -fx-border-color: -fx-color-acento;
+    -fx-effect: dropshadow(gaussian, rgba(221, 183, 255, 0.2), 10, 0, 0, 0);
+}
+
+/* Texto del ChoiceBox - ALTO CONTRASTE */
+.ventana-emergente-oscura .choice-box .label {
+    -fx-text-fill: -fx-color-acento;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+}
+
+/* Flecha desplegable */
+.ventana-emergente-oscura .choice-box .arrow {
+    -fx-background-color: -fx-color-acento;
+    -fx-padding: 4px;
+}
+
+/* ─── MENÚ DESPLEGABLE (Popup del ChoiceBox) ─── */
+/* FONDO OSCURO del menú desplegable - elimina el blanco feo */
+.ventana-emergente-oscura .choice-box .context-menu {
+    -fx-background-color: -fx-color-fondo-popup;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(221, 183, 255, 0.3);
+    -fx-border-width: 1px;
+    -fx-padding: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0, 0, 4);
+}
+
+/* Items del menú */
+.ventana-emergente-oscura .choice-box .menu-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 14px;
+}
+
+.ventana-emergente-oscura .choice-box .menu-item:hover,
+.ventana-emergente-oscura .choice-box .menu-item:focused {
+    -fx-background-color: rgba(221, 183, 255, 0.2);
+}
+
+/* Texto de los items - ALTO CONTRASTE */
+.ventana-emergente-oscura .choice-box .menu-item .label {
+    -fx-text-fill: -fx-color-acento;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+}
+
+/* Separador en el menú */
+.ventana-emergente-oscura .choice-box .separator-menu-item .line {
+    -fx-border-color: rgba(221, 183, 255, 0.2);
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 4px 0;
+}
+
+/* ─── Botones ─── */
+.ventana-emergente-oscura .button {
+    -fx-background-color: -fx-color-acento;
+    -fx-text-fill: -fx-color-primario;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 24px;
+    -fx-cursor: hand;
+}
+
+.ventana-emergente-oscura .button:hover {
+    -fx-background-color: -fx-color-acento-hover;
+    -fx-effect: dropshadow(gaussian, rgba(221, 183, 255, 0.4), 12, 0, 0, 0);
+}
+
+.ventana-emergente-oscura .button:pressed {
+    -fx-background-color: #C9A0F0;
+}
+
+/* Botón secundario (Cancelar) */
+.ventana-emergente-oscura .button.secundario {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-color-acento;
+    -fx-border-color: -fx-color-acento;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+}
+
+.ventana-emergente-oscura .button.secundario:hover {
+    -fx-background-color: rgba(221, 183, 255, 0.1);
+}
+
+/* ─── Panel de botones (barra inferior) ─── */
+.ventana-emergente-oscura .button-bar {
+    -fx-background-color: -fx-color-fondo-popup;
+    -fx-background-radius: 0 0 12px 12px;
+    -fx-padding: 16px 20px;
+    -fx-border-color: rgba(221, 183, 255, 0.15);
+    -fx-border-width: 1px 0 0 0;
 }

@@ -2,17 +2,20 @@ package com.proyecto.musicgofx.controlador;
 
 import com.proyecto.musicgofx.modelo.entidades.Audio;
 import com.proyecto.musicgofx.modelo.entidades.Cancion;
-import com.proyecto.musicgofx.modelo.entidades.EpisodioPodcast; // IMPORTANTE AÑADIR ESTO
-import com.proyecto.musicgofx.modelo.servicios.GestorCatalogo;
+import com.proyecto.musicgofx.modelo.entidades.EpisodioPodcast;
+import com.proyecto.musicgofx.modelo.entidades.Playlist;
+import com.proyecto.musicgofx.modelo.entidades.Usuario;
 import com.proyecto.musicgofx.modelo.servicios.GestorExplorador;
 import com.proyecto.musicgofx.modelo.servicios.GestorReproduccion;
-import com.proyecto.musicgofx.modelo.entidades.Usuario;
+import com.proyecto.musicgofx.modelo.servicios.GestorPlaylists;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
@@ -23,132 +26,187 @@ import java.util.List;
 
 public class ExploradorController {
 
-    // ════════════════════════════════════════════════════
-    // 1. ELEMENTOS DE LA INTERFAZ (FXML)
-    // ════════════════════════════════════════════════════
-    @FXML private ToggleButton btnFiltrarTodo;
-    @FXML private ToggleButton btnFiltrarCanciones;
-    @FXML private ToggleButton btnFiltrarPodcast;
-    @FXML private ToggleGroup grupoFiltros;
-    @FXML private ComboBox<String> menuGeneros;
-    @FXML private FlowPane flowPaneAudios;
+    @FXML
+    private ToggleButton btnFiltrarTodo;
+    @FXML
+    private ToggleButton btnFiltrarCanciones;
+    @FXML
+    private ToggleButton btnFiltrarPodcast;
+    @FXML
+    private ToggleGroup grupoFiltros;
+    @FXML
+    private ComboBox<String> cmbGeneros;
+    @FXML
+    private TextField txtBusquedaRapida;
+    @FXML
+    private FlowPane flowPaneAudios;
 
-    // ════════════════════════════════════════════════════
-    // 2. SERVICIOS Y VARIABLES DE DATOS
-    // ════════════════════════════════════════════════════
-    private GestorCatalogo gestorCatalogo;
-    private GestorExplorador gestorExplorador;
-    private List<Audio> catalogoCompleto;
-    private String textoBusquedaActual = "";
-
-    // Variables para el reproductor
     private GestorReproduccion gestorReproduccion;
+    private GestorExplorador gestorExplorador;
+    private GestorPlaylists gestorPlaylists;
     private Usuario usuarioActual;
-
-    // ════════════════════════════════════════════════════
-    // 3. INICIALIZACIÓN
-    // ════════════════════════════════════════════════════
-    @FXML
-    public void initialize() {
-        gestorCatalogo = new GestorCatalogo();
-        gestorExplorador = new GestorExplorador();
-
-        gestorCatalogo.cargarDesdeJson();
-        catalogoCompleto = gestorCatalogo.getTodosLosAudios();
-
-        menuGeneros.getItems().addAll("Todos los géneros", "Pop", "Rock", "Reggaeton", "Urbano", "Educativo", "Comedia");
-        menuGeneros.setValue("Todos los géneros");
-
-        menuGeneros.setOnAction(event -> aplicarFiltros());
-
-        grupoFiltros.selectedToggleProperty().addListener((observable, valorViejo, valorNuevo) -> {
-            if (valorNuevo == null) {
-                valorViejo.setSelected(true);
-            } else {
-                aplicarFiltros();
-            }
-        });
-
-        btnFiltrarTodo.setSelected(true);
-        aplicarFiltros();
-    }
-
-    // ════════════════════════════════════════════════════
-    // 4. MÉTODOS DE COMUNICACIÓN Y LÓGICA VISUAL
-    // ════════════════════════════════════════════════════
-
-    public void recibirBusqueda(String textoBusqueda) {
-        this.textoBusquedaActual = textoBusqueda;
-        aplicarFiltros();
-    }
-
-    @FXML
-    private void aplicarFiltros() {
-        String tipoSeleccionado = "Todos";
-        if (grupoFiltros.getSelectedToggle() != null) {
-            ToggleButton botonActivo = (ToggleButton) grupoFiltros.getSelectedToggle();
-            tipoSeleccionado = botonActivo.getText();
-        }
-
-        String generoSeleccionado = menuGeneros.getValue();
-
-        List<Audio> resultados = gestorExplorador.filtrarCatalogo(
-                catalogoCompleto,
-                textoBusquedaActual,
-                tipoSeleccionado,
-                generoSeleccionado
-        );
-
-        actualizarPanelResultados(resultados);
-    }
-
-    private void actualizarPanelResultados(List<Audio> audiosParaMostrar) {
-        flowPaneAudios.getChildren().clear();
-
-        for (Audio audio : audiosParaMostrar) {
-
-            VBox tarjeta = new VBox();
-            tarjeta.getStyleClass().add("tarjeta-audio");
-            tarjeta.setPrefSize(160, 200);
-            tarjeta.setAlignment(Pos.CENTER);
-            tarjeta.setSpacing(10);
-            tarjeta.setStyle("-fx-padding: 15px;");
-
-            Label lblTitulo = new Label(audio.getTitulo());
-            lblTitulo.setStyle("-fx-text-fill: #DDB7FF; -fx-font-weight: bold; -fx-font-size: 14px;");
-
-            String autorText = "Desconocido";
-            if (audio instanceof Cancion) {
-                autorText = ((Cancion) audio).getArtista();
-            } else if (audio instanceof EpisodioPodcast) {
-                autorText = ((EpisodioPodcast) audio).getAnfitrion();
-            }
-
-            Label lblAutor = new Label(autorText);
-            lblAutor.setStyle("-fx-text-fill: #b3b3b3; -fx-font-size: 12px;");
-            Button btnPlay = new Button("▶ Reproducir");
-            btnPlay.getStyleClass().add("button");
-
-            btnPlay.setOnAction(e -> {
-                if (gestorReproduccion != null) {
-                    int posicion = audiosParaMostrar.indexOf(audio);
-                    gestorReproduccion.iniciarColaDeReproduccion(audiosParaMostrar, posicion, usuarioActual);
-                    System.out.println("Enviando al reproductor: " + audio.getTitulo());
-                } else {
-                    System.err.println("Error: El gestor de reproducción es nulo.");
-                }
-            });
-
-            tarjeta.getChildren().addAll(lblTitulo, lblAutor, btnPlay);
-            flowPaneAudios.getChildren().add(tarjeta);
-        }
-    }
+    private MainController mainController;
+    private String textoBusquedaGlobal = "";
 
     public void setGestorReproduccion(GestorReproduccion gestor) {
         this.gestorReproduccion = gestor;
+        actualizarPanelResultados();
     }
 
     public void setUsuarioActual(Usuario usuario) {
         this.usuarioActual = usuario;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public void setGestorPlaylists(GestorPlaylists gestorPlaylists) {
+        this.gestorPlaylists = gestorPlaylists;
+    }
+
+    public void setGestorExplorador(GestorExplorador gestorExplorador) {
+        this.gestorExplorador = gestorExplorador;
+        actualizarPanelResultados();
+    }
+
+    @FXML
+    public void initialize() {
+        configurarFiltros();
+    }
+
+    private void configurarFiltros() {
+        if (btnFiltrarTodo != null) btnFiltrarTodo.setSelected(true);
+        if (cmbGeneros != null) {
+            cmbGeneros.getItems().addAll("Todos", "Rock", "Pop", "Reggaeton", "Jazz", "Tecnologia", "Entrevistas");
+            cmbGeneros.setValue("Todos");
+            cmbGeneros.setOnAction(e -> actualizarPanelResultados());
+        }
+        if (grupoFiltros != null) {
+            grupoFiltros.selectedToggleProperty().addListener((obs, oldVal, newVal) -> actualizarPanelResultados());
+        }
+        if (txtBusquedaRapida != null) {
+            txtBusquedaRapida.textProperty().addListener((obs, oldVal, newVal) -> actualizarPanelResultados());
+        }
+    }
+
+    public void recibirBusqueda(String textoBusqueda) {
+        System.out.println(" > Explorador ha recibido la palabra desde el Main: " + textoBusqueda);
+        this.textoBusquedaGlobal = textoBusqueda;
+        javafx.application.Platform.runLater(this::actualizarPanelResultados);
+    }
+
+    private void actualizarPanelResultados() {
+        if (gestorExplorador == null || gestorReproduccion == null) return;
+        String tipoSeleccionado = "Todos";
+        if (grupoFiltros != null && grupoFiltros.getSelectedToggle() != null) {
+            tipoSeleccionado = ((ToggleButton) grupoFiltros.getSelectedToggle()).getText();
+        }
+        String generoSeleccionado = (cmbGeneros != null && cmbGeneros.getValue() != null) ? cmbGeneros.getValue() : "Todos";
+        String textoBusqueda = this.textoBusquedaGlobal;
+        List<Audio> catalogoBase = gestorReproduccion.getTodosLosAudios();
+        List<Audio> resultados = gestorExplorador.filtrarCatalogo(catalogoBase, textoBusqueda, tipoSeleccionado, generoSeleccionado);
+        renderizarResultados(resultados);
+    }
+
+    private void renderizarResultados(List<Audio> audiosParaMostrar) {
+        if (flowPaneAudios == null) return;
+        flowPaneAudios.getChildren().clear();
+
+        for (Audio audio : audiosParaMostrar) {
+            if (usuarioActual != null && usuarioActual.isControlParental() && audio.getCategoria().name().equals("MAYOR")) {
+                continue;
+            }
+
+            VBox tarjeta = new VBox();
+            tarjeta.setPrefSize(160, 240);
+            tarjeta.setAlignment(Pos.CENTER);
+            tarjeta.setSpacing(10);
+            tarjeta.setPadding(new Insets(15));
+            tarjeta.getStyleClass().add("tarjeta-audio");
+
+            Label lblTitulo = new Label(audio.getTitulo());
+            lblTitulo.getStyleClass().add("label");
+
+            String autorText = (audio instanceof Cancion) ? ((Cancion) audio).getArtista() : ((EpisodioPodcast) audio).getAnfitrion();
+            Label lblAutor = new Label(autorText);
+            lblAutor.setStyle("-fx-text-fill: #b3b3b3; -fx-font-size: 12px;");
+
+            Button btnPlay = new Button("▶ Reproducir");
+            btnPlay.setMaxWidth(Double.MAX_VALUE);
+            btnPlay.getStyleClass().add("button");
+            btnPlay.setOnAction(e -> {
+                int posicion = audiosParaMostrar.indexOf(audio);
+                gestorReproduccion.iniciarColaDeReproduccion(audiosParaMostrar, posicion, usuarioActual);
+            });
+
+            Button btnAgregar = new Button("+ Agregar a Playlist");
+            btnAgregar.setMaxWidth(Double.MAX_VALUE);
+            btnAgregar.getStyleClass().add("btn-agregar-playlist");
+            btnAgregar.setOnAction(e -> mostrarDialogoPlaylists(audio));
+
+            tarjeta.getChildren().addAll(lblTitulo, lblAutor, btnPlay, btnAgregar);
+            flowPaneAudios.getChildren().add(tarjeta);
+        }
+    }
+
+    private void mostrarDialogoPlaylists(Audio audio) {
+        if (usuarioActual == null) return;
+
+        List<String> opciones = new ArrayList<>();
+        String opcionCrearNueva = "➕ Crear nueva playlist en Biblioteca";
+        opciones.add(opcionCrearNueva);
+
+        if (usuarioActual.getBiblioteca() != null && usuarioActual.getBiblioteca().getPlaylists() != null) {
+            for (Playlist p : usuarioActual.getBiblioteca().getPlaylists()) {
+                opciones.add(p.getNombre());
+            }
+        }
+
+        javafx.scene.control.ChoiceDialog<String> dialogo = new javafx.scene.control.ChoiceDialog<>(opcionCrearNueva, opciones);
+        dialogo.setTitle("Agregar a Playlist");
+        dialogo.setHeaderText("Guardar: " + audio.getTitulo());
+        dialogo.setContentText("Selecciona una opción:");
+        dialogo.setGraphic(null);
+
+        try {
+            String rutaCss = getClass().getResource("/com/proyecto/musicgofx/styles.css").toExternalForm();
+            dialogo.getDialogPane().getStylesheets().add(rutaCss);
+            dialogo.getDialogPane().getStyleClass().add("ventana-emergente-oscura");
+        } catch (Exception e) {
+        }
+
+        dialogo.showAndWait().ifPresent(seleccion -> {
+            if (seleccion.equals(opcionCrearNueva)) {
+                if (mainController != null) mainController.irABibliotecaParaNuevaPlaylist(audio);
+            } else {
+                if (gestorPlaylists != null){
+                    boolean exito = gestorPlaylists.agregarAudioAPlaylist(usuarioActual, seleccion, audio);
+                    if (exito) {
+                        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                        alert.setTitle("¡Genial!");
+                        alert.setHeaderText(null);
+                        alert.setContentText("El audio '" + audio.getTitulo() + "' se guardó en tu playlist '" + seleccion + "'.");
+
+                        try {
+                            String rutaCss = getClass().getResource("/com/proyecto/musicgofx/styles.css").toExternalForm();
+                            alert.getDialogPane().getStylesheets().add(rutaCss);
+                        } catch (Exception e) {
+                        }
+
+                        alert.showAndWait();
+                    } else {
+                        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+                        alert.setTitle("Aviso");
+                        alert.setHeaderText("Cancion ya en Playlist ");
+                        alert.setContentText("Esta canción ya está en tu playlist '" + seleccion + "'.");
+                        String rutaCss = getClass().getResource("/com/proyecto/musicgofx/styles.css").toExternalForm();
+                        alert.getDialogPane().getStylesheets().add(rutaCss);
+                        alert.getDialogPane().getStyleClass().add("ventana-emergente-oscura");
+                        alert.showAndWait();
+                    }
+                }
+            }
+        });
     }
 }

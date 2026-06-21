@@ -9,21 +9,34 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
-import  com.proyecto.musicgofx.modelo.servicios.GestorUsuarios;
-import  com.proyecto.musicgofx.modelo.entidades.Usuario;
+import com.proyecto.musicgofx.modelo.servicios.GestorUsuarios;
+import com.proyecto.musicgofx.modelo.entidades.Usuario;
 import com.proyecto.musicgofx.excepciones.*;
-import com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
 import javafx.scene.Node;
+
 public class RegistroController {
 
     @FXML private TextField txtUsuario;
     @FXML private TextField txtCorreo;
     @FXML private TextField txtEdad;
     @FXML private Label lblMensaje;
-    private RepositorioDatos repositorio = new RepositorioDatos();
-    private GestorUsuarios gestorUsuarios = new GestorUsuarios(repositorio );
+
+    // Solo declaramos la variable, NO la instanciamos con "new"
+    private GestorUsuarios gestorUsuarios;
+
+    // Método para inyectar la dependencia desde afuera (SRP)
+    public void setGestorUsuarios(GestorUsuarios gestorUsuarios) {
+        this.gestorUsuarios = gestorUsuarios;
+    }
+
     @FXML
     public void procesarRegistro(ActionEvent event) {
+        if (gestorUsuarios == null) {
+            lblMensaje.setStyle("-fx-text-fill: red;");
+            lblMensaje.setText("Error crítico: Gestor de usuarios no inicializado.");
+            return;
+        }
+
         String usuariotxt = txtUsuario.getText().trim();
         String correo = txtCorreo.getText().trim();
         String edadstr = txtEdad.getText().trim();
@@ -67,10 +80,10 @@ public class RegistroController {
             if (mainController != null) {
                 mainController.cambiarVistaAlIniciarSesion(usuario);
             } else {
-
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/MainLayout.fxml"));
                 Stage stage = (Stage) escenaActual.getWindow();
                 Parent root = loader.load();
+
                 MainController mc = loader.getController();
                 mc.configurarInterfazSegunRol(usuario);
 
@@ -82,20 +95,24 @@ public class RegistroController {
         }
     }
 
-        @FXML
-        public void volverAlLogin(ActionEvent event) {
-            try {
+    @FXML
+    public void volverAlLogin(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource("/com/proyecto/musicgofx/Login.fxml"));
-                stage.setScene(new Scene(root));
-                stage.sizeToScene();
-                stage.centerOnScreen();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/Login.fxml"));
+            Parent root = loader.load();
 
-            } catch (Exception e) {
-                System.err.println("Error al cargar la pantalla de Login.");
-                e.printStackTrace();
-            }
+            LoginController loginc = loader.getController();
+            loginc.setGestorUsuarios(this.gestorUsuarios);
+
+            stage.setScene(new Scene(root));
+            stage.sizeToScene();
+            stage.centerOnScreen();
+
+        } catch (Exception e) {
+            System.err.println("Error al cargar la pantalla de Login.");
+            e.printStackTrace();
         }
+    }
 }
-

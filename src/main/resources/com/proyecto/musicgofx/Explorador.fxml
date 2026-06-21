@@ -37,7 +37,7 @@
 
                                 <HBox HBox.hgrow="ALWAYS" />
 
-                                <ComboBox fx:id="menuGeneros" prefWidth="180.0" promptText="Todos los Géneros" styleClass="menu-desplegable" />
+                                <ComboBox fx:id="cmbGeneros" prefWidth="180.0" promptText="Todos los Géneros" styleClass="menu-desplegable" />
                             </children>
                         </HBox>
 
