@@ -212,11 +212,16 @@ public class MainController {
      * Carga un FXML, lo incrusta en el contenedor central y le inyecta las
      * dependencias (Gestores) necesarias a su respectivo controlador.
      */
+    /**
+     * Carga un FXML, lo incrusta en el contenedor central y le inyecta las
+     * dependencias (Gestores) necesarias a su respectivo controlador.
+     */
     private Object cargarVista(String nombreFxml) {
         try {
             FXMLLoader cargadorVista = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/" + nombreFxml));
             Node nodoVistaNueva = cargadorVista.load();
             Object controladorDestino = cargadorVista.getController();
+
             if (controladorDestino instanceof InicioController) {
                 InicioController controladorInicio = (InicioController) controladorDestino;
                 controladorInicio.setUsuarioLogueado(this.usuarioAutenticado);
@@ -231,8 +236,14 @@ public class MainController {
                 controladorExplorador.setGestorReproduccion(this.gestorReproduccion);
                 controladorExplorador.setGestorPlaylists(this.gestorPlaylists);
                 controladorExplorador.setGestorExplorador(this.gestorExplorador);
+
+            } else if (controladorDestino instanceof BibliotecaController) {
+                // !!! INTEGRACIÓN CORRECTA DE LA BIBLIOTECA !!!
+                BibliotecaController biblioController = (BibliotecaController) controladorDestino;
+                biblioController.setUsuarioLogueado(this.usuarioAutenticado); // Usamos el nombre correcto de tu variable
+                biblioController.setGestores(this.gestorPlaylists, this.gestorReproduccion);
+                t initbiblioController.setMainController(this);
             }
-            // NOTA: Aquí inyectarás a BibliotecaController en el futuro.
 
             contenedorCentral.getChildren().clear();
             contenedorCentral.getChildren().add(nodoVistaNueva);

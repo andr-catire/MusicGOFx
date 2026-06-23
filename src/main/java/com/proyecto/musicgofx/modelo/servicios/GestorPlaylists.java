@@ -30,7 +30,11 @@ public class GestorPlaylists {
             Playlist nueva = new Playlist(nombre, usuario.getNombre());
             if (usuario.getBiblioteca().agregarPlaylist(nueva)) {
                 gestorUsuarios.guardarCambios();
-                return true; // Éxito: El controlador puede mostrar una alerta verde
+                if (usuario.getRolUsuario() == Usuario.RolUsuario.ADMINISTRADOR) {
+                    gestorUsuarios.guardarAdmin();
+                }
+                return true;
+
             }
         }
         return false;
@@ -47,7 +51,7 @@ public class GestorPlaylists {
                     boolean agregado = p.agregarAudio(audioNuevo);
                     if (agregado) {
                         usuario.refrescarConteoBiblioteca();
-                        gestorUsuarios.guardarCambios(); // Guarda en el JSON
+                        gestorUsuarios.guardarCambios();
                     }
                     return agregado;
                 }
@@ -127,12 +131,27 @@ public class GestorPlaylists {
     /**
      * Elimina una playlist completa de la biblioteca.
      */
-    public boolean eliminarPlaylist(Usuario usuario, String idPlaylist) {
-        if (usuario != null && usuario.getBiblioteca().eliminarPlaylist(idPlaylist)) {
-            System.out.println("Playlist eliminada.");
-            usuario.refrescarConteoBiblioteca();
-            gestorUsuarios.guardarCambios();
-            return true;
+    public boolean eliminarPlaylist(Usuario usuario, String nombrePlaylist) {
+        if (usuario != null && usuario.getBiblioteca() != null) {
+            Playlist playlistAELiminar = null;
+            for (Playlist p : usuario.getBiblioteca().getPlaylists()) {
+                if (p.getNombre().equalsIgnoreCase(nombrePlaylist)) {
+                    playlistAELiminar = p;
+                    break;
+                }
+            }
+
+            if (playlistAELiminar != null) {
+                usuario.getBiblioteca().getPlaylists().remove(playlistAELiminar);
+                System.out.println("Playlist '" + nombrePlaylist + "' eliminada correctamente.");
+                usuario.refrescarConteoBiblioteca();
+                gestorUsuarios.guardarCambios();
+
+                if (usuario.getRolUsuario() == Usuario.RolUsuario.ADMINISTRADOR) {
+                    gestorUsuarios.guardarAdmin();
+                }
+                return true;
+            }
         }
         return false;
     }
@@ -194,4 +213,5 @@ public class GestorPlaylists {
         usuariodestinatario.getBiblioteca().agregarPlaylist(copiaPlaylist);
         gestorUsuarios.guardarCambios();
     }
+
 }

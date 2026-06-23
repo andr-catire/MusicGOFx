@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootBiblioteca" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.musicgofx.controlador.BibliotecaController">
+   <children>
+      <VBox fx:id="vboxPrincipal" spacing="20.0" styleClass="main-center" stylesheets="@styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <HBox fx:id="hboxCrearPlaylist" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="554.0" spacing="15.0">
+               <children>
+                  <Label fx:id="lblTituloNuevaPlaylist" styleClass="section-header" text="Nueva Playlist:" />
+                  <TextField fx:id="txtNombrePlaylist" prefWidth="250.0" promptText="Ej. Para el Gym..." styleClass="text-field" />
+                  <Button fx:id="btnCrearPlaylist" mnemonicParsing="false" onAction="#crearNuevaPlaylist" styleClass="button" text="Crear y Guardar" />
+               </children>
+            </HBox>
+
+            <Label fx:id="lblTituloMisPlaylists" styleClass="subsection-header" text="Mis Playlists" />
+
+            <ScrollPane fx:id="scrollPlaylists" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+               <content>
+                  <FlowPane fx:id="panelPlaylists" hgap="15.0" vgap="15.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+
+                        <VBox fx:id="tarjetaPrueba" alignment="CENTER" prefHeight="240.0" prefWidth="160.0" spacing="10.0" styleClass="tarjeta-audio">
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                           <children>
+                              <Label fx:id="lblNombreTarjetaPrueba" styleClass="label" text="Nombre Playlist" />
+                              <Label fx:id="lblCancionesTarjetaPrueba" style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;" text="0 canciones" />
+                              <Button fx:id="btnReproducirPrueba" maxWidth="Infinity" mnemonicParsing="false" styleClass="button" text="▶ Reproducir" />
+                              <Button fx:id="btnVerContenidoPrueba" maxWidth="Infinity" mnemonicParsing="false" styleClass="btn-agregar-playlist" text="ℹ Ver Contenido" />
+                              <Button fx:id="btnEliminarPrueba" maxWidth="Infinity" mnemonicParsing="false" styleClass="button" text="🗑 Eliminar" />
+                           </children>
+                        </VBox>
+
+                     </children>
+                  </FlowPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

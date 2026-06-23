@@ -70,7 +70,9 @@ public class Playlist implements Identificable {
         if (idAudio == null) return false;
         return contenido.removeIf(a -> a.getId().equals(idAudio));
     }
-
+    public int cantidadAudios(){
+        return contenido.size();
+    }
     @Override
     public String toString() {
         return "[" + id + "] Playlist: '" + nombre + "' (" + contenido.size() + " audios)";

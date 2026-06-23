@@ -2,6 +2,7 @@ package com.proyecto.musicgofx.modelo.persistencia;
 
 import com.proyecto.musicgofx.modelo.entidades.*;
 import java.util.List;
+import java.util.ArrayList;
 
 public class JsonWriter {
 
@@ -92,10 +93,9 @@ public class JsonWriter {
             sb.append("\"reproduccionesTotales\":").append(u.getEstadisticas().getReproduccionesTotales());
             sb.append("},");
 
-            // Historial de compras
             sb.append("\"historialCompras\":").append(crearJsonCompras(u.getHistorialCompras())).append(",");
 
-            // Biblioteca y Playlists
+
             sb.append("\"biblioteca\":{");
             sb.append("\"playlists\":[\n");
             List<Playlist> playlists = u.getBiblioteca().getPlaylists();
@@ -115,6 +115,65 @@ public class JsonWriter {
             sb.append("}");
             if (i < lista.size() - 1) sb.append(",\n");
         }
+        sb.append("\n]");
+        return sb.toString();
+    }
+
+
+    public String crearJsonAdministradores(List<Usuario> listaCompleta) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[\n");
+
+        // 1. Primero filtramos la lista para quedarnos solo con los administradores
+        List<Usuario> soloAdmins = new ArrayList<>();
+        for (Usuario u : listaCompleta) {
+            if (u.getRolUsuario() == Usuario.RolUsuario.ADMINISTRADOR) {
+                soloAdmins.add(u);
+            }
+        }
+
+        // 2. Construimos el JSON usando únicamente la lista filtrada
+        for (int i = 0; i < soloAdmins.size(); i++) {
+            Usuario u = soloAdmins.get(i);
+            sb.append("  {");
+            sb.append("\"id\":\"").append(u.getId()).append("\",");
+            sb.append("\"nombre\":\"").append(u.getNombre()).append("\",");
+            sb.append("\"correo\":\"").append(u.getCorreo()).append("\",");
+            sb.append("\"saldo\":").append(u.getSaldo()).append(",");
+            sb.append("\"rol\":\"").append(u.getRolUsuario().name()).append("\",");
+            sb.append("\"controlParental\":\"").append(u.isControlParental()).append("\",");
+            sb.append("\"edad\":").append(u.getEdad()).append(",");
+
+            // Estadisticas
+            sb.append("\"estadisticas\":{");
+            sb.append("\"tiempoEscuchaSegundos\":").append(u.getEstadisticas().getTiempoEscuchaSegundos()).append(",");
+            sb.append("\"cancionesEnBiblioteca\":").append(u.getEstadisticas().getCancionesEnBiblioteca()).append(",");
+            sb.append("\"comprasRealizadas\":").append(u.getEstadisticas().getComprasRealizadas()).append(",");
+            sb.append("\"reproduccionesTotales\":").append(u.getEstadisticas().getReproduccionesTotales());
+            sb.append("},");
+
+            sb.append("\"historialCompras\":").append(crearJsonCompras(u.getHistorialCompras())).append(",");
+
+            sb.append("\"biblioteca\":{");
+            sb.append("\"playlists\":[\n");
+            List<Playlist> playlists = u.getBiblioteca().getPlaylists();
+            for (int j = 0; j < playlists.size(); j++) {
+                Playlist pl = playlists.get(j);
+                sb.append("      {");
+                sb.append("\"id\":\"").append(pl.getId()).append("\",");
+                sb.append("\"nombre\":\"").append(pl.getNombre()).append("\",");
+                sb.append("\"aliasPropietario\":\"").append(pl.getAliasPropietario()).append("\",");
+                sb.append("\"contenido\":").append(crearJsonAudios(pl.getContenido()));
+                sb.append("}");
+                if (j < playlists.size() - 1) sb.append(",");
+            }
+            sb.append("    ]");
+            sb.append("}");
+
+            sb.append("}");
+            if (i < soloAdmins.size() - 1) sb.append(",\n");
+        }
+
         sb.append("\n]");
         return sb.toString();
     }

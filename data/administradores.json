@@ -1,3 +1,32 @@
 [
-  {"id":"USR-EEDD8FC3","nombre":"andres","correo":"andres@gmail.com","saldo":0.0,"rol":"ADMINISTRADOR","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":11138,"cancionesEnBiblioteca":9,"comprasRealizadas":0,"reproduccionesTotales":6},"historialCompras":[],"biblioteca":{"playlists":[{"nombre":"Favoritas de The Weeknd","audios":["CAN-0001","CAN-0012","CAN-0014","CAN-0016","CAN-0017","CAN-0019"]},{"nombre":"Clásicos del Rock","audios":["CAN-0002","CAN-0003","CAN-0007","CAN-0202","CAN-0208"]},{"nombre":"Synthwave Nightdrive","audios":["CAN-0001","CAN-0310","CAN-0311","CAN-0312","CAN-0314","CAN-0315","CAN-0316","CAN-0317","CAN-0318","CAN-0319"]},{"nombre":"Rock en Español","audios":["CAN-0005","CAN-0050","CAN-0051","CAN-0053","CAN-0054","CAN-0055","CAN-0056","CAN-0057"]},{"nombre":"Daft Punk Collection","audios":["CAN-0010","CAN-0550","CAN-0551","CAN-0552","CAN-0553","CAN-0554","CAN-0555","CAN-0556","CAN-0557","CAN-0558"]},{"nombre":"Podcasts Diarios","audios":["POD-0002","POD-0007"]}]}}
+  {"id":"USR-EEDD8FC3","nombre":"andres","correo":"andres@gmail.com","saldo":0.0,"rol":"ADMINISTRADOR","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":11138,"cancionesEnBiblioteca":4,"comprasRealizadas":0,"reproduccionesTotales":6},"historialCompras":[],"biblioteca":{"playlists":[
+      {"id":"","nombre":"Clásicos del Rock","aliasPropietario":"","contenido":[
+  {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",}
+]},      {"id":"","nombre":"Synthwave Nightdrive","aliasPropietario":"","contenido":[
+
+]},      {"id":"","nombre":"Rock en Español","aliasPropietario":"","contenido":[
+  {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",},
+  {"id":"AUD-005","titulo":"Billie Jean","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Pop","artista":"Michael Jackson","album":"Thriller",}
+]},      {"id":"","nombre":"Daft Punk Collection","aliasPropietario":"","contenido":[
+
+]},      {"id":"","nombre":"Podcasts Diarios","aliasPropietario":"","contenido":[
+  {"id":"AUD-004","titulo":"Inteligencia Artificial hoy","duracionSegundos":0,"tipo":"episodio","categoria":"PUBLICO","genero":"null","anfitrion":"Andrew Ng","nombrePodcast":"The AI Pod","descripcion":"Nuevos modelos de lenguaje","numeroEpisodio":42},
+  {"id":"AUD-008","titulo":"La revolucion del fitness","duracionSegundos":0,"tipo":"episodio","categoria":"PUBLICO","genero":"null","anfitrion":"Andrew Huberman","nombrePodcast":"Huberman Lab","descripcion":"Ciencia del entrenamiento y la recuperacion","numeroEpisodio":75}
+]},      {"id":"PLY-19413EAA","nombre":"AndresMusic","aliasPropietario":"andres","contenido":[
+  {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",}
+]}    ]}},
+  {"id":"USR-CA5A50B7","nombre":"MariCori","correo":"mariah@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}},
+  {"id":"USR-DB161884","nombre":"Coco","correo":"mariah@Hotmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":17,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}},
+  {"id":"USR-C3722654","nombre":"Sarita","correo":"sarabenaventa@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":40,"estadisticas":{"tiempoEscuchaSegundos":2754,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":2},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}},
+  {"id":"USR-679FB860","nombre":"mariaJ","correo":"mariaJ@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}},
+  {"id":"USR-C7193954","nombre":"Antonella","correo":"antonellag@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"true","edad":12,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}},
+  {"id":"USR-427E5C11","nombre":"Jonathan","correo":"jonatha@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"true","edad":12,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}},
+  {"id":"USR-3732E092","nombre":"Gabo","correo":"gabito@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":20,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
+    ]}}
 ]

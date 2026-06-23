@@ -1,95 +1,101 @@
 /* ═══════════════════════════════════════════════════════ */
-/*  TEMA OSCURO MODENOR - HOJA DE ESTILOS JAVAFX         */
+/*  TEMA OSCURO MODERNO - HOJA DE ESTILOS JAVAFX         */
 /*  Paleta de Colores:                                    */
-/*  Primario: #DDB7FF  |  Secundario: #1E1B4B             */
-/*  Terciario: #D1BCFF |  Neutro: #131315                 */
+/*  Primario:    #DDB7FF  (Púrpura vibrante)              */
+/*  Secundario:  #1E1B4B  (Índigo profundo)               */
+/*  Terciario:   #D1BCFF  (Lavanda suave)                 */
+/*  Neutro:      #131315  (Negro azulado)                 */
+/*  Superficie:  #1a1a1e  (Gris oscuro elevado)           */
+/*  Borde:       #2a2a35  (Gris borde)                    */
+/*  Texto:       #e0e0e0  (Blanco suave)                  */
+/*  Muted:       #8a8a9a  (Gris medio)                    */
 /* ═══════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════ */
-/*  ESTILOS GLOBALES Y RAÍZ                               */
+/*  1. RAÍZ Y VARIABLES GLOBALES                          */
 /* ═══════════════════════════════════════════════════════ */
 .root {
-    -fx-font-family: 'Segoe UI', 'SF Pro Display', Helvetica, Arial, sans-serif;
+    -fx-font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     -fx-background-color: #131315;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  ESTILOS BASE DE COMPONENTES (APLICAN A TODA LA APP)    */
+/*  2. COMPONENTES BASE (APLICAN A TODA LA APP)           */
 /* ═══════════════════════════════════════════════════════ */
 
-/* --- Botón Base --- */
+/* ─── 2.1 Botón Base ─── */
 .button {
     -fx-background-color: #1E1B4B;
     -fx-text-fill: #DDB7FF;
     -fx-background-radius: 8px;
     -fx-padding: 10px 20px;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
     -fx-cursor: hand;
     -fx-border-color: transparent;
     -fx-border-width: 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 1);
 }
 
 .button:hover {
     -fx-background-color: #2a2569;
-    -fx-text-fill: #D1BCFF;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 8, 0, 0, 0);
+    -fx-text-fill: #E8D4FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.15), 8, 0, 0, 0);
 }
 
 .button:pressed {
     -fx-background-color: #12102d;
     -fx-scale-x: 0.97;
     -fx-scale-y: 0.97;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 2, 0, 0, 1);
 }
 
 .button:focused {
-    -fx-border-color: #DDB7FF;
+    -fx-border-color: rgba(221,183,255,0.5);
     -fx-border-width: 1.5px;
     -fx-border-radius: 8px;
 }
 
-/* --- Campo de Texto Base --- */
+/* ─── 2.2 Campo de Texto Base ─── */
 .text-field {
-    -fx-background-color: #1e1e24;
+    -fx-background-color: #1a1a1e;
     -fx-text-fill: #ffffff;
     -fx-background-radius: 10px;
-    -fx-padding: 12px 15px;
+    -fx-padding: 12px 16px;
     -fx-font-size: 14px;
     -fx-border-color: #2a2a35;
     -fx-border-radius: 10px;
     -fx-border-width: 1.5px;
     -fx-prompt-text-fill: #6b6b7b;
-    -fx-highlight-fill: #DDB7FF;
-    -fx-highlight-text-fill: #1E1B4B;
-    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-highlight-fill: rgba(221,183,255,0.3);
+    -fx-highlight-text-fill: #ffffff;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 1);
 }
 
 .text-field:hover {
     -fx-border-color: #3a3a4a;
-    -fx-background-color: #23232a;
+    -fx-background-color: #1e1e22;
 }
 
 .text-field:focused {
     -fx-border-color: #DDB7FF;
-    -fx-background-color: #1e1e24;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 8, 0, 0, 0),
-                innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-background-color: #1a1a1e;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 10, 0, 0, 0),
+                innershadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 1);
 }
 
 .text-field:disabled {
-    -fx-opacity: 0.5;
-    -fx-background-color: #18181c;
+    -fx-opacity: 0.4;
+    -fx-background-color: #161618;
 }
 
-/* --- Enlace Base --- */
+/* ─── 2.3 Enlace Base ─── */
 .hyperlink {
     -fx-text-fill: #D1BCFF;
     -fx-font-size: 13px;
-    -fx-underline: true;
+    -fx-underline: false;
     -fx-border-color: transparent;
-    -fx-padding: 2px 4px;
+    -fx-padding: 4px 6px;
     -fx-cursor: hand;
     -fx-background-color: transparent;
     -fx-background-radius: 4px;
@@ -97,24 +103,26 @@
 
 .hyperlink:hover {
     -fx-text-fill: #DDB7FF;
-    -fx-background-color: rgba(221,183,255,0.08);
+    -fx-underline: true;
+    -fx-background-color: rgba(221,183,255,0.06);
 }
 
 .hyperlink:pressed {
-    -fx-text-fill: #846d99;
+    -fx-text-fill: #B8A0D0;
 }
 
 .hyperlink:visited {
-    -fx-text-fill: #7d7099;
+    -fx-text-fill: #9a8ab0;
 }
 
-/* --- Etiqueta Base --- */
+/* ─── 2.4 Etiqueta Base ─── */
 .label {
     -fx-text-fill: #e0e0e0;
     -fx-font-size: 14px;
+    -fx-font-weight: 400;
 }
 
-/* --- Panel de Desplazamiento Base --- */
+/* ─── 2.5 Panel de Desplazamiento Base ─── */
 .scroll-pane {
     -fx-background-color: transparent;
     -fx-background: transparent;
@@ -135,8 +143,8 @@
 .scroll-pane .scroll-bar:horizontal .thumb {
     -fx-background-color: #2a2a35;
     -fx-background-radius: 6px;
-    -fx-min-width: 8px;
-    -fx-min-height: 8px;
+    -fx-min-width: 6px;
+    -fx-min-height: 6px;
 }
 
 .scroll-pane .scroll-bar:vertical .thumb:hover,
@@ -152,75 +160,79 @@
 .scroll-pane .scroll-bar .increment-button,
 .scroll-pane .scroll-bar .decrement-button {
     -fx-background-color: transparent;
-    -fx-padding: 3px;
+    -fx-padding: 2px;
 }
 
 .scroll-pane .scroll-bar .increment-arrow,
 .scroll-pane .scroll-bar .decrement-arrow {
     -fx-background-color: #5a5a6a;
+    -fx-padding: 3px;
 }
 
-/* --- Tabla Base --- */
+/* ─── 2.6 Tabla Base ─── */
 .table-view {
-    -fx-background-color: #131315;
+    -fx-background-color: transparent;
     -fx-border-color: #2a2a35;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-padding: 5px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 0;
+    -fx-table-cell-border-color: transparent;
 }
 
 .table-view .column-header-background {
     -fx-background-color: #1E1B4B;
-    -fx-background-radius: 10px 10px 0 0;
-    -fx-padding: 8px 0;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 0;
+    -fx-pref-height: 44px;
 }
 
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-text-fill: #DDB7FF;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
     -fx-font-size: 13px;
-    -fx-border-color: transparent transparent rgba(221,183,255,0.2) transparent;
+    -fx-border-color: transparent transparent rgba(221,183,255,0.15) transparent;
     -fx-border-width: 0 0 1px 0;
-    -fx-padding: 10px 15px;
+    -fx-padding: 0 16px;
+    -fx-alignment: CENTER_LEFT;
 }
 
 .table-view .column-header:hover {
-    -fx-background-color: rgba(221,183,255,0.08);
+    -fx-background-color: rgba(221,183,255,0.06);
 }
 
 .table-view .table-row-cell {
-    -fx-background-color: #131315;
-    -fx-border-color: transparent transparent #1e1e24 transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(42,42,53,0.5) transparent;
     -fx-border-width: 0 0 1px 0;
-    -fx-padding: 8px 0;
-    -fx-cell-size: 40px;
+    -fx-padding: 0;
+    -fx-cell-size: 48px;
 }
 
 .table-view .table-row-cell:odd {
-    -fx-background-color: #161618;
+    -fx-background-color: rgba(26,26,30,0.4);
 }
 
 .table-view .table-row-cell:hover {
-    -fx-background-color: #1E1B4B;
+    -fx-background-color: rgba(30,27,75,0.3);
     -fx-cursor: hand;
 }
 
 .table-view .table-row-cell:selected {
-    -fx-background-color: #2a2569;
-    -fx-border-color: transparent transparent #DDB7FF transparent;
+    -fx-background-color: rgba(30,27,75,0.5);
+    -fx-border-color: transparent transparent rgba(221,183,255,0.4) transparent;
     -fx-border-width: 0 0 2px 0;
 }
 
 .table-view .table-row-cell:selected .text {
     -fx-fill: #DDB7FF;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
 }
 
 .table-view .table-cell {
     -fx-text-fill: #e0e0e0;
     -fx-font-size: 13px;
-    -fx-padding: 0 15px;
+    -fx-padding: 0 16px;
     -fx-alignment: CENTER_LEFT;
 }
 
@@ -234,96 +246,86 @@
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  ╔═══════════════════════════════════════════════════╗  */
-/*  ║           VISTA DE INICIO DE SESIÓN              ║  */
-/*  ║              (LOGIN / LOGIN.FXML)                  ║  */
-/*  ╚═══════════════════════════════════════════════════╝  */
+/*  3. VISTA DE INICIO DE SESIÓN (LOGIN)                  */
 /* ═══════════════════════════════════════════════════════ */
 
-/* Fondo de la ventana de inicio de sesión */
 .login-bg {
     -fx-background-color: #09090a;
-    -fx-background-radius: 0;
 }
 
-/* Título "MusicGO" con efecto de brillo púrpura */
 .login-titulo {
     -fx-text-fill: #DDB7FF;
-    -fx-font-size: 42px;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.3), 12, 0, 0, 0);
+    -fx-font-size: 40px;
+    -fx-font-weight: 700;
+    -fx-letter-spacing: -0.5px;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 16, 0, 0, 0);
 }
 
-/* Subtítulo informativo gris */
 .login-subtitulo {
     -fx-text-fill: #7f8c8d;
     -fx-font-size: 14px;
-    -fx-padding: 0 0 15px 0;
+    -fx-padding: 0 0 20px 0;
 }
 
-/* Etiquetas sobre los campos de texto ("Nombre de Usuario", etc.) */
 .login-label-campo {
-    -fx-text-fill: #b3b3b3;
+    -fx-text-fill: #a0a0b0;
     -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 3px 5px;
+    -fx-font-weight: 600;
+    -fx-padding: 0 0 6px 4px;
 }
 
-/* Cajas de texto del login (usuario, correo, edad) */
 .login-textfield {
-    -fx-background-color: #1e1e24;
+    -fx-background-color: #1a1a1e;
     -fx-text-fill: #ffffff;
-    -fx-background-radius: 10px;
-    -fx-padding: 14px;
-    -fx-prompt-text-fill: #555555;
+    -fx-background-radius: 12px;
+    -fx-padding: 14px 16px;
+    -fx-prompt-text-fill: #555560;
     -fx-border-color: #2a2a35;
-    -fx-border-radius: 10px;
+    -fx-border-radius: 12px;
     -fx-border-width: 1.5px;
-    -fx-font-size: 14px;
-    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-font-size: 15px;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
 }
 
 .login-textfield:hover {
     -fx-border-color: #3a3a4a;
-    -fx-background-color: #23232a;
+    -fx-background-color: #1e1e22;
 }
 
 .login-textfield:focused {
     -fx-border-color: #DDB7FF;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 10, 0, 0, 0),
-                innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 12, 0, 0, 0),
+                innershadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
 }
 
-/* Mensaje de error en rojo (lblMensaje) */
 .login-error {
     -fx-text-fill: #ff6b6b;
     -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-padding: 5px 0;
+    -fx-font-weight: 600;
+    -fx-padding: 8px 0;
     -fx-wrap-text: true;
     -fx-alignment: center;
 }
 
-/* Botón principal "Iniciar Sesión" (btnAccion) */
 .login-btn-principal {
     -fx-background-color: linear-gradient(to right, #1E1B4B, #2a2569);
     -fx-text-fill: #DDB7FF;
-    -fx-background-radius: 25px;
+    -fx-background-radius: 24px;
     -fx-padding: 14px;
     -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 700;
     -fx-cursor: hand;
-    -fx-border-color: rgba(221,183,255,0.3);
-    -fx-border-radius: 25px;
+    -fx-border-color: rgba(221,183,255,0.25);
+    -fx-border-radius: 24px;
     -fx-border-width: 1px;
     -fx-effect: dropshadow(gaussian, rgba(30,27,75,0.5), 8, 0, 0, 3);
 }
 
 .login-btn-principal:hover {
     -fx-background-color: linear-gradient(to right, #2a2569, #3a3480);
-    -fx-text-fill: #D1BCFF;
-    -fx-border-color: rgba(221,183,255,0.6);
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 12, 0, 0, 0),
+    -fx-text-fill: #E8D4FF;
+    -fx-border-color: rgba(221,183,255,0.5);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 14, 0, 0, 0),
                 dropshadow(gaussian, rgba(30,27,75,0.6), 10, 0, 0, 4);
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
@@ -341,115 +343,105 @@
     -fx-border-width: 2px;
 }
 
-/* Enlace "¿No tienes cuenta? Regístrate aquí" (linkRegistro) */
 .login-link {
     -fx-text-fill: #D1BCFF;
     -fx-font-size: 13px;
-    -fx-underline: true;
+    -fx-underline: false;
     -fx-cursor: hand;
-    -fx-padding: 5px;
-    -fx-background-radius: 4px;
+    -fx-padding: 6px;
+    -fx-background-radius: 6px;
 }
 
 .login-link:hover {
     -fx-text-fill: #DDB7FF;
-    -fx-background-color: rgba(221,183,255,0.08);
+    -fx-underline: true;
+    -fx-background-color: rgba(221,183,255,0.06);
 }
 
 .login-link:pressed {
-    -fx-text-fill: #846d99;
+    -fx-text-fill: #B8A0D0;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  ╔═══════════════════════════════════════════════════╗  */
-/*  ║           VISTA DE REGISTRO                        ║  */
-/*  ║              (REGISTRO / REGISTRO.FXML)            ║  */
-/*  ╚═══════════════════════════════════════════════════╝  */
+/*  4. VISTA DE REGISTRO                                  */
 /* ═══════════════════════════════════════════════════════ */
 
-/* Fondo de la ventana de registro */
 .registro-bg {
     -fx-background-color: #09090a;
 }
 
-/* Título "Crear Cuenta" con efecto de brillo púrpura */
 .registro-titulo {
     -fx-text-fill: #DDB7FF;
-    -fx-font-size: 36px;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 10, 0, 0, 0);
+    -fx-font-size: 34px;
+    -fx-font-weight: 700;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 12, 0, 0, 0);
 }
 
-/* Subtítulo informativo gris */
 .registro-subtitulo {
     -fx-text-fill: #7f8c8d;
     -fx-font-size: 14px;
-    -fx-padding: 0 0 10px 0;
+    -fx-padding: 0 0 16px 0;
 }
 
-/* Etiquetas sobre los campos de texto ("Elige tu Nombre de Usuario", etc.) */
 .registro-label-campo {
-    -fx-text-fill: #b3b3b3;
+    -fx-text-fill: #a0a0b0;
     -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 3px 5px;
+    -fx-font-weight: 600;
+    -fx-padding: 0 0 6px 4px;
 }
 
-/* Cajas de texto del registro (usuario, correo, edad) */
 .registro-textfield {
-    -fx-background-color: #1e1e24;
+    -fx-background-color: #1a1a1e;
     -fx-text-fill: #ffffff;
-    -fx-background-radius: 10px;
-    -fx-padding: 14px;
-    -fx-prompt-text-fill: #555555;
+    -fx-background-radius: 12px;
+    -fx-padding: 14px 16px;
+    -fx-prompt-text-fill: #555560;
     -fx-border-color: #2a2a35;
-    -fx-border-radius: 10px;
+    -fx-border-radius: 12px;
     -fx-border-width: 1.5px;
-    -fx-font-size: 14px;
-    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-font-size: 15px;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
 }
 
 .registro-textfield:hover {
     -fx-border-color: #3a3a4a;
-    -fx-background-color: #23232a;
+    -fx-background-color: #1e1e22;
 }
 
 .registro-textfield:focused {
     -fx-border-color: #DDB7FF;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 10, 0, 0, 0),
-                innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 12, 0, 0, 0),
+                innershadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
 }
 
-/* Mensaje de error en rojo (lblMensaje) */
 .registro-error {
     -fx-text-fill: #ff6b6b;
     -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-padding: 5px 0;
+    -fx-font-weight: 600;
+    -fx-padding: 8px 0;
     -fx-wrap-text: true;
     -fx-alignment: center;
 }
 
-/* Botón principal "Registrarse Ahora" (btnRegistrar) */
 .registro-btn-principal {
     -fx-background-color: linear-gradient(to right, #1E1B4B, #2a2569);
     -fx-text-fill: #DDB7FF;
-    -fx-background-radius: 25px;
+    -fx-background-radius: 24px;
     -fx-padding: 14px;
     -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 700;
     -fx-cursor: hand;
-    -fx-border-color: rgba(221,183,255,0.3);
-    -fx-border-radius: 25px;
+    -fx-border-color: rgba(221,183,255,0.25);
+    -fx-border-radius: 24px;
     -fx-border-width: 1px;
     -fx-effect: dropshadow(gaussian, rgba(30,27,75,0.5), 8, 0, 0, 3);
 }
 
 .registro-btn-principal:hover {
     -fx-background-color: linear-gradient(to right, #2a2569, #3a3480);
-    -fx-text-fill: #D1BCFF;
-    -fx-border-color: rgba(221,183,255,0.6);
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 12, 0, 0, 0),
+    -fx-text-fill: #E8D4FF;
+    -fx-border-color: rgba(221,183,255,0.5);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 14, 0, 0, 0),
                 dropshadow(gaussian, rgba(30,27,75,0.6), 10, 0, 0, 4);
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
@@ -467,64 +459,52 @@
     -fx-border-width: 2px;
 }
 
-/* Enlace "¿Ya tienes cuenta? Inicia sesión" */
 .registro-link {
     -fx-text-fill: #D1BCFF;
     -fx-font-size: 13px;
-    -fx-underline: true;
+    -fx-underline: false;
     -fx-cursor: hand;
-    -fx-padding: 5px;
-    -fx-background-radius: 4px;
+    -fx-padding: 6px;
+    -fx-background-radius: 6px;
 }
 
 .registro-link:hover {
     -fx-text-fill: #DDB7FF;
-    -fx-background-color: rgba(221,183,255,0.08);
+    -fx-underline: true;
+    -fx-background-color: rgba(221,183,255,0.06);
 }
 
 .registro-link:pressed {
-    -fx-text-fill: #846d99;
+    -fx-text-fill: #B8A0D0;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  ╔═══════════════════════════════════════════════════╗  */
-/*  ║     APLICACIÓN PRINCIPAL                           ║  */
-/*  ║     (MAIN / MAIN.FXML)                             ║  */
-/*  ║     Contiene: Sidebar, Reproductor, Centro         ║  */
-/*  ╚═══════════════════════════════════════════════════╝  */
+/*  5. APLICACIÓN PRINCIPAL (MAIN)                        */
 /* ═══════════════════════════════════════════════════════ */
 
-/* ═══════════════════════════════════════════════════════ */
-/*  BARRA LATERAL (SIDEBAR) - Panel izquierdo              */
-/*  ID: sideBar | Clases: sidebar, logo-text, nav-button   */
-/* ═══════════════════════════════════════════════════════ */
-
-/* Fondo de la barra lateral de navegación */
+/* ─── 5.1 Sidebar ─── */
 .sidebar {
     -fx-background-color: #0a0a0c;
-    -fx-border-color: transparent #1e1e24 transparent transparent;
+    -fx-border-color: transparent rgba(30,30,40,0.6) transparent transparent;
     -fx-border-width: 0 1px 0 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 2, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 12, 0, 2, 0);
 }
 
-/* Logo "MusicGO" en la parte superior del sidebar */
 .logo-text {
     -fx-text-fill: #DDB7FF;
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 30px 0;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.3), 8, 0, 0, 0);
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 32px 0;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.25), 10, 0, 0, 0);
 }
 
-/* Botones de navegación: Inicio, Explorar, Biblioteca, Tienda, Ajustes */
-/* IDs: btnInicio, btnExplorar, btnBiblioteca, btnTienda, btnAjustes */
 .nav-button {
     -fx-background-color: transparent;
     -fx-text-fill: #8a8a9a;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
     -fx-alignment: BASELINE_LEFT;
-    -fx-padding: 12px 18px;
+    -fx-padding: 10px 16px;
     -fx-cursor: hand;
     -fx-background-radius: 8px;
     -fx-border-color: transparent;
@@ -532,129 +512,100 @@
     -fx-graphic-text-gap: 12px;
 }
 
-/* Efecto al pasar el mouse por los botones de navegación */
 .nav-button:hover {
     -fx-text-fill: #DDB7FF;
-    -fx-background-color: rgba(30,27,75,0.4);
-    -fx-border-color: transparent transparent transparent rgba(221,183,255,0.3);
-    -fx-border-width: 0 0 0 3px;
-    -fx-padding: 12px 18px 12px 15px;
+    -fx-background-color: rgba(30,27,75,0.35);
 }
 
-/* Efecto al hacer clic en los botones de navegación */
 .nav-button:pressed {
-    -fx-background-color: rgba(30,27,75,0.6);
+    -fx-background-color: rgba(30,27,75,0.55);
     -fx-text-fill: #D1BCFF;
 }
 
-/* Efecto cuando el botón de navegación tiene el foco del teclado */
 .nav-button:focused {
+    -fx-text-fill: #DDB7FF;
+    -fx-background-color: rgba(30,27,75,0.45);
+    -fx-border-color: transparent transparent transparent rgba(221,183,255,0.4);
+    -fx-border-width: 0 0 0 3px;
+    -fx-padding: 10px 16px 10px 13px;
+}
+
+.nav-button:selected,
+.nav-button.active {
     -fx-text-fill: #DDB7FF;
     -fx-background-color: rgba(30,27,75,0.5);
     -fx-border-color: transparent transparent transparent #DDB7FF;
     -fx-border-width: 0 0 0 3px;
-    -fx-padding: 12px 18px 12px 15px;
+    -fx-padding: 10px 16px 10px 13px;
 }
 
-/* Estado activo/seleccionado para botones de navegación */
-.nav-button:selected,
-.nav-button.active {
-    -fx-text-fill: #DDB7FF;
-    -fx-background-color: rgba(30,27,75,0.6);
-    -fx-border-color: transparent transparent transparent #DDB7FF;
-    -fx-border-width: 0 0 0 3px;
-    -fx-padding: 12px 18px 12px 15px;
-}
-
-/* ═══════════════════════════════════════════════════════ */
-/*  BARRA DE REPRODUCCIÓN (PLAYER BAR) - Panel inferior    */
-/*  Clases: player-bar, player-title, player-artist        */
-/*  player-button, player-button-play                      */
-/* ═══════════════════════════════════════════════════════ */
-
-/* Fondo de la barra de reproducción de música */
+/* ─── 5.2 Barra de Reproducción ─── */
 .player-bar {
     -fx-background-color: #0f0f12;
-    -fx-border-color: #1e1e24 transparent transparent transparent;
+    -fx-border-color: rgba(30,30,40,0.6) transparent transparent transparent;
     -fx-border-width: 1px 0 0 0;
-    -fx-padding: 15px 30px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0, 0, -2);
+    -fx-padding: 12px 28px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, -2);
 }
 
-/* Título de la canción que se reproduce (lblTituloAudio) */
 .player-title {
     -fx-text-fill: #ffffff;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+    -fx-font-weight: 600;
 }
 
-/* Nombre del artista de la canción (lblArtistaAudio) */
 .player-artist {
     -fx-text-fill: #8a8a9a;
     -fx-font-size: 12px;
 }
 
-/* Botones de control: Anterior (⏮) y Siguiente (⏭) */
-/* IDs: btnAnterior, btnSiguiente */
 .player-button {
     -fx-background-color: transparent;
     -fx-text-fill: #8a8a9a;
-    -fx-font-size: 20px;
+    -fx-font-size: 18px;
     -fx-cursor: hand;
-    -fx-padding: 8px 12px;
+    -fx-padding: 8px;
     -fx-background-radius: 50%;
-    -fx-min-width: 40px;
-    -fx-min-height: 40px;
-    -fx-transition: all 0.15s ease;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
 }
 
 .player-button:hover {
     -fx-text-fill: #DDB7FF;
     -fx-background-color: rgba(221,183,255,0.08);
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.08;
+    -fx-scale-y: 1.08;
 }
 
 .player-button:pressed {
     -fx-text-fill: #D1BCFF;
-    -fx-background-color: rgba(30,27,75,0.3);
+    -fx-background-color: rgba(30,27,75,0.25);
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
 }
 
-.player-button:focused {
-    -fx-border-color: rgba(221,183,255,0.4);
-    -fx-border-width: 1.5px;
-    -fx-border-radius: 50%;
-}
-
-/* Botón de Play/Pause principal (▶) */
-/* ID: btnPlay | Clase: player-button-play */
 .player-button-play {
     -fx-background-color: linear-gradient(to bottom, #DDB7FF, #D1BCFF);
     -fx-text-fill: #1E1B4B;
-    -fx-background-radius: 50em;
-    -fx-min-width: 50px;
-    -fx-min-height: 50px;
-    -fx-max-width: 50px;
-    -fx-max-height: 50px;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
+    -fx-background-radius: 50%;
+    -fx-min-width: 48px;
+    -fx-min-height: 48px;
+    -fx-max-width: 48px;
+    -fx-max-height: 48px;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
     -fx-cursor: hand;
     -fx-padding: 0;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 10, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.35), 12, 0, 0, 2);
 }
 
-/* Efecto al pasar el mouse por el botón de play */
 .player-button-play:hover {
-    -fx-background-color: linear-gradient(to bottom, #e8d4ff, #ddd0ff);
+    -fx-background-color: linear-gradient(to bottom, #E8D4FF, #ddd0ff);
     -fx-scale-x: 1.08;
     -fx-scale-y: 1.08;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.6), 15, 0, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.55), 16, 0, 0, 3);
 }
 
-/* Efecto al hacer clic en el botón de play */
 .player-button-play:pressed {
     -fx-background-color: linear-gradient(to bottom, #c9a3e6, #c0a8e6);
     -fx-scale-x: 0.95;
@@ -663,72 +614,60 @@
 }
 
 .player-button-play:focused {
-    -fx-border-color: #ffffff;
+    -fx-border-color: rgba(255,255,255,0.5);
     -fx-border-width: 2px;
     -fx-border-radius: 50%;
 }
 
-/* ═══════════════════════════════════════════════════════ */
-/*  ÁREA CENTRAL DE CONTENIDO (CENTER)                     */
-/*  ID: contenedorCentral | Clase: main-center             */
-/* ═══════════════════════════════════════════════════════ */
-
-/* Fondo del área central donde se muestran las vistas */
+/* ─── 5.3 Área Central ─── */
 .main-center {
     -fx-background-color: #131315;
-    -fx-padding: 20px;
+    -fx-padding: 24px;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  ╔═══════════════════════════════════════════════════╗  */
-/*  ║  ESTILOS ADICIONALES Y UTILIDADES                ║  */
-/*  ║  (Para uso futuro en nuevas vistas)              ║  */
-/*  ╚═══════════════════════════════════════════════════╝  */
+/*  6. UTILIDADES Y COMPONENTES COMPARTIDOS               */
 /* ═══════════════════════════════════════════════════════ */
 
-/* Tarjetas de contenido para mostrar información */
 .content-card {
     -fx-background-color: #1a1a1e;
     -fx-background-radius: 12px;
-    -fx-border-color: #2a2a35;
+    -fx-border-color: rgba(42,42,53,0.8);
     -fx-border-radius: 12px;
     -fx-border-width: 1px;
     -fx-padding: 20px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 6, 0, 0, 2);
 }
 
 .content-card:hover {
-    -fx-border-color: #3a3a4a;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.08), 8, 0, 0, 0);
+    -fx-border-color: rgba(58,58,74,0.8);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.06), 10, 0, 0, 0);
 }
 
-/* Encabezados de sección */
 .section-header {
     -fx-text-fill: #DDB7FF;
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 15px 0;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.15), 6, 0, 0, 0);
+    -fx-font-size: 22px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 16px 0;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.12), 6, 0, 0, 0);
 }
 
-/* Sub-encabezados */
 .subsection-header {
     -fx-text-fill: #b3b3b3;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 15px 0 10px 0;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-padding: 16px 0 10px 0;
 }
 
-/* Línea divisoria */
 .divider {
-    -fx-background-color: #2a2a35;
+    -fx-background-color: rgba(42,42,53,0.6);
     -fx-min-height: 1px;
     -fx-max-height: 1px;
     -fx-padding: 8px 0;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  BARRAS DE DESPLAZAMIENTO INDEPENDIENTES                */
+/*  7. BARRAS DE DESPLAZAMIENTO INDEPENDIENTES            */
 /* ═══════════════════════════════════════════════════════ */
 
 .scroll-bar {
@@ -737,18 +676,18 @@
 }
 
 .scroll-bar:vertical {
-    -fx-pref-width: 10px;
+    -fx-pref-width: 8px;
 }
 
 .scroll-bar:horizontal {
-    -fx-pref-height: 10px;
+    -fx-pref-height: 8px;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #2a2a35;
-    -fx-background-radius: 5px;
-    -fx-min-width: 8px;
-    -fx-min-height: 8px;
+    -fx-background-color: rgba(42,42,53,0.8);
+    -fx-background-radius: 4px;
+    -fx-min-width: 6px;
+    -fx-min-height: 6px;
 }
 
 .scroll-bar .thumb:hover {
@@ -766,12 +705,13 @@
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-background-color: transparent;
-    -fx-padding: 3px;
+    -fx-padding: 2px;
 }
 
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow {
     -fx-background-color: #5a5a6a;
+    -fx-padding: 2px;
 }
 
 .scroll-bar .increment-arrow:hover,
@@ -780,26 +720,25 @@
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  BARRAS DE PROGRESO Y DESLIZADORES                      */
+/*  8. BARRAS DE PROGRESO Y DESLIZADORES                  */
 /* ═══════════════════════════════════════════════════════ */
 
 .progress-bar {
-    -fx-background-color: #1e1e24;
+    -fx-background-color: #1a1a1e;
     -fx-background-radius: 4px;
     -fx-border-radius: 4px;
-    -fx-border-color: #2a2a35;
+    -fx-border-color: rgba(42,42,53,0.5);
     -fx-border-width: 1px;
-    -fx-pref-height: 6px;
+    -fx-pref-height: 5px;
 }
 
 .progress-bar .bar {
     -fx-background-color: linear-gradient(to right, #1E1B4B, #DDB7FF);
     -fx-background-radius: 4px;
-    -fx-padding: 2px;
 }
 
 .progress-bar .track {
-    -fx-background-color: #1e1e24;
+    -fx-background-color: #1a1a1e;
     -fx-background-radius: 4px;
 }
 
@@ -810,28 +749,28 @@
 .slider .track {
     -fx-background-color: #2a2a35;
     -fx-background-radius: 3px;
-    -fx-pref-height: 4px;
+    -fx-pref-height: 3px;
 }
 
 .slider .thumb {
     -fx-background-color: #DDB7FF;
     -fx-background-radius: 50%;
-    -fx-pref-width: 14px;
-    -fx-pref-height: 14px;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 6, 0, 0, 1);
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.35), 6, 0, 0, 1);
 }
 
 .slider .thumb:hover {
-    -fx-background-color: #D1BCFF;
-    -fx-scale-x: 1.2;
-    -fx-scale-y: 1.2;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.6), 10, 0, 0, 2);
+    -fx-background-color: #E8D4FF;
+    -fx-scale-x: 1.25;
+    -fx-scale-y: 1.25;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.55), 10, 0, 0, 2);
 }
 
 .slider .thumb:pressed {
     -fx-background-color: #ffffff;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
 }
 
 .slider .filled-track {
@@ -840,32 +779,33 @@
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  LISTAS DESPLEGABLES (COMBO BOX)                        */
+/*  9. LISTAS DESPLEGABLES (COMBO BOX)                    */
 /* ═══════════════════════════════════════════════════════ */
 
 .combo-box {
-    -fx-background-color: #1e1e24;
+    -fx-background-color: #1a1a1e;
     -fx-background-radius: 10px;
     -fx-border-color: #2a2a35;
     -fx-border-radius: 10px;
     -fx-border-width: 1.5px;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #e0e0e0;
     -fx-font-size: 14px;
-    -fx-padding: 2px 5px;
+    -fx-padding: 2px 6px;
 }
 
 .combo-box:hover {
     -fx-border-color: #3a3a4a;
-    -fx-background-color: #23232a;
+    -fx-background-color: #1e1e22;
 }
 
 .combo-box:focused {
     -fx-border-color: #DDB7FF;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 8, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.18), 10, 0, 0, 0);
 }
 
 .combo-box .arrow {
     -fx-background-color: #8a8a9a;
+    -fx-padding: 3px;
 }
 
 .combo-box:hover .arrow {
@@ -874,50 +814,50 @@
 
 .combo-box-popup .list-view {
     -fx-background-color: #1a1a1e;
-    -fx-border-color: #2a2a35;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-padding: 5px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 4);
+    -fx-border-color: rgba(42,42,53,0.8);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 6px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
 }
 
 .combo-box-popup .list-view .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: #e0e0e0;
-    -fx-padding: 10px 15px;
+    -fx-padding: 10px 14px;
     -fx-font-size: 13px;
     -fx-background-radius: 6px;
 }
 
 .combo-box-popup .list-view .list-cell:hover {
-    -fx-background-color: rgba(30,27,75,0.5);
+    -fx-background-color: rgba(30,27,75,0.45);
     -fx-text-fill: #DDB7FF;
 }
 
 .combo-box-popup .list-view .list-cell:selected {
     -fx-background-color: #1E1B4B;
     -fx-text-fill: #DDB7FF;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  MENÚS CONTEXTUALES Y MENÚS                             */
+/*  10. MENÚS CONTEXTUALES                                */
 /* ═══════════════════════════════════════════════════════ */
 
 .context-menu {
     -fx-background-color: #1a1a1e;
     -fx-background-radius: 10px;
-    -fx-border-color: #2a2a35;
+    -fx-border-color: rgba(42,42,53,0.8);
     -fx-border-radius: 10px;
     -fx-border-width: 1px;
-    -fx-padding: 8px;
+    -fx-padding: 6px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
 }
 
 .menu-item {
     -fx-background-color: transparent;
     -fx-text-fill: #e0e0e0;
-    -fx-padding: 10px 20px;
+    -fx-padding: 10px 18px;
     -fx-font-size: 13px;
     -fx-background-radius: 6px;
     -fx-cursor: hand;
@@ -925,366 +865,324 @@
 
 .menu-item:hover,
 .menu-item:focused {
-    -fx-background-color: rgba(30,27,75,0.5);
+    -fx-background-color: rgba(30,27,75,0.45);
     -fx-text-fill: #DDB7FF;
 }
 
 .menu-item:pressed {
-    -fx-background-color: #1E1B4B;
+    -fx-background-color: rgba(30,27,75,0.65);
 }
 
 .separator-menu-item .separator {
-    -fx-border-color: #2a2a35;
+    -fx-border-color: rgba(42,42,53,0.6);
     -fx-border-width: 1px 0 0 0;
-    -fx-padding: 5px 0;
+    -fx-padding: 4px 0;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  CONSEJOS EMERGENTES (TOOLTIP)                          */
+/*  11. CONSEJOS EMERGENTES (TOOLTIP)                     */
 /* ═══════════════════════════════════════════════════════ */
 
 .tooltip {
     -fx-background-color: #1E1B4B;
     -fx-text-fill: #DDB7FF;
     -fx-font-size: 12px;
-    -fx-padding: 8px 12px;
+    -fx-padding: 8px 14px;
     -fx-background-radius: 8px;
-    -fx-border-color: rgba(221,183,255,0.2);
+    -fx-border-color: rgba(221,183,255,0.15);
     -fx-border-radius: 8px;
     -fx-border-width: 1px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0, 0, 2);
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/*  DIÁLOGOS Y ALERTAS                                     */
+/*  12. DIÁLOGOS Y ALERTAS (MODERNIZADO)                  */
 /* ═══════════════════════════════════════════════════════ */
 
 .dialog-pane {
     -fx-background-color: #131315;
-    -fx-border-color: #2a2a35;
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-    -fx-padding: 20px;
+    -fx-border-color: rgba(42,42,53,0.6);
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 24, 0, 0, 8);
 }
 
 .dialog-pane .header-panel {
     -fx-background-color: #1E1B4B;
-    -fx-background-radius: 12px 12px 0 0;
-    -fx-padding: 15px 20px;
+    -fx-background-radius: 16px 16px 0 0;
+    -fx-padding: 20px 24px;
+    -fx-border-color: transparent transparent rgba(221,183,255,0.1) transparent;
+    -fx-border-width: 0 0 1px 0;
 }
 
 .dialog-pane .header-panel .label {
     -fx-text-fill: #DDB7FF;
     -fx-font-size: 18px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 700;
 }
 
 .dialog-pane .content.label {
     -fx-text-fill: #e0e0e0;
     -fx-font-size: 14px;
-    -fx-padding: 15px 0;
+    -fx-padding: 24px;
+    -fx-line-spacing: 4px;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: #e0e0e0;
+}
+
+.dialog-pane .graphic-container {
+    -fx-background-color: transparent;
+    -fx-padding: 20px 0 20px 20px;
+}
+
+.dialog-pane .button-bar {
+    -fx-background-color: rgba(19,19,21,0.8);
+    -fx-padding: 16px 24px;
+    -fx-border-color: rgba(42,42,53,0.4) transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
 }
 
 .dialog-pane .button-bar .button {
-    -fx-background-color: #1E1B4B;
+    -fx-background-color: transparent;
     -fx-text-fill: #DDB7FF;
     -fx-background-radius: 8px;
-    -fx-padding: 10px 20px;
-    -fx-font-weight: bold;
+    -fx-padding: 10px 24px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(221,183,255,0.25);
+    -fx-border-radius: 8px;
+    -fx-border-width: 1.5px;
 }
 
 .dialog-pane .button-bar .button:hover {
-    -fx-background-color: #2a2569;
+    -fx-background-color: rgba(221,183,255,0.1);
+    -fx-border-color: rgba(221,183,255,0.5);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.15), 8, 0, 0, 0);
+}
+
+.dialog-pane .button-bar .button:pressed {
+    -fx-background-color: rgba(221,183,255,0.05);
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
 }
 
 .dialog-pane .button-bar .button:default {
-    -fx-background-color: linear-gradient(to right, #1E1B4B, #2a2569);
-    -fx-border-color: rgba(221,183,255,0.3);
-    -fx-border-width: 1px;
-    -fx-border-radius: 8px;
+    -fx-background-color: #DDB7FF;
+    -fx-text-fill: #1E1B4B;
+    -fx-border-color: transparent;
+    -fx-font-weight: 700;
+}
+
+.dialog-pane .button-bar .button:default:hover {
+    -fx-background-color: #E8D4FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 12, 0, 0, 0);
+}
+
+.dialog-pane .button-bar .button:default:pressed {
+    -fx-background-color: #C9A0F0;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/* BARRA SUPERIOR (HEADER) Y BOTÓN BILLETERA              */
+/*  13. BARRA SUPERIOR Y BOTÓN BILLETERA                  */
 /* ═══════════════════════════════════════════════════════ */
 
-/* Botón de la Billetera (diseño tipo píldora) */
 .btn-billetera {
-    -fx-background-color: rgba(30, 27, 75, 0.4); /* Fondo secundario translúcido */
-    -fx-text-fill: #e0e0e0;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-background-color: rgba(30, 27, 75, 0.35);
+    -fx-text-fill: #c0c0d0;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
     -fx-padding: 8px 18px;
-    -fx-background-radius: 20px; /* Bordes muy redondeados */
-    -fx-border-color: rgba(221, 183, 255, 0.3); /* Borde morado claro sutil */
+    -fx-background-radius: 20px;
+    -fx-border-color: rgba(221, 183, 255, 0.2);
     -fx-border-radius: 20px;
-    -fx-border-width: 1.5px;
+    -fx-border-width: 1px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 1);
 }
 
-/* Efecto al pasar el mouse por la billetera */
 .btn-billetera:hover {
-    -fx-background-color: rgba(30, 27, 75, 0.8);
+    -fx-background-color: rgba(30, 27, 75, 0.65);
     -fx-text-fill: #DDB7FF;
-    -fx-border-color: #DDB7FF;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.4), 10, 0, 0, 0);
+    -fx-border-color: rgba(221, 183, 255, 0.4);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 10, 0, 0, 0);
 }
 
-/* Efecto al hacer clic en la billetera */
 .btn-billetera:pressed {
     -fx-background-color: #12102d;
     -fx-text-fill: #D1BCFF;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
 }
+
 /* ═══════════════════════════════════════════════════════ */
-/*  UTILIDADES DE ESPACIADO                                */
+/*  14. TARJETAS DE CANCIONES                             */
 /* ═══════════════════════════════════════════════════════ */
 
-.spacing-sm {
-    -fx-spacing: 8px;
-}
-
-.spacing-md {
-    -fx-spacing: 15px;
-
-}
-
-.spacing-lg {
-    -fx-spacing: 25px;
-}
-
-.padding-sm {
-    -fx-padding: 10px;
-}
-
-.padding-md {
-    -fx-padding: 20px;
-}
-
-.padding-lg {
-    -fx-padding: 30px;
-}
-
-/* Estilo para las tarjetas de canciones en el Inicio */
 .tarjeta-audio {
-    -fx-background-color: #1E1B4B; /* Color secundario de tu paleta */
-    -fx-background-radius: 12px;   /* Bordes muy redondeados */
-    -fx-border-color: #2a2a35;     /* Borde sutil */
+    -fx-background-color: #1E1B4B;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(42,42,53,0.5);
     -fx-border-radius: 12px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
-}
-
-/* Efecto mágico: cuando el usuario pasa el ratón por encima, se ilumina */
-.tarjeta-audio:hover {
-    -fx-background-color: #2c286b;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 6, 0, 0, 2);
     -fx-cursor: hand;
 }
 
+.tarjeta-audio:hover {
+    -fx-background-color: #252160;
+    -fx-border-color: rgba(221,183,255,0.15);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.1), 12, 0, 0, 0);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+
+.tarjeta-audio:pressed {
+    -fx-background-color: #1a1750;
+    -fx-scale-x: 0.99;
+    -fx-scale-y: 0.99;
+}
+
 /* ═══════════════════════════════════════════════════════ */
-/*  VISTA EXPLORADOR Y FILTROS (Adaptado a la Paleta)      */
+/*  15. VISTA EXPLORADOR Y FILTROS                        */
 /* ═══════════════════════════════════════════════════════ */
 
-/* Color de fondo principal del explorador (Neutro) */
 .fondo-explorador {
     -fx-background-color: #131315;
 }
 
-/* Ajuste del fondo específico para el explorador */
 .fondo-explorador .scroll-pane {
     -fx-background-color: transparent;
     -fx-background: #131315;
 }
 
-/* --- Botones de Filtro (ToggleButtons del Explorador) --- */
 .boton-filtro {
-    -fx-background-color: #1e1e24;
-    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #1a1a1e;
+    -fx-text-fill: #b0b0c0;
     -fx-border-color: #2a2a35;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
-    -fx-padding: 8px 15px;
+    -fx-padding: 8px 18px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
     -fx-cursor: hand;
 }
 
 .boton-filtro:hover {
-    -fx-background-color: #2a2a35;
+    -fx-background-color: #22222a;
+    -fx-border-color: #3a3a4a;
 }
 
 .boton-filtro:selected {
-    -fx-background-color: #DDB7FF; /* Morado claro */
-    -fx-text-fill: #131315; /* Letra oscura para que resalte */
+    -fx-background-color: #DDB7FF;
+    -fx-text-fill: #131315;
     -fx-border-color: #DDB7FF;
+    -fx-font-weight: 700;
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/* ESTILO PARA EL MENÚ DESPLEGABLE (COMBOBOX DE GÉNEROS)  */
+/*  16. MENÚ DESPLEGABLE DE GÉNEROS (COMBOBOX)            */
 /* ═══════════════════════════════════════════════════════ */
 
-/* Botón principal del ComboBox */
 .menu-desplegable {
-    -fx-background-color: #1e1e24;
+    -fx-background-color: #1a1a1e;
     -fx-background-radius: 10px;
     -fx-border-color: #2a2a35;
     -fx-border-radius: 10px;
     -fx-border-width: 1.5px;
     -fx-cursor: hand;
-    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 1);
 }
 
 .menu-desplegable:hover {
     -fx-border-color: #3a3a4a;
-    -fx-background-color: #23232a;
+    -fx-background-color: #1e1e22;
 }
 
 .menu-desplegable:focused {
     -fx-border-color: #DDB7FF;
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.2), 8, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.18), 10, 0, 0, 0);
 }
 
-/* Texto visible en el botón del ComboBox */
 .menu-desplegable .list-cell {
     -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
 }
 
-/* NUEVO: Lista desplegable flotante (Popup) - Esto quita el fondo blanco y las líneas */
 .combo-box-popup .list-view {
-    -fx-background-color: #131315; /* Fondo negro neutro de la app */
-    -fx-border-color: #2a2a35;     /* Borde oscuro a juego */
+    -fx-background-color: #1a1a1e;
+    -fx-border-color: rgba(42,42,53,0.8);
     -fx-border-width: 1px;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 6px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
 }
 
-/* Las celdas individuales de las opciones dentro del menú */
 .combo-box-popup .list-cell {
-    -fx-background-color: #131315;
-    -fx-text-fill: #e0e0e0;         /* Texto claro */
-    -fx-padding: 8px 10px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6px;
 }
 
-/* Cuando pasas el mouse por encima de una opción del desplegable */
 .combo-box-popup .list-cell:hover {
-    -fx-background-color: #1E1B4B; /* Fondo morado oscuro secundario */
-    -fx-text-fill: #DDB7FF;         /* Texto morado claro */
+    -fx-background-color: rgba(30,27,75,0.45);
+    -fx-text-fill: #DDB7FF;
 }
 
-/* Cuando una opción está seleccionada dentro de la lista flotante */
 .combo-box-popup .list-cell:filled:selected,
 .combo-box-popup .list-cell:filled:selected:hover {
-    -fx-background-color: #DDB7FF; /* Fondo morado claro */
-    -fx-text-fill: #131315;        /* Texto oscuro */
+    -fx-background-color: #1E1B4B;
+    -fx-text-fill: #DDB7FF;
+    -fx-font-weight: 600;
 }
-
-
 
 .panel-resultados {
     -fx-background-color: transparent;
-    -fx-padding: 10px;
+    -fx-padding: 12px;
 }
+
 /* ═══════════════════════════════════════════════════════ */
-/* DIÁLOGOS Y ALERTAS (OPTIMIZADO PARA MUSICGO)          */
+/*  17. BOTÓN AGREGAR A PLAYLIST                          */
 /* ═══════════════════════════════════════════════════════ */
 
-/* Contenedor principal de la Alerta */
-.dialog-pane {
-    -fx-background-color: #131315; /* Neutro de tu app */
-    -fx-border-color: #2a2a35;     /* Borde sutil */
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-    -fx-padding: 10px;
-}
-
-/* Panel del Encabezado (Donde se muestra el HeaderText) */
-.dialog-pane .header-panel {
-    -fx-background-color: #1E1B4B; /* Tu color secundario */
-    -fx-background-radius: 12px 12px 0 0;
-    -fx-padding: 15px 20px;
-    -fx-border-color: transparent transparent #2a2a35 transparent;
-    -fx-border-width: 0 0 1px 0;
-}
-
-/* Título del Encabezado */
-.dialog-pane .header-panel .label {
-    -fx-text-fill: #DDB7FF; /* Tu color primario (Morado claro) */
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
-
-/* Mensaje o cuerpo del texto (ContentText) */
-.dialog-pane .content.label {
-    -fx-text-fill: #e0e0e0; /* Tu texto claro */
-    -fx-font-size: 14px;
-    -fx-padding: 20px 10px;
-}
-
-/* IMPORTANTE: Forzar a que las etiquetas internas no hereden color negro */
-.dialog-pane .label {
-    -fx-text-fill: #e0e0e0;
-}
-
-/* Quita el fondo blanco/gris del icono nativo (Warning, Error, etc.) */
-.dialog-pane .graphic-container {
-    -fx-background-color: transparent;
-    -fx-padding: 15px 0 15px 15px;
-}
-
-/* Contenedor de la barra inferior de botones */
-.dialog-pane .button-bar {
-    -fx-background-color: #131315; /* Fondo neutro */
-    -fx-padding: 10px;
-}
-
-/* Botones dentro de la Alerta (Aceptar / Cancelar) */
-.dialog-pane .button {
-    -fx-background-color: #1E1B4B; /* Secundario */
-    -fx-text-fill: #DDB7FF;        /* Primario */
-    -fx-background-radius: 8px;
-    -fx-padding: 8px 20px;
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
-}
-
-/* Efecto Hover del botón */
-.dialog-pane .button:hover {
-    -fx-background-color: #2a2569;
-    -fx-text-fill: #D1BCFF; /* Terciario */
-    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.15), 6, 0, 0, 0);
-}
-
-/* Efecto Clic del botón */
-.dialog-pane .button:pressed {
-    -fx-background-color: #12102d;
-    -fx-scale-x: 0.96;
-    -fx-scale-y: 0.96;
-}
-
-/* Modificamos el diseño del botón "+" ahora que es más ancho */
 .btn-agregar-playlist {
     -fx-background-color: transparent;
     -fx-text-fill: #DDB7FF;
-    -fx-border-color: #DDB7FF;
+    -fx-border-color: rgba(221,183,255,0.4);
     -fx-border-width: 1.5px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
     -fx-font-size: 12px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
     -fx-cursor: hand;
-    -fx-padding: 5 10 5 10;
+    -fx-padding: 6px 12px;
 }
 
 .btn-agregar-playlist:hover {
     -fx-background-color: #DDB7FF;
     -fx-text-fill: #1E1B4B;
+    -fx-border-color: #DDB7FF;
+    -fx-effect: dropshadow(gaussian, rgba(221,183,255,0.3), 8, 0, 0, 0);
 }
 
-/* ==========================================================
-   ESTILOS PARA LA VENTANA EMERGENTE (POPUP DE PLAYLISTS)
-   ========================================================== */
+.btn-agregar-playlist:pressed {
+    -fx-background-color: #C9A0F0;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+}
 
-/* ─── Variables de Color ─── */
-* {
+/* ═══════════════════════════════════════════════════════ */
+/*  18. POPUP DE PLAYLISTS (VENTANA EMERGENTE)            */
+/* ═══════════════════════════════════════════════════════ */
+
+/* ─── 18.1 Variables locales del popup ─── */
+.ventana-emergente-oscura {
     -fx-color-primario: #1E1B4B;
     -fx-color-secundario: #2D296A;
     -fx-color-acento: #DDB7FF;
@@ -1294,75 +1192,78 @@
     -fx-color-fondo-popup: #131136;
 }
 
-/* ─── Fondo General ─── */
+/* ─── 18.2 Fondo General ─── */
 .ventana-emergente-oscura {
     -fx-background-color: -fx-color-primario;
-    -fx-background-radius: 12px;
-    -fx-border-radius: 12px;
-    -fx-border-color: rgba(221, 183, 255, 0.2);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: rgba(221, 183, 255, 0.12);
     -fx-border-width: 1px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 20, 0, 0, 8);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 24, 0, 0, 10);
 }
 
-/* ─── Textos ─── */
+/* ─── 18.3 Textos ─── */
 .ventana-emergente-oscura .label {
     -fx-text-fill: -fx-color-texto;
     -fx-font-family: "Segoe UI", sans-serif;
-    -fx-font-weight: 600;
+    -fx-font-weight: 500;
+    -fx-font-size: 14px;
 }
 
-/* ─── Cabecera ─── */
+/* ─── 18.4 Cabecera ─── */
 .ventana-emergente-oscura:header .header-panel {
     -fx-background-color: -fx-color-fondo-popup;
-    -fx-background-radius: 12px 12px 0 0;
-    -fx-padding: 16px 20px;
-    -fx-border-color: rgba(221, 183, 255, 0.15);
+    -fx-background-radius: 16px 16px 0 0;
+    -fx-padding: 20px 24px;
+    -fx-border-color: transparent transparent rgba(221, 183, 255, 0.1) transparent;
     -fx-border-width: 0 0 1px 0;
 }
 
-/* ─── Choice Box / Combo Box ─── */
+.ventana-emergente-oscura:header .header-panel .label {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -fx-color-acento;
+}
+
+/* ─── 18.5 Choice Box ─── */
 .ventana-emergente-oscura .choice-box {
     -fx-background-color: -fx-color-secundario;
-    -fx-border-color: rgba(221, 183, 255, 0.4);  /* Borde sutil, NO blanco */
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-border-width: 1px;
-    -fx-padding: 8px 12px;
+    -fx-border-color: rgba(221, 183, 255, 0.25);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-padding: 10px 14px;
     -fx-mark-color: -fx-color-acento;
     -fx-cursor: hand;
 }
 
 .ventana-emergente-oscura .choice-box:hover {
-    -fx-border-color: -fx-color-acento;
-    -fx-effect: dropshadow(gaussian, rgba(221, 183, 255, 0.2), 10, 0, 0, 0);
+    -fx-border-color: rgba(221, 183, 255, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(221, 183, 255, 0.15), 10, 0, 0, 0);
 }
 
-/* Texto del ChoiceBox - ALTO CONTRASTE */
 .ventana-emergente-oscura .choice-box .label {
     -fx-text-fill: -fx-color-acento;
     -fx-font-size: 14px;
-    -fx-font-weight: 700;
+    -fx-font-weight: 600;
 }
 
-/* Flecha desplegable */
 .ventana-emergente-oscura .choice-box .arrow {
     -fx-background-color: -fx-color-acento;
-    -fx-padding: 4px;
+    -fx-padding: 3px;
 }
 
-/* ─── MENÚ DESPLEGABLE (Popup del ChoiceBox) ─── */
-/* FONDO OSCURO del menú desplegable - elimina el blanco feo */
+/* ─── 18.6 Menú Desplegable del ChoiceBox ─── */
 .ventana-emergente-oscura .choice-box .context-menu {
     -fx-background-color: -fx-color-fondo-popup;
-    -fx-background-radius: 8px;
-    -fx-border-radius: 8px;
-    -fx-border-color: rgba(221, 183, 255, 0.3);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: rgba(221, 183, 255, 0.2);
     -fx-border-width: 1px;
-    -fx-padding: 4px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0, 0, 4);
+    -fx-padding: 6px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 16, 0, 0, 4);
 }
 
-/* Items del menú */
 .ventana-emergente-oscura .choice-box .menu-item {
     -fx-background-color: transparent;
     -fx-background-radius: 6px;
@@ -1371,61 +1272,97 @@
 
 .ventana-emergente-oscura .choice-box .menu-item:hover,
 .ventana-emergente-oscura .choice-box .menu-item:focused {
-    -fx-background-color: rgba(221, 183, 255, 0.2);
+    -fx-background-color: rgba(221, 183, 255, 0.15);
 }
 
-/* Texto de los items - ALTO CONTRASTE */
 .ventana-emergente-oscura .choice-box .menu-item .label {
     -fx-text-fill: -fx-color-acento;
-    -fx-font-weight: 600;
+    -fx-font-weight: 500;
     -fx-font-size: 13px;
 }
 
-/* Separador en el menú */
 .ventana-emergente-oscura .choice-box .separator-menu-item .line {
-    -fx-border-color: rgba(221, 183, 255, 0.2);
+    -fx-border-color: rgba(221, 183, 255, 0.15);
     -fx-border-width: 1px 0 0 0;
     -fx-padding: 4px 0;
 }
 
-/* ─── Botones ─── */
+/* ─── 18.7 Botones del Popup ─── */
 .ventana-emergente-oscura .button {
     -fx-background-color: -fx-color-acento;
     -fx-text-fill: -fx-color-primario;
     -fx-font-weight: 700;
-    -fx-font-size: 14px;
-    -fx-background-radius: 8px;
+    -fx-font-size: 13px;
+    -fx-background-radius: 10px;
     -fx-padding: 10px 24px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(221, 183, 255, 0.2), 6, 0, 0, 1);
 }
 
 .ventana-emergente-oscura .button:hover {
     -fx-background-color: -fx-color-acento-hover;
-    -fx-effect: dropshadow(gaussian, rgba(221, 183, 255, 0.4), 12, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(221, 183, 255, 0.35), 12, 0, 0, 0);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
 }
 
 .ventana-emergente-oscura .button:pressed {
     -fx-background-color: #C9A0F0;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
 }
 
-/* Botón secundario (Cancelar) */
 .ventana-emergente-oscura .button.secundario {
     -fx-background-color: transparent;
     -fx-text-fill: -fx-color-acento;
-    -fx-border-color: -fx-color-acento;
+    -fx-border-color: rgba(221, 183, 255, 0.4);
     -fx-border-width: 1.5px;
-    -fx-border-radius: 8px;
+    -fx-border-radius: 10px;
+    -fx-effect: none;
 }
 
 .ventana-emergente-oscura .button.secundario:hover {
-    -fx-background-color: rgba(221, 183, 255, 0.1);
+    -fx-background-color: rgba(221, 183, 255, 0.08);
+    -fx-border-color: rgba(221, 183, 255, 0.6);
 }
 
-/* ─── Panel de botones (barra inferior) ─── */
+.ventana-emergente-oscura .button.secundario:pressed {
+    -fx-background-color: rgba(221, 183, 255, 0.04);
+}
+
+/* ─── 18.8 Barra de botones inferior ─── */
 .ventana-emergente-oscura .button-bar {
     -fx-background-color: -fx-color-fondo-popup;
-    -fx-background-radius: 0 0 12px 12px;
-    -fx-padding: 16px 20px;
-    -fx-border-color: rgba(221, 183, 255, 0.15);
+    -fx-background-radius: 0 0 16px 16px;
+    -fx-padding: 16px 24px;
+    -fx-border-color: rgba(221, 183, 255, 0.1) transparent transparent transparent;
     -fx-border-width: 1px 0 0 0;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  19. UTILIDADES DE ESPACIADO                           */
+/* ═══════════════════════════════════════════════════════ */
+
+.spacing-sm {
+    -fx-spacing: 8px;
+}
+
+.spacing-md {
+    -fx-spacing: 16px;
+}
+
+.spacing-lg {
+    -fx-spacing: 24px;
+}
+
+.padding-sm {
+    -fx-padding: 12px;
+}
+
+.padding-md {
+    -fx-padding: 20px;
+}
+
+.padding-lg {
+    -fx-padding: 32px;
 }

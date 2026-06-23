@@ -73,14 +73,16 @@ public class GestorUsuarios {
             throw new EdadValidaException("Ingrese una edad Valida.");
         }
 
-
         Usuario nuevo = new Usuario(alias, correo, edad);
-        if (edad<18){
+        nuevo.setRolUsuario(Usuario.RolUsuario.NORMAL); // Nos aseguramos del rol base
+        nuevo.setSaldo(0.0);
+        if (edad < 18) {
             nuevo.setControlParental(true);
+        } else {
+            nuevo.setControlParental(false);
         }
         usuarios.add(nuevo);
         guardarCambios();
-        guardarAdmin();
         return  nuevo;
     }
 
@@ -134,6 +136,16 @@ public class GestorUsuarios {
         guardarCambios();
     }
 
+    public boolean cambiarRolUsuario(String aliasAEditar, Usuario.RolUsuario nuevoRol) {
+        Usuario usuario = buscarPorIdOAlias(aliasAEditar);
+        if (usuario != null && usuario.getRolUsuario() != nuevoRol) {
+            usuario.setRolUsuario(nuevoRol);
+            guardarCambios();
+            guardarAdmin();
+            return true;
+        }
+        return false;
+    }
     public void guardarCambios() {
         repositorio.guardarUsuarios(this.usuarios);
     }
