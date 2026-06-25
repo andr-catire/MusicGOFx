@@ -48,9 +48,11 @@
 
                   <Region HBox.hgrow="ALWAYS" />
 
-                  <Button fx:id="btnPerfilUsuario" mnemonicParsing="false" styleClass="button" text="👤 Perfil" />
+                  <Button fx:id="btnPerfilUsuario" mnemonicParsing="false" styleClass="button" text="👤" />
 
-                  <Button fx:id="btnBilletera" mnemonicParsing="false" styleClass="button" text="💳 Billetera" />
+                  <Button fx:id="btnBilletera" mnemonicParsing="false" styleClass="button" text="💳" />
+
+                  <Button fx:id="btnCarritoIcono" mnemonicParsing="false" onAction="#abrirVistaCarrito" styleClass="button" text="🛒 carrito" />
                </children>
             </HBox>
 

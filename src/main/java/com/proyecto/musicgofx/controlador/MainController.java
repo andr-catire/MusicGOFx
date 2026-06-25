@@ -3,13 +3,17 @@ package com.proyecto.musicgofx.controlador;
 import com.proyecto.musicgofx.modelo.entidades.Usuario;
 import com.proyecto.musicgofx.modelo.entidades.Audio;
 import com.proyecto.musicgofx.modelo.entidades.Cancion;
+import com.proyecto.musicgofx.modelo.entidades.CarritoDeCompras;
 import com.proyecto.musicgofx.modelo.entidades.EpisodioPodcast;
+import com.proyecto.musicgofx.modelo.entidades.Playlist;
+import com.proyecto.musicgofx.modelo.entidades.Producto; // Añadido para el manejo de productos
 import com.proyecto.musicgofx.modelo.servicios.GestorReproduccion;
 import com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
 import com.proyecto.musicgofx.modelo.servicios.GestorCatalogo;
 import com.proyecto.musicgofx.modelo.servicios.GestorUsuarios;
 import com.proyecto.musicgofx.modelo.servicios.GestorPlaylists;
 import com.proyecto.musicgofx.modelo.servicios.GestorExplorador;
+import com.proyecto.musicgofx.modelo.servicios.GestorCompras;
 import javafx.scene.control.Alert;
 
 import javafx.fxml.FXML;
@@ -20,18 +24,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
 import javafx.scene.Node;
 
-import java.io.IOException;
-
-/**
- * Controlador principal de la aplicación (MainLayout).
- * Actúa como el Gran Coordinador: Gestiona la navegación, instancía los gestores
- * principales y los inyecta en las vistas secundarias respetando el SRP.
- */
 public class MainController {
 
-    // ════════════════════════════════════════════════════
-    // COMPONENTES DE INTERFAZ (VISTA)
-    // ════════════════════════════════════════════════════
     @FXML private Button btnInicio;
     @FXML private Button btnExplorar;
     @FXML private Button btnBiblioteca;
@@ -45,7 +39,7 @@ public class MainController {
     @FXML private Button btnModificarUsuario;
     @FXML private Button btnCambiarRol;
     @FXML private Button btnBilletera;
-
+    @FXML private Button btnCarritoIcono;
     @FXML private AnchorPane contenedorCentral;
     @FXML private Label lblTituloAudio;
     @FXML private Label lblArtistaAudio;
@@ -53,21 +47,18 @@ public class MainController {
     @FXML private Button btnPlay;
     @FXML private Button btnSiguiente;
 
-    // ════════════════════════════════════════════════════
-    // MODELOS Y GESTORES (LÓGICA DE NEGOCIO)
-    // ════════════════════════════════════════════════════
     private Usuario usuarioAutenticado;
-
     private RepositorioDatos repositorioGlobal;
     private GestorUsuarios gestorUsuarios;
     private GestorCatalogo gestorCatalogo;
+    private GestorCompras gestorCompras;
     private GestorReproduccion gestorReproduccion;
     private GestorPlaylists gestorPlaylists;
     private GestorExplorador gestorExplorador;
 
-    /**
-     * Inicializa los eventos y gestores al arrancar la aplicación.
-     */
+
+    private CarritoDeCompras carritoActual = new CarritoDeCompras();
+
     @FXML
     public void initialize() {
         inicializarGestores();
@@ -76,28 +67,20 @@ public class MainController {
         configurarBarraSuperior();
         configurarListenersGestor();
         configurarControlesReproductor();
+        actualizarBadgeCarrito();
 
-        // Vista por defecto al abrir (aunque luego el login cambie el estado)
         cargarVista("Inicio.fxml");
     }
 
-    // ════════════════════════════════════════════════════
-    // MÉTODOS DE INICIALIZACIÓN Y CONFIGURACIÓN
-    // ════════════════════════════════════════════════════
-
-    /**
-     * Instancia todos los gestores centrales una sola vez y maneja sus dependencias.
-     */
     private void inicializarGestores() {
         this.repositorioGlobal = new RepositorioDatos();
         this.gestorUsuarios = new GestorUsuarios(this.repositorioGlobal);
-
         this.gestorCatalogo = new GestorCatalogo();
         this.gestorCatalogo.cargarDesdeJson();
-
         this.gestorReproduccion = new GestorReproduccion(this.gestorUsuarios, this.gestorCatalogo);
         this.gestorPlaylists = new GestorPlaylists(this.gestorUsuarios, this.gestorCatalogo);
         this.gestorExplorador = new GestorExplorador();
+        this.gestorCompras = new GestorCompras(this.gestorCatalogo, this.gestorUsuarios, this.repositorioGlobal);
     }
 
     private void configurarNavegacionSidebar() {
@@ -124,12 +107,9 @@ public class MainController {
             txtBuscadorTop.setOnMouseClicked(event -> cargarVista("Explorador.fxml"));
             txtBuscadorTop.setOnAction(event -> {
                 String textoBusqueda = txtBuscadorTop.getText();
-                System.out.println("Buscando en catálogo: " + textoBusqueda);
-
                 Object controladorDestino = cargarVista("Explorador.fxml");
                 if (controladorDestino instanceof ExploradorController) {
-                    ExploradorController controladorExplorador = (ExploradorController) controladorDestino;
-                    controladorExplorador.recibirBusqueda(textoBusqueda);
+                    ((ExploradorController) controladorDestino).recibirBusqueda(textoBusqueda);
                 }
             });
         }
@@ -145,11 +125,9 @@ public class MainController {
                 try {
                     String rutaEstiloCss = getClass().getResource("/com/proyecto/musicgofx/styles.css").toExternalForm();
                     alertaRestriccion.getDialogPane().getStylesheets().add(rutaEstiloCss);
-                } catch (Exception e) {
-                    System.out.println("Aviso: No se encontró el CSS, pero la alerta se mostrará igual.");
-                }
+                } catch (Exception e) {}
                 alertaRestriccion.showAndWait();
-                gestorReproduccion.mensajeAlertaProperty().set(""); // Limpiar mensaje
+                gestorReproduccion.mensajeAlertaProperty().set("");
             }
         });
 
@@ -171,22 +149,14 @@ public class MainController {
         btnSiguiente.setOnAction(event -> gestorReproduccion.siguiente(usuarioAutenticado));
         btnAnterior.setOnAction(event -> gestorReproduccion.anterior(usuarioAutenticado));
         btnPlay.setOnAction(event -> System.out.println("Botón Play/Pausa presionado"));
-
         lblTituloAudio.setText("¡Reproduce Ahora!");
         lblArtistaAudio.setText("-");
     }
 
-
-
     public void configurarInterfazSegunRol(Usuario usuario) {
         this.usuarioAutenticado = usuario;
         boolean esAdministrador = (usuario != null && usuario.getRolUsuario() == Usuario.RolUsuario.ADMINISTRADOR);
-
-        Button[] botonesAdministrativos = {
-                btnAgregarAudio, btnAgregarProducto, btnListarUsuario,
-                btnModificarUsuario, btnCambiarRol
-        };
-
+        Button[] botonesAdministrativos = {btnAgregarAudio, btnAgregarProducto, btnListarUsuario, btnModificarUsuario, btnCambiarRol};
         for (Button boton : botonesAdministrativos) {
             if (boton != null) {
                 boton.setVisible(esAdministrador);
@@ -196,7 +166,6 @@ public class MainController {
     }
 
     public void cambiarVistaAlIniciarSesion(Usuario usuarioRecienLogueado) {
-
         if (this.gestorUsuarios != null) {
             this.usuarioAutenticado = this.gestorUsuarios.buscarPorIdOAlias(usuarioRecienLogueado.getNombre());
         }
@@ -207,16 +176,7 @@ public class MainController {
         cargarVista("Inicio.fxml");
     }
 
-
-    /**
-     * Carga un FXML, lo incrusta en el contenedor central y le inyecta las
-     * dependencias (Gestores) necesarias a su respectivo controlador.
-     */
-    /**
-     * Carga un FXML, lo incrusta en el contenedor central y le inyecta las
-     * dependencias (Gestores) necesarias a su respectivo controlador.
-     */
-    private Object cargarVista(String nombreFxml) {
+    public Object cargarVista(String nombreFxml) {
         try {
             FXMLLoader cargadorVista = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/" + nombreFxml));
             Node nodoVistaNueva = cargadorVista.load();
@@ -238,11 +198,18 @@ public class MainController {
                 controladorExplorador.setGestorExplorador(this.gestorExplorador);
 
             } else if (controladorDestino instanceof BibliotecaController) {
-                // !!! INTEGRACIÓN CORRECTA DE LA BIBLIOTECA !!!
                 BibliotecaController biblioController = (BibliotecaController) controladorDestino;
-                biblioController.setUsuarioLogueado(this.usuarioAutenticado); // Usamos el nombre correcto de tu variable
+                biblioController.setMainController(this);
                 biblioController.setGestores(this.gestorPlaylists, this.gestorReproduccion);
-                t initbiblioController.setMainController(this);
+                biblioController.setUsuarioLogueado(this.usuarioAutenticado);
+
+            } else if (controladorDestino instanceof verContenidoPlaylistController) {
+
+                verContenidoPlaylistController playlistController = (verContenidoPlaylistController) controladorDestino;
+                playlistController.setDependencias(this, this.gestorPlaylists, this.gestorReproduccion, this.usuarioAutenticado);
+            } else if (controladorDestino instanceof TiendaController) {
+                TiendaController tiendaController = (TiendaController) controladorDestino;
+                tiendaController.setDependencias(this, this.gestorCatalogo, this.gestorCompras, this.usuarioAutenticado);
             }
 
             contenedorCentral.getChildren().clear();
@@ -255,28 +222,72 @@ public class MainController {
 
             return controladorDestino;
 
-        } catch (IOException e) {
-            System.err.println("Error de I/O al cargar la vista: " + nombreFxml);
+        } catch (Exception e) {
+            System.err.println("Error al cargar la vista: " + nombreFxml);
             e.printStackTrace();
-        } catch (NullPointerException e) {
-            System.err.println("No se encontró el archivo FXML. Revisa la ruta: /com/proyecto/musicgofx/" + nombreFxml);
         }
         return null;
     }
 
-    /**
-     * Permite a las sub-vistas solicitar un cambio hacia la Biblioteca,
-     * llevando consigo un audio pendiente por guardar.
-     */
+    public void abrirVistaPlaylist(Playlist playlistSeleccionada) {
+        try {
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/com/proyecto/musicgofx/verContenidoPlaylist.fxml"));
+            Node nodoVista = cargador.load();
+
+            verContenidoPlaylistController playlistController = cargador.getController();
+            if (playlistController != null) {
+                playlistController.setDependencias(this, this.gestorPlaylists, this.gestorReproduccion, this.usuarioAutenticado);
+                playlistController.inicializarConPlaylist(playlistSeleccionada);
+            }
+
+            contenedorCentral.getChildren().clear();
+            contenedorCentral.getChildren().add(nodoVista);
+
+            AnchorPane.setTopAnchor(nodoVista, 0.0);
+            AnchorPane.setBottomAnchor(nodoVista, 0.0);
+            AnchorPane.setLeftAnchor(nodoVista, 0.0);
+            AnchorPane.setRightAnchor(nodoVista, 0.0);
+
+        } catch (Exception e) {
+            System.err.println("Error crítico al abrir la vista detallada 'verContenidoPlaylist.fxml'");
+            e.printStackTrace();
+        }
+    }
+
     public void irABibliotecaParaNuevaPlaylist(Audio audioPendiente) {
         Object controladorDestino = cargarVista("Biblioteca.fxml");
-
-        // Próximamente lo descomentarás cuando programes el BibliotecaController
-        /*
         if (controladorDestino instanceof BibliotecaController) {
             BibliotecaController controladorBiblioteca = (BibliotecaController) controladorDestino;
             controladorBiblioteca.prepararCreacionConAudio(audioPendiente);
         }
-        */
+    }
+
+
+    public CarritoDeCompras getCarritoActual() {
+        return this.carritoActual;
+    }
+
+    public void agregarAlCarrito(Producto producto) {
+        if (producto != null) {
+            this.carritoActual.agregarProducto(producto);
+            actualizarBadgeCarrito();
+        }
+    }
+
+    public void actualizarBadgeCarrito() {
+        if (btnCarritoIcono != null) {
+            if (carritoActual.estaVacio()) {
+                btnCarritoIcono.setText("🛒");
+            } else {
+                btnCarritoIcono.setText("🛒 (" + carritoActual.getItems().size() + ")");
+            }
+        }
+    }
+
+    @FXML
+    public void abrirVistaCarrito() {
+        System.out.println("Abriendo carrito. Total actual a pagar: $" + carritoActual.calcularTotal());
+        // Aquí puedes descomentar la siguiente línea cuando tengas la vista del carrito creada:
+        // cargarVista("Carrito.fxml");
     }
 }

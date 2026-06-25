@@ -83,8 +83,7 @@ public class JsonParser {
 
         for (String obj : objetos) {
             String tipo = extraerString(obj, "tipo");
-            String categorias = extraerString(obj , "categoria");
-            Audio.Clasificacion categoria = Audio.Clasificacion.valueOf(categorias.toUpperCase());
+
             if (tipo.equalsIgnoreCase("arte_visual")) {
                 lista.add(new ArteVisualAlbum(
                         extraerString(obj, "id"),

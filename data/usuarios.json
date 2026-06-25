@@ -1,19 +1,13 @@
 [
-  {"id":"USR-EEDD8FC3","nombre":"andres","correo":"andres@gmail.com","saldo":0.0,"rol":"ADMINISTRADOR","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":11138,"cancionesEnBiblioteca":4,"comprasRealizadas":0,"reproduccionesTotales":6},"historialCompras":[],"biblioteca":{"playlists":[
-      {"id":"","nombre":"Clásicos del Rock","aliasPropietario":"","contenido":[
-  {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",}
-]},      {"id":"","nombre":"Synthwave Nightdrive","aliasPropietario":"","contenido":[
-
-]},      {"id":"","nombre":"Rock en Español","aliasPropietario":"","contenido":[
+  {"id":"USR-EEDD8FC3","nombre":"andres","correo":"andres@gmail.com","saldo":0.0,"rol":"ADMINISTRADOR","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":12477,"cancionesEnBiblioteca":4,"comprasRealizadas":0,"reproduccionesTotales":11},"historialCompras":[],"biblioteca":{"playlists":[
+      {"id":"","nombre":"Rock en Español","aliasPropietario":"","contenido":[
   {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",},
   {"id":"AUD-005","titulo":"Billie Jean","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Pop","artista":"Michael Jackson","album":"Thriller",}
-]},      {"id":"","nombre":"Daft Punk Collection","aliasPropietario":"","contenido":[
-
-]},      {"id":"","nombre":"Podcasts Diarios","aliasPropietario":"","contenido":[
-  {"id":"AUD-004","titulo":"Inteligencia Artificial hoy","duracionSegundos":0,"tipo":"episodio","categoria":"PUBLICO","genero":"null","anfitrion":"Andrew Ng","nombrePodcast":"The AI Pod","descripcion":"Nuevos modelos de lenguaje","numeroEpisodio":42},
-  {"id":"AUD-008","titulo":"La revolucion del fitness","duracionSegundos":0,"tipo":"episodio","categoria":"PUBLICO","genero":"null","anfitrion":"Andrew Huberman","nombrePodcast":"Huberman Lab","descripcion":"Ciencia del entrenamiento y la recuperacion","numeroEpisodio":75}
-]},      {"id":"PLY-19413EAA","nombre":"AndresMusic","aliasPropietario":"andres","contenido":[
-  {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",}
+]},      {"id":"PLY-437FF44A","nombre":"AndresRegueton","aliasPropietario":"andres","contenido":[
+  {"id":"CAN-0402","titulo":"DAKITI","duracionSegundos":205,"tipo":"cancion","categoria":"MAYOR","genero":"Reggaeton","artista":"Bad Bunny & Jhay Cortez","album":"EL ULTIMO TOUR DEL MUNDO",},
+  {"id":"CAN-0401","titulo":"Safaera","duracionSegundos":295,"tipo":"cancion","categoria":"MAYOR","genero":"Reggaeton","artista":"Bad Bunny","album":"YHLQMDLG",}
+]},      {"id":"PLY-E4D6AD37","nombre":"Podcast","aliasPropietario":"andres","contenido":[
+  {"id":"AUD-004","titulo":"Inteligencia Artificial hoy","duracionSegundos":0,"tipo":"episodio","categoria":"PUBLICO","genero":"null","anfitrion":"Andrew Ng","nombrePodcast":"The AI Pod","descripcion":"Nuevos modelos de lenguaje","numeroEpisodio":42}
 ]}    ]}},
   {"id":"USR-CA5A50B7","nombre":"MariCori","correo":"mariah@gmail.com","saldo":0.0,"rol":"NORMAL","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":0,"cancionesEnBiblioteca":0,"comprasRealizadas":0,"reproduccionesTotales":0},"historialCompras":[],"biblioteca":{"playlists":[
     ]}},

@@ -1366,3 +1366,112 @@
 .padding-lg {
     -fx-padding: 32px;
 }
+
+/* ═══════════════════════════════════════════════════════ */
+/* VISTA DETALLE DE PLAYLIST - FILAS DE CANCIONES        */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Fila base de cada canción */
+.fila-cancion {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6px;
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-cursor: hand;
+}
+
+/* Efecto al pasar el cursor sobre la fila (Hover) */
+.fila-cancion:hover {
+    -fx-background-color: #1a1a1e; /* Color elevado de tu paleta */
+}
+
+/* Botón de reproducción pequeño dentro de la fila */
+.btn-play-fila {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.btn-play-fila:hover {
+    -fx-text-fill: #DDB7FF; /* Púrpura vibrante de tu acento */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/* Textos de la fila */
+.titulo-cancion-fila {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.artista-cancion-fila {
+    -fx-text-fill: #8a8a9a; /* Color muted gris de tu paleta */
+    -fx-font-size: 12px;
+}
+
+/* Botón de eliminar (X) elegante */
+.btn-eliminar-fila {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8a8a9a;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.btn-eliminar-fila:hover {
+    -fx-text-fill: #ff5555; /* Cambia a rojo sutil al querer borrar */
+}
+
+/* Texto informativo secundario */
+.label-muted {
+    -fx-text-fill: #8a8a9a;
+    -fx-font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* SECCIÓN TIENDA Y PRODUCTOS                              */
+/* ═══════════════════════════════════════════════════════ */
+
+/* Título principal de la tienda */
+.tienda-titulo {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Tarjeta contenedora del producto */
+.tarjeta-producto {
+    -fx-background-color: #1a1a1e;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 4);
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-alignment: top-left;
+}
+
+/* Nombre del producto */
+.producto-nombre {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Precio del producto (Destacado con tu color primario) */
+.producto-precio {
+    -fx-text-fill: #DDB7FF;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+/* Tipo de producto (subtítulo) */
+.producto-tipo {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8a8a9a;
+}
+
+/* Contenedor fluido sin bordes */
+.panel-transparente {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}

@@ -17,6 +17,9 @@ import java.util.List;
                 items.add(producto);
             }
         }
+        public boolean contieneProducto(Producto producto) {
+            return items.contains(producto);
+        }
 
         public void removerProducto(Producto producto) {
             items.remove(producto);
