@@ -1,11 +1,12 @@
 [
-  {"id":"USR-EEDD8FC3","nombre":"andres","correo":"andres@gmail.com","saldo":0.0,"rol":"ADMINISTRADOR","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":12477,"cancionesEnBiblioteca":4,"comprasRealizadas":0,"reproduccionesTotales":11},"historialCompras":[],"biblioteca":{"playlists":[
+  {"id":"USR-EEDD8FC3","nombre":"andres","correo":"andres@gmail.com","saldo":0.0,"rol":"ADMINISTRADOR","controlParental":"false","edad":19,"estadisticas":{"tiempoEscuchaSegundos":13366,"cancionesEnBiblioteca":5,"comprasRealizadas":6,"reproduccionesTotales":15},"historialCompras":[{"idProducto":"PRD-002","aliasUsuario":"andres","montoPagado":49.99,"fecha":"2026-06-28T14:02:06.450950601"},{"idProducto":"PRD-003","aliasUsuario":"andres","montoPagado":14.99,"fecha":"2026-06-28T14:02:06.551435447"},{"idProducto":"PRD-005","aliasUsuario":"andres","montoPagado":19.99,"fecha":"2026-06-28T14:03:10.412388989"},{"idProducto":"PRD-003","aliasUsuario":"andres","montoPagado":14.99,"fecha":"2026-06-28T22:36:55.677736930"},{"idProducto":"PRD-005","aliasUsuario":"andres","montoPagado":19.99,"fecha":"2026-06-28T22:37:51.735067242"},{"idProducto":"PRD-004","aliasUsuario":"andres","montoPagado":39.99,"fecha":"2026-06-29T00:42:46.417513942"}],"biblioteca":{"playlists":[
       {"id":"","nombre":"Rock en Español","aliasPropietario":"","contenido":[
   {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",},
   {"id":"AUD-005","titulo":"Billie Jean","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Pop","artista":"Michael Jackson","album":"Thriller",}
 ]},      {"id":"PLY-437FF44A","nombre":"AndresRegueton","aliasPropietario":"andres","contenido":[
   {"id":"CAN-0402","titulo":"DAKITI","duracionSegundos":205,"tipo":"cancion","categoria":"MAYOR","genero":"Reggaeton","artista":"Bad Bunny & Jhay Cortez","album":"EL ULTIMO TOUR DEL MUNDO",},
-  {"id":"CAN-0401","titulo":"Safaera","duracionSegundos":295,"tipo":"cancion","categoria":"MAYOR","genero":"Reggaeton","artista":"Bad Bunny","album":"YHLQMDLG",}
+  {"id":"CAN-0401","titulo":"Safaera","duracionSegundos":295,"tipo":"cancion","categoria":"MAYOR","genero":"Reggaeton","artista":"Bad Bunny","album":"YHLQMDLG",},
+  {"id":"AUD-001","titulo":"Bohemian Rhapsody","duracionSegundos":0,"tipo":"cancion","categoria":"PUBLICO","genero":"Rock","artista":"Queen","album":"A Night at the Opera",}
 ]},      {"id":"PLY-E4D6AD37","nombre":"Podcast","aliasPropietario":"andres","contenido":[
   {"id":"AUD-004","titulo":"Inteligencia Artificial hoy","duracionSegundos":0,"tipo":"episodio","categoria":"PUBLICO","genero":"null","anfitrion":"Andrew Ng","nombrePodcast":"The AI Pod","descripcion":"Nuevos modelos de lenguaje","numeroEpisodio":42}
 ]}    ]}},

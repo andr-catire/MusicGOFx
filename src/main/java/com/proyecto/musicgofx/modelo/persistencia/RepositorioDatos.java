@@ -64,7 +64,7 @@ public class RepositorioDatos {
         try {
             String contenido = Files.readString(path);
             if (contenido.isBlank()) return new ArrayList<>();
-            // El parser procesa el texto y nos devuelve objetos Java
+
             return parser.parsearAudios(contenido);
         } catch (Exception e) {
             System.err.println("Error al leer canciones.json: " + e.getMessage());
@@ -86,7 +86,7 @@ public class RepositorioDatos {
         try {
             String contenido = Files.readString(path);
             if (contenido.isBlank()) return new ArrayList<>();
-            // Usamos parsearAudios porque el catálogo contiene objetos que heredan de Audio
+
             return parser.parsearAudios(contenido);
         } catch (Exception e) {
             System.err.println("Error al leer catalogo.json: " + e.getMessage());
@@ -174,4 +174,5 @@ public class RepositorioDatos {
             System.err.println("Error al intentar guardar los usuarios: " + e.getMessage());
         }
     }
+
 }

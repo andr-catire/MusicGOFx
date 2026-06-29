@@ -1475,3 +1475,152 @@
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
+
+/* ===================================================================== */
+/* ================== SECCIÓN DEL CARRITO DE COMPRAS =================== */
+/* ===================================================================== */
+
+/* 1. Resetear el ScrollPane para que no tenga fondos blancos ni bordes */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* 2. Contenedor de la fila individual de cada producto (HBox) */
+.cart-item-row {
+    -fx-background-color: #181818;
+    -fx-background-radius: 6;
+    -fx-border-color: #282828;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-transition: -fx-background-color 0.2s; /* Animación suave */
+}
+
+/* Efecto hover: la fila se ilumina un poco al pasar el ratón */
+.cart-item-row:hover {
+    -fx-background-color: #282828;
+}
+
+/* 3. Nombre del producto en la fila */
+.player-title {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* 4. Precio del producto destacado en verde */
+.cart-item-price {
+    -fx-text-fill: #1db954;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* 5. Botón de eliminar (✕) */
+.btn-eliminar-fila {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b3b3b3;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+/* El botón de eliminar se pone rojo y crece ligeramente al pasar el cursor */
+.btn-eliminar-fila:hover {
+    -fx-text-fill: #e91429;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+/* 6. Etiqueta grande del Total acumulado */
+.cart-total-label {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 10 0;
+}
+
+/* ===================================================================== */
+/* ================= SECCIÓN DE PAGOS (RADIO BUTTONS) ================== */
+/* ===================================================================== */
+
+/* Texto base de las opciones de pago (inactivas) */
+.cart-radio-button {
+    -fx-text-fill: #b3b3b3;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+/* El texto se vuelve blanco al seleccionarlo */
+.cart-radio-button:selected {
+    -fx-text-fill: white;
+}
+
+/* Estilo del círculo externo del RadioButton */
+.cart-radio-button .radio {
+    -fx-background-color: #282828;
+    -fx-border-color: #b3b3b3;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-border-width: 1px;
+}
+
+/* Color del círculo interno (punto) cuando está seleccionado */
+.cart-radio-button:selected .radio .dot {
+    -fx-background-color: #1db954;
+}
+
+/* ===================================================================== */
+/* ================== BOTÓN DE FINALIZAR COMPRA ======================== */
+/* ===================================================================== */
+
+.btn-finalizar-compra {
+    -fx-background-color: #1db954; /* Verde brillante principal */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;     /* Bordes en forma de píldora */
+    -fx-padding: 12 40 12 40;
+    -fx-cursor: hand;
+}
+
+/* Efecto al pasar el ratón: Verde más claro y resplandor verde */
+.btn-finalizar-compra:hover {
+    -fx-background-color: #1ed760;
+    -fx-effect: dropshadow(gaussian, rgba(29, 185, 84, 0.4), 10, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Efecto al hacer clic: Se oscurece como si se presionara */
+.btn-finalizar-compra:pressed {
+    -fx-background-color: #1aa34a;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+/* ===================================================================== */
+/* ================= TEXTOS DE LAS TARJETAS (CARDS) ==================== */
+/* ===================================================================== */
+
+/* Título principal de la tarjeta (Blanco y en negrita) */
+.tarjeta-titulo {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Subtítulo o detalle de la tarjeta (Gris "muted") */
+.tarjeta-detalle {
+    -fx-text-fill: #8a8a9a;
+    -fx-font-size: 12px;
+}
+
+/* Indicador del tipo de producto (Púrpura primario y en negrita) */
+.tarjeta-tipo {
+    -fx-text-fill: #DDB7FF;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}

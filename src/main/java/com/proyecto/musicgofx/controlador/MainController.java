@@ -6,7 +6,7 @@ import com.proyecto.musicgofx.modelo.entidades.Cancion;
 import com.proyecto.musicgofx.modelo.entidades.CarritoDeCompras;
 import com.proyecto.musicgofx.modelo.entidades.EpisodioPodcast;
 import com.proyecto.musicgofx.modelo.entidades.Playlist;
-import com.proyecto.musicgofx.modelo.entidades.Producto; // Añadido para el manejo de productos
+import com.proyecto.musicgofx.modelo.entidades.Producto;
 import com.proyecto.musicgofx.modelo.servicios.GestorReproduccion;
 import com.proyecto.musicgofx.modelo.persistencia.RepositorioDatos;
 import com.proyecto.musicgofx.modelo.servicios.GestorCatalogo;
@@ -55,7 +55,6 @@ public class MainController {
     private GestorReproduccion gestorReproduccion;
     private GestorPlaylists gestorPlaylists;
     private GestorExplorador gestorExplorador;
-
 
     private CarritoDeCompras carritoActual = new CarritoDeCompras();
 
@@ -200,16 +199,22 @@ public class MainController {
             } else if (controladorDestino instanceof BibliotecaController) {
                 BibliotecaController biblioController = (BibliotecaController) controladorDestino;
                 biblioController.setMainController(this);
-                biblioController.setGestores(this.gestorPlaylists, this.gestorReproduccion);
+                biblioController.setGestores( this.gestorPlaylists, this.gestorReproduccion);
                 biblioController.setUsuarioLogueado(this.usuarioAutenticado);
 
-            } else if (controladorDestino instanceof verContenidoPlaylistController) {
 
+            } else if (controladorDestino instanceof verContenidoPlaylistController) {
                 verContenidoPlaylistController playlistController = (verContenidoPlaylistController) controladorDestino;
                 playlistController.setDependencias(this, this.gestorPlaylists, this.gestorReproduccion, this.usuarioAutenticado);
+
             } else if (controladorDestino instanceof TiendaController) {
                 TiendaController tiendaController = (TiendaController) controladorDestino;
                 tiendaController.setDependencias(this, this.gestorCatalogo, this.gestorCompras, this.usuarioAutenticado);
+
+                // SECCIÓN AÑADIDA PARA QUE FUNCIONE EL CARRITO DE COMPRAS
+            } else if (controladorDestino instanceof CarritodeComprasController) {
+                CarritodeComprasController carritoController = (CarritodeComprasController) controladorDestino;
+                carritoController.setDependencias(this, this.gestorCompras, this.usuarioAutenticado);
             }
 
             contenedorCentral.getChildren().clear();
@@ -262,7 +267,6 @@ public class MainController {
         }
     }
 
-
     public CarritoDeCompras getCarritoActual() {
         return this.carritoActual;
     }
@@ -277,17 +281,47 @@ public class MainController {
     public void actualizarBadgeCarrito() {
         if (btnCarritoIcono != null) {
             if (carritoActual.estaVacio()) {
-                btnCarritoIcono.setText("🛒");
+                btnCarritoIcono.setText("Carrito");
             } else {
-                btnCarritoIcono.setText("🛒 (" + carritoActual.getItems().size() + ")");
+                btnCarritoIcono.setText("Carrrito (" + carritoActual.getItems().size() + ")");
             }
         }
     }
 
+
     @FXML
     public void abrirVistaCarrito() {
         System.out.println("Abriendo carrito. Total actual a pagar: $" + carritoActual.calcularTotal());
-        // Aquí puedes descomentar la siguiente línea cuando tengas la vista del carrito creada:
-        // cargarVista("Carrito.fxml");
+        cargarVista("CarritodeCompras.fxml");
     }
+
+
+    public Audio buscarAudioPorIdGlobal(String idAudio) {
+        if (this.gestorCatalogo != null) {
+            for (Audio audio : this.gestorCatalogo.getTodosLosAudios()) {
+                if (audio.getId().equals(idAudio)) {
+                    return audio;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Busca cualquier tipo de producto (Arte Visual, Paquete Top Ten, etc.)
+     * en el catálogo global mediante su ID único.
+     * * @param idProducto El ID del producto a buscar (ej: PRD001)
+     * @return El objeto Producto encontrado, o null si no existe.
+     */
+    public Producto buscarProductoPorIdGlobal(String idProducto) {
+        if (this.gestorCatalogo != null) {
+            for (Producto prod : this.gestorCatalogo.getTodosLosProductos()) {
+                if (prod.getId().equals(idProducto)) {
+                    return prod; // Producto encontrado
+                }
+            }
+        }
+        return null;
+    }
+
 }
